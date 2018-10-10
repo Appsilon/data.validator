@@ -318,11 +318,20 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
   shiny.semantic::uirender(code, width = "100%", height = "100%")
 }
 
-repo_path <- "https://github.com/kesko-dev/onninen-data-validation/tree/master"
-make_report = getOption("display_report_summary", default = FALSE)
-validation_script_path <- if (exists("validation_script_path")) validation_script_path else ""
-preprocessing_script_path <- if (exists("preprocessing_script_path")) preprocessing_script_path else ""
-gh_repo_validation_script_path <- file.path(repo_path, gsub("onninen-data-validation/", "", validation_script_path))
+#' n_failed..
+#' @description n_failed.
+#' @return n_failed.
+#' @export
 n_failed <- 0
+
+#' n_failed.
+#' @description n_passed.
+#' @return n_passed.
+#' @export
 n_passed <- 0
+
+#' n_failed.
+#' @description n_warned.
+#' @return n_warned.
+#' @export
 n_warned <- 0
