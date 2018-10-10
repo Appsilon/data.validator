@@ -313,15 +313,15 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
                        shiny::tags$tr(
                          shiny::tags$td(id = "failed_total",
                                  class = "two wide right aligned",
-                                 shiny.semantic::uilabel(get("n_fails", datavalidator_constants), type = paste(fails_label_color, "circular huge"))),
+                                 shiny.semantic::uilabel(n_fails, type = paste(fails_label_color, "circular huge"))),
                          shiny::tags$td(class = "three wide left aligned", shiny::tags$h2("Failed")),
                          shiny::tags$td(id = "warned_total",
                                  class = "two wide right aligned",
-                                 shiny.semantic::uilabel(get("n_warned", datavalidator_constants), type = paste(warns_label_color, "circular huge"))),
+                                 shiny.semantic::uilabel(n_warns, type = paste(warns_label_color, "circular huge"))),
                          shiny::tags$td(class = "three wide left aligned", shiny::tags$h2("Warnings")),
                          shiny::tags$td(id = "passed_total",
                                  class = "two wide right aligned",
-                                 shiny.semantic::uilabel(get("n_passes", datavalidator_constants), type = "circular huge green")),
+                                 shiny.semantic::uilabel(n_passes, type = "circular huge green")),
                          shiny::tags$td(class = "three wide left aligned", shiny::tags$h2("Passed"))
                        )
                      )
