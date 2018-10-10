@@ -170,7 +170,7 @@ make_accordion_element <- function(title, content, active = FALSE) {
 #' @param repo_path Github repo path.
 #' @return Validation report.
 #' @export
-display_results <- function(data, make_report, repo_path) {
+display_results <- function(data, make_report, repo_path = NULL) {
   if (make_report) {
     errors <- attr(data, "assertr_errors")
     warnings <- attr(data, "assertr_warnings")
@@ -194,18 +194,25 @@ display_results <- function(data, make_report, repo_path) {
       is_neutral_active <- TRUE
       label_color_neutral <- "blue"
     }
-    line_number <- attr(data, "line_number")
-    github_link <- if (is.null(line_number) || line_number == "") {
-      NULL
-    } else {
-      shiny::tags$a(shiny.semantic::uiicon("github square white large"), href = return_repo_link(repo_path, line_number), target = "_blank", style = "opacity:1; margin-left:1em;")
+    if (!is.null(repo_path)) {
+      line_number <- attr(data, "line_number")
+      github_link <- if (is.null(line_number) || line_number == "") {
+        NULL
+      } else {
+        shiny::tags$a(shiny.semantic::uiicon("github square white large"), href = return_repo_link(repo_path, line_number), target = "_blank", style = "opacity:1; margin-left:1em;")
+      }
     }
     data_name <- ifelse(is.null(attr(data, "ribbon-title")), deparse(substitute(data)), attr(data, "ribbon-title"))
-    code <- segment(
+    first_taglist <- if (!is.null(repo_path)) {
       shiny::tagList(
         data_name,
         github_link
-      ),
+      )
+    } else {
+      data_name
+    }
+    code <- segment(
+      first_taglist,
       shiny::p(),
       make_accordion_container(
         make_accordion_element(

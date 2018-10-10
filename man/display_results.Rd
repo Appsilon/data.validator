@@ -4,7 +4,7 @@
 \alias{display_results}
 \title{Displays results of validations.}
 \usage{
-display_results(data, make_report, repo_path)
+display_results(data, make_report, repo_path = NULL)
 }
 \arguments{
 \item{data}{Report data.}
