@@ -182,8 +182,8 @@ display_results <- function(data, make_report, repo_path = NULL) {
     results_neutral_idx <- which(results_ids %in% warnings_ids)
     results_positive_idx <- base::setdiff(1:length(results), c(results_negative_idx, results_neutral_idx))
     assign("n_failed", get("n_failed", .GlobalEnv) + length(results_negative_idx), envir = .GlobalEnv)
-    assign("n_warned", get("n_warned", .GlobalEnv) + length(results_negative_idx), envir = .GlobalEnv)
-    assign("n_passed", get("n_passed", .GlobalEnv) + length(results_negative_idx), envir = .GlobalEnv)
+    assign("n_warned", get("n_warned", .GlobalEnv) + length(results_neutral_idx), envir = .GlobalEnv)
+    assign("n_passed", get("n_passed", .GlobalEnv) + length(results_positive_idx), envir = .GlobalEnv)
     is_negative_active <- is_neutral_active <- FALSE
     label_color_negative <- label_color_neutral <- ""
     if (length(results_negative_idx) > 0) {
