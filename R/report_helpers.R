@@ -7,7 +7,7 @@ datavalidator_constants$n_warned <- 0
 #' @description Report constants.
 #' @return Report constants.
 #' @export
-datavalidator_constants
+datavalidator_constants <- datavalidator_constants
 
 #' Generate a random ID.
 #' @description Generate a random ID.
