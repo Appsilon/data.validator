@@ -20,6 +20,11 @@ segment <- function(title, ..., color = "blue") {
   )
 }
 
+#' Prepare modal content.
+#' @description Prepare modal content.
+#' @param error Error.
+#' @return Modal content.
+#' @export
 prepare_modal_content <- function(error) {
   data_part <- NULL
   if (!is.null(error$error_df)) {
@@ -47,6 +52,16 @@ prepare_modal_content <- function(error) {
   )
 }
 
+#' Create table row.
+#' @description Create table row.
+#' @param title Row title.
+#' @param result Result to display in row.
+#' @param id Row id.
+#' @param data_name Data name.
+#' @param errors Errors.
+#' @param mark Mark.
+#' @return Table row.
+#' @export
 make_table_row <- function(title, result, id, data_name, errors, mark) {
   button_class <- "ui disabled button"
   onclick <- NULL
@@ -87,6 +102,14 @@ make_table_row <- function(title, result, id, data_name, errors, mark) {
   )
 }
 
+#' Create table with results.
+#' @description Create table with results.
+#' @param result Result to display in table.
+#' @param data_name Data name.
+#' @param errors Errors.
+#' @param mark Mark.
+#' @return Table row.
+#' @export
 result_table <- function(results, errors, data_name, mark) {
   if (length(results) == 0) {
     "No cases to display."
@@ -106,6 +129,11 @@ result_table <- function(results, errors, data_name, mark) {
   }
 }
 
+#' Create a UI accordion container.
+#' @description Create a UI accordion container.
+#' @param ... Additional agruments inside accordion container.
+#' @return Accordion container.
+#' @export
 make_accordion_container <- function(...) {
   id <- generate_id()
   tagList(
@@ -115,6 +143,13 @@ make_accordion_container <- function(...) {
 
 }
 
+#' Create a UI accordion element.
+#' @description Create a UI accordion element.
+#' @param title Title of the accordion.
+#' @param content Content of the accordion.
+#' @param active Is active?
+#' @return Accordion.
+#' @export
 make_accordion_element <- function(title, content, active = FALSE) {
   state <- NULL
   if (active) {
@@ -127,6 +162,13 @@ make_accordion_element <- function(title, content, active = FALSE) {
 }
 
 ## Changed 9 lines 1 arg
+#' Displays results of validations.
+#' @description Displays results of validations.
+#' @param data Report data.
+#' @param make_report Make report.
+#' @param repo_path Github repo path.
+#' @return Validation report.
+#' @export
 display_results <- function(data, make_report, repo_path) {
   if (make_report) {
     errors <- attr(data, "assertr_errors")
@@ -184,6 +226,13 @@ display_results <- function(data, make_report, repo_path) {
   }
 }
 
+#' Return line number.
+#' @description Return line number.
+#' @param identifier Identifier.
+#' @param file_path File path.
+#' @param offset Offset.
+#' @return Line number.
+#' @export
 return_line_number <- function(identifier, file_path, offset = -1) {
   if (!is.null(file_path) && file_path != "") {
     line_number <- grep(identifier, readLines(file_path))[1]
@@ -198,10 +247,23 @@ return_line_number <- function(identifier, file_path, offset = -1) {
 }
 
 ## Only Kesko
+#' Return repo link.
+#' @description Return repo link.
+#' @param line_number Line number.
+#' @param repo_path Github repo path.
+#' @return Repo link.
+#' @export
 return_repo_link <- function(repo_path, line_number) {
   sprintf("%s#L%s", repo_path, line_number)
 }
 
+#' Assign data line number.
+#' @description Assign data line number.
+#' @param data Data.
+#' @param identifier Identifier.
+#' @param file_path File path.
+#' @return Line number assigned.
+#' @export
 assign_data_line_number <- function(data, identifier, file_path) {
   if (file_path != "") {
     attr(data, "line_number") <- return_line_number(identifier, file_path)
@@ -211,6 +273,13 @@ assign_data_line_number <- function(data, identifier, file_path) {
   return(data)
 }
 
+#' Create summary table.
+#' @description Create summary table.
+#' @param n_passes Nr of passed validations
+#' @param n_fails Nr of failed validations.
+#' @param n_warns Nr of warnings.
+#' @return Summary table.
+#' @export
 make_summary_table <- function(n_passes, n_fails, n_warns) {
   fails_label_color <- "red"
   if (n_fails == 0) {
