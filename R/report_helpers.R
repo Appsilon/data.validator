@@ -1,3 +1,14 @@
+datavalidator_constants <- new.env()
+datavalidator_constants$n_failed <- 0
+datavalidator_constants$n_passed <- 0
+datavalidator_constants$n_warned <- 0
+
+#' Report constants.
+#' @description Report constants.
+#' @return Report constants.
+#' @export
+datavalidator_constants
+
 #' Generate a random ID.
 #' @description Generate a random ID.
 #' @return A characters corresponding to random ID.
@@ -181,9 +192,9 @@ display_results <- function(data, make_report, repo_path = NULL) {
     results_negative_idx <- which(results_ids %in% errors_ids)
     results_neutral_idx <- which(results_ids %in% warnings_ids)
     results_positive_idx <- base::setdiff(1:length(results), c(results_negative_idx, results_neutral_idx))
-    assign("n_failed", get("n_failed", .GlobalEnv) + length(results_negative_idx), envir = .GlobalEnv)
-    assign("n_warned", get("n_warned", .GlobalEnv) + length(results_neutral_idx), envir = .GlobalEnv)
-    assign("n_passed", get("n_passed", .GlobalEnv) + length(results_positive_idx), envir = .GlobalEnv)
+    assign("n_failed", get("n_failed", datavalidator_constants) + length(results_negative_idx), envir = datavalidator_constants)
+    assign("n_warned", get("n_warned", datavalidator_constants) + length(results_neutral_idx), envir = datavalidator_constants)
+    assign("n_passed", get("n_passed", datavalidator_constants) + length(results_positive_idx), envir = datavalidator_constants)
     is_negative_active <- is_neutral_active <- FALSE
     label_color_negative <- label_color_neutral <- ""
     if (length(results_negative_idx) > 0) {
@@ -302,36 +313,18 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
                        shiny::tags$tr(
                          shiny::tags$td(id = "failed_total",
                                  class = "two wide right aligned",
-                                 shiny.semantic::uilabel(n_fails, type = paste(fails_label_color, "circular huge"))),
+                                 shiny.semantic::uilabel(get("n_fails", datavalidator_constants), type = paste(fails_label_color, "circular huge"))),
                          shiny::tags$td(class = "three wide left aligned", shiny::tags$h2("Failed")),
                          shiny::tags$td(id = "warned_total",
                                  class = "two wide right aligned",
-                                 shiny.semantic::uilabel(n_warned, type = paste(warns_label_color, "circular huge"))),
+                                 shiny.semantic::uilabel(get("n_warned", datavalidator_constants), type = paste(warns_label_color, "circular huge"))),
                          shiny::tags$td(class = "three wide left aligned", shiny::tags$h2("Warnings")),
                          shiny::tags$td(id = "passed_total",
                                  class = "two wide right aligned",
-                                 shiny.semantic::uilabel(n_passes, type = "circular huge green")),
+                                 shiny.semantic::uilabel(get("n_passes", datavalidator_constants), type = "circular huge green")),
                          shiny::tags$td(class = "three wide left aligned", shiny::tags$h2("Passed"))
                        )
                      )
   )
   shiny.semantic::uirender(code, width = "100%", height = "100%")
 }
-
-#' n_failed..
-#' @description n_failed.
-#' @return n_failed.
-#' @export
-n_failed <- 0
-
-#' n_failed.
-#' @description n_passed.
-#' @return n_passed.
-#' @export
-n_passed <- 0
-
-#' n_failed.
-#' @description n_warned.
-#' @return n_warned.
-#' @export
-n_warned <- 0
