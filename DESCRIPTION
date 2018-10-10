@@ -1,0 +1,14 @@
+Package: datavalidator
+Type: Package
+Title: Tools for automatic validation report
+Version: 0.1.0
+Organization: Appsilon Data Science
+Author: Michal Maj <michal@appsilon.com>
+Maintainer: Dominik Krzeminski <filip@appsilondatascience.com>
+Description: Tools for automatic validation report. User can create two types of report: HTML and console log.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: TRUE
+RoxygenNote: 6.0.1
+Suggests:
+    testthat

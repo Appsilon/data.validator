@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+PULL_REQUEST_TEMPLATE.md
+.circleci
+workflow.sh
+environment
+.gitignore
+..Rcheck
+.git
+.github
+package
