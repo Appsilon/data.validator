@@ -10,5 +10,12 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 6.0.1
+Imports:
+    shiny,
+    shiny.semantic,
+    knitr,
+    purrr,
+    dplyr,
+    utils
 Suggests:
     testthat
