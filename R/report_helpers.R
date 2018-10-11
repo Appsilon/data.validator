@@ -12,7 +12,6 @@ datavalidator_constants <- datavalidator_constants
 #' Generate a random ID.
 #' @description Generate a random ID.
 #' @return A characters corresponding to random ID.
-#' @export
 generate_id <- function() {
   paste0(sample(c(LETTERS, letters, 0:9), 20, TRUE), collapse = "")
 }
@@ -23,7 +22,6 @@ generate_id <- function() {
 #' @param ... Additional agruments inside sagment.
 #' @param color Color of the segment.
 #' @return Segment.
-#' @export
 segment <- function(title, ..., color = "blue") {
   shiny::div(class = "ui raised segment", style = "margin-bottom: 0.5em",
       shiny::div(class = paste("ui demo ribbon label", color), title),
@@ -35,7 +33,6 @@ segment <- function(title, ..., color = "blue") {
 #' @description Prepare modal content.
 #' @param error Error.
 #' @return Modal content.
-#' @export
 prepare_modal_content <- function(error) {
   data_part <- NULL
   if (!is.null(error$error_df)) {
@@ -73,7 +70,6 @@ prepare_modal_content <- function(error) {
 #' @param mark Mark.
 #' @return Table row.
 #' @importFrom dplyr %>%
-#' @export
 make_table_row <- function(title, result, id, data_name, errors, mark) {
   button_class <- "ui disabled button"
   onclick <- NULL
@@ -121,7 +117,6 @@ make_table_row <- function(title, result, id, data_name, errors, mark) {
 #' @param errors Errors.
 #' @param mark Mark.
 #' @return Table row.
-#' @export
 result_table <- function(results, errors, data_name, mark) {
   if (length(results) == 0) {
     "No cases to display."
@@ -145,7 +140,6 @@ result_table <- function(results, errors, data_name, mark) {
 #' @description Create a UI accordion container.
 #' @param ... Additional agruments inside accordion container.
 #' @return Accordion container.
-#' @export
 make_accordion_container <- function(...) {
   id <- generate_id()
   shiny::tagList(
@@ -161,7 +155,6 @@ make_accordion_container <- function(...) {
 #' @param content Content of the accordion.
 #' @param active Is active?
 #' @return Accordion.
-#' @export
 make_accordion_element <- function(title, content, active = FALSE) {
   state <- NULL
   if (active) {
@@ -251,7 +244,6 @@ display_results <- function(data, make_report, repo_path = NULL) {
 #' @param file_path File path.
 #' @param offset Offset.
 #' @return Line number.
-#' @export
 return_line_number <- function(identifier, file_path, offset = -1) {
   if (!is.null(file_path) && file_path != "") {
     line_number <- grep(identifier, readLines(file_path))[1]
@@ -271,7 +263,6 @@ return_line_number <- function(identifier, file_path, offset = -1) {
 #' @param line_number Line number.
 #' @param repo_path Github repo path.
 #' @return Repo link.
-#' @export
 return_repo_link <- function(repo_path, line_number) {
   sprintf("%s#L%s", repo_path, line_number)
 }

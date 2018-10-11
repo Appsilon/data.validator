@@ -6,7 +6,7 @@
 
 1. Create a new validation report template or modify existing `Rmd` file.
 
-To create new template opne `File -> New file -> R Markdown...` and select `Appsilon Validation Report Template (datavalidator)` form `From template` tab.
+To create new template open `File -> New file -> R Markdown...` and select `Appsilon Validation Report Template (datavalidator)` form `From template` tab.
 
 If you are working with existing report and you want to use `datavalidator` package you need to change a few things inside your `Rmd` file:
  - add `library(datavalidator)` (instead of `source(report_helpers.R)`)
