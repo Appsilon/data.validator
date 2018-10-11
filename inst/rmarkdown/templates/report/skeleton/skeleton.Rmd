@@ -1,0 +1,88 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(htmltools)
+library(assertr)
+library(RPostgreSQL)
+library(glue)
+library(dplyr)
+```
+
+<div id="report_header" style="margin: 2em;">
+  <img src="logo.png" alt="logo" style="float: left; width: 25%; margin-right: 4em;"/>
+  <h1>Data validation report</h1>
+  <h4>`r format(Sys.time(), "%Y-%m-%d %H:%M:%S")`</h4>
+</div>
+
+```{r report_flag}
+library(datavalidator)
+options("display_report_summary" = TRUE)
+
+make_report = getOption("display_report_summary", default = FALSE)
+```
+
+```{r paths_setup}
+preprocessing_script_path <- "../prepare_data.R"
+
+validation_script_path <- "../validation_rules.R"
+
+refreshing_script_path <- "../refresh_data.R"
+```
+
+```{r chunk_reading}
+read_chunk(preprocessing_script_path)
+read_chunk(validation_script_path)
+read_chunk(refreshing_script_path)
+```
+
+```{r processing_data, message = FALSE}
+<<data_preparation>>
+```
+
+```{r summary}
+make_summary_table(datavalidator_constants$n_passed, datavalidator_constants$n_failed, datavalidator_constants$n_warned)
+```
+
+```{r validation, message = FALSE, warning = FALSE, eval = getOption("needed_data_is_provided", default = "TRUE")}
+<<validation_rules>>
+```
+
+```{r summary_values}
+class_failed <- if (datavalidator_constants$n_failed > 0) "red" else "no-color"
+class_warned <- if (datavalidator_constants$n_warned > 0) "blue" else "no-color"
+
+tags$script(
+  sprintf("(
+    window.onload = function() {
+      var failed = document.getElementById('failed_total').children[0];
+      var warned = document.getElementById('warned_total').children[0];
+      var passed = document.getElementById('passed_total').children[0];
+      failed.classList.add('%s');
+      warned.classList.add('%s');
+      failed.innerHTML = %s;
+      warned.innerHTML = %s;
+      passed.innerHTML = %s;
+    })();", class_failed, class_warned, datavalidator_constants$n_failed, datavalidator_constants$n_warned, datavalidator_constants$n_passed)
+)
+
+tags$script("
+  function classToggle(object) {
+      object.classList.toggle('active');
+      object.nextElementSibling.classList.toggle('active');
+  }
+")
+```
+
+```{r refreshing_data}
+refresh_status <- if(datavalidator_constants$n_failed == 0){
+  <<refresh_data>>
+} else {
+  "Validations errors. Report data not updated."
+}
+```
+
+ <h4>`r refresh_status`</h4>
