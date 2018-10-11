@@ -7,9 +7,6 @@ knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
 library(htmltools)
 library(assertr)
-library(RPostgreSQL)
-library(glue)
-library(dplyr)
 ```
 
 <div id="report_header" style="margin: 2em;">
