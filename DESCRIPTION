@@ -16,6 +16,9 @@ Imports:
     knitr,
     purrr,
     dplyr,
-    utils
+    utils,
+    R6,
+    rlang,
+    rmarkdown
 Suggests:
     testthat

@@ -3,13 +3,13 @@ output: html_document
 ---
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
-library(datavalidator)
 knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
 library(htmltools)
 library(assertr)
 library(shiny)
 library(shiny.semantic)
+library(datavalidator)
 ```
 
 <div id="report_header" style="margin: 2em;">

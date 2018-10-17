@@ -1,6 +1,6 @@
 #!/bin/bash
 export IMAGE_DATAVALIDATOR=appsilon/datavalidator
-export TAG_DATAVALIDATOR=1.7
+export TAG_DATAVALIDATOR=1.9
 REPO_HOST_DIR=`pwd`
 
 remove_and_stop_rstudio () {

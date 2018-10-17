@@ -3,7 +3,7 @@ jobs:
   test:
     working_directory: /mnt
     docker:
-      - image: appsilon/datavalidator:1.7
+      - image: appsilon/datavalidator:1.9
     steps:
       - checkout
       - run:
