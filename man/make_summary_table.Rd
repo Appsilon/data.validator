@@ -7,7 +7,7 @@
 make_summary_table(n_passes, n_fails, n_warns)
 }
 \arguments{
-\item{n_passes}{Nr of passed validations}
+\item{n_passes}{Nr of passed validations.}
 
 \item{n_fails}{Nr of failed validations.}
 

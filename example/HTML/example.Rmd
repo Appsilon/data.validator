@@ -12,6 +12,7 @@ library(shiny.semantic)
 library(datavalidator)
 ```
 
+<script src="report.js"></script>
 <div id="report_header" style="margin: 2em;">
   <img src="logo.png" alt="logo" style="float: left; width: 25%; margin-right: 4em;"/>
   <h1>Data validation report</h1>
@@ -31,11 +32,4 @@ for (script in params$scripts) {
 
 ```{r report_generation}
 validator$generate_html_report()
-
-tags$script("
-  function classToggle(object) {
-      object.classList.toggle('active');
-      object.nextElementSibling.classList.toggle('active');
-  }
-")
 ```

@@ -1,0 +1,16 @@
+Github repo path:  https://github.com/Appsilon/datavalidator 
+
+Validation summary: 
+ Number of passed validations: 1
+ Number of failed validations: 2
+ Number of validations with warnings: 1
+
+Advanced view: 
+
+
+|object      |title                         |result  |validation_id        |
+|:-----------|:-----------------------------|:-------|:--------------------|
+|sample_data |x should have character class |Passed  |B4u28kcRoVKIFkJGe0VD |
+|sample_data |y should have numeric class   |Failed  |noIe1TSxa9e3pMmJekOW |
+|sample_data |y should have date class      |Failed  |HfXDBnL5nYIBPfBXpehb |
+|sample_data |z should have Date class      |Warning |p7pW4xo4jEpoKf1HRv15 |
