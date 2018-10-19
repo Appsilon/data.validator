@@ -4,16 +4,11 @@
 #' @param attribute Attribute name.
 #' @return Data frame with validation results.
 get_validations_attribute <- function(data, attribute) {
-  validations_attribute <- attr(data, attribute) %>% purrr::map_df(~ dplyr::tibble(
+  attr(data, attribute) %>% purrr::map_df(~ tibble(
     validation_id = .$validation_id,
     message = .$message,
     num.violations = .$num.violations)
   )
-  if (rlang::is_empty(validations_attribute) | is.null(validations_attribute)) {
-    dplyr::tibble(validation_id = "no_cases_found")
-  } else {
-    validations_attribute
-  }
 }
 
 #' Creates data frame from validation results.
