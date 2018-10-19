@@ -4,16 +4,11 @@
 #' @param attribute Attribute name.
 #' @return Data frame with validation results.
 get_validations_attribute <- function(data, attribute) {
-  validations_attribute <- attr(data, attribute) %>% purrr::map_df(~ dplyr::tibble(
+  attr(data, attribute) %>% purrr::map_df(~ dplyr::tibble(
     validation_id = .$validation_id,
     message = .$message,
     num.violations = .$num.violations)
   )
-  if (rlang::is_empty(validations_attribute) | is.null(validations_attribute)) {
-    dplyr::tibble(validation_id = "no_cases_found")
-  } else {
-    validations_attribute
-  }
 }
 
 #' Creates data frame from validation results.
@@ -25,15 +20,20 @@ get_validations_attribute <- function(data, attribute) {
 #' @param object_name Title to display in the report.
 #' @return Data frame with validation results.
 create_validation_results <- function(data, errors, warnings, file_path, object_name) {
-  attr(data, "assertr_results") %>% dplyr::bind_rows() %>%
+  results <- attr(data, "assertr_results") %>% dplyr::bind_rows() %>%
     dplyr::mutate(object = object_name,
            file_path = ifelse(is.null(file_path), NA, file_path),
            result = dplyr::case_when(
-             validation_id %in% errors$validation_id ~ "Failed",
-             validation_id %in% warnings$validation_id ~ "Warning",
+             nrow(errors) > 0 & validation_id %in% errors$validation_id ~ "Failed",
+             nrow(warnings) > 0 & validation_id %in% warnings$validation_id ~ "Warning",
              TRUE ~ "Passed"
-           )) %>%
-    dplyr::left_join(dplyr::bind_rows(errors, warnings), by = "validation_id")
+           ))
+  errors_and_warnings <- dplyr::bind_rows(errors, warnings)
+  if (nrow(errors_and_warnings) > 0) {
+    dplyr::left_join(results, errors_and_warnings, by = "validation_id")
+  } else {
+    results
+  }
 }
 
 #' Class providing object with methods for simple data validation reports.
