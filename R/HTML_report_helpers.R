@@ -104,7 +104,7 @@ make_table_row <- function(results, mark) {
 #' @param mark Icon to display.
 #' @return Table row.
 result_table <- function(results, mark) {
-  if (length(results) == 0) {
+  if (nrow(results) == 0) {
     "No cases to display."
   } else {
     shiny::tags$table(class = "ui padded striped table",

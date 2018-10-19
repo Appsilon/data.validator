@@ -4,7 +4,7 @@
 #' @param attribute Attribute name.
 #' @return Data frame with validation results.
 get_validations_attribute <- function(data, attribute) {
-  attr(data, attribute) %>% purrr::map_df(~ tibble(
+  attr(data, attribute) %>% purrr::map_df(~ dplyr::tibble(
     validation_id = .$validation_id,
     message = .$message,
     num.violations = .$num.violations)
@@ -20,15 +20,28 @@ get_validations_attribute <- function(data, attribute) {
 #' @param object_name Title to display in the report.
 #' @return Data frame with validation results.
 create_validation_results <- function(data, errors, warnings, file_path, object_name) {
-  attr(data, "assertr_results") %>% dplyr::bind_rows() %>%
+  results <- attr(data, "assertr_results") %>% dplyr::bind_rows() %>%
     dplyr::mutate(object = object_name,
-           file_path = ifelse(is.null(file_path), NA, file_path),
-           result = dplyr::case_when(
-             validation_id %in% errors$validation_id ~ "Failed",
-             validation_id %in% warnings$validation_id ~ "Warning",
-             TRUE ~ "Passed"
-           )) %>%
-    dplyr::left_join(dplyr::bind_rows(errors, warnings), by = "validation_id")
+                  file_path = ifelse(is.null(file_path), NA, file_path),
+                  result = dplyr::case_when(
+                    result == TRUE ~ "Passed",
+                    TRUE ~ as.character(result)))
+  if (nrow(errors) > 0) {
+    results <- results %>% dplyr::mutate(result = dplyr::case_when(
+      validation_id %in% errors$validation_id ~ "Failed",
+      TRUE ~ as.character(result)))
+  }
+  if (nrow(warnings) > 0) {
+    results <- results %>% dplyr::mutate(result = dplyr::case_when(
+      validation_id %in% warnings$validation_id ~ "Warning",
+      TRUE ~ as.character(result)))
+  }
+  errors_and_warnings <- dplyr::bind_rows(errors, warnings)
+  if (nrow(errors_and_warnings) > 0) {
+    dplyr::left_join(results, errors_and_warnings, by = "validation_id")
+  } else {
+    results
+  }
 }
 
 #' Class providing object with methods for simple data validation reports.
@@ -61,8 +74,8 @@ Validator <- R6::R6Class(
       if (nrow(private$validation_results) > 0) {
         cat("Advanced view: \n")
         print(private$validation_results %>%
-              select(object, title, result, validation_id) %>%
-              knitr::kable())
+                select(object, title, result, validation_id) %>%
+                knitr::kable())
       }
       invisible(self)
     },
@@ -112,5 +125,4 @@ render_validation_report <- function(template, output_dir, output_file = "valida
   params = list(repo_path = repo_path, scripts = scripts)
   rmarkdown::render(input = template, output_format = "html_document", output_file = output_file,
                     output_dir = output_dir, params = params)
-  system(paste0('xdg-open "', output_dir, '/', output_file, '" > /dev/null'))
 }
