@@ -10,26 +10,28 @@ To create new template open `File -> New file -> R Markdown...` and select `Apps
 
 2. The newly created report template has predefined structure. Add `R` scripts to run in the validation process:
 ```
-- VALIDATION_REPORT_FOLDER
-|- VALIDATION_REPORT.Rmd
+- <project-folder>
+|- <report-template>.Rmd
 |- logo.png
 |- report.js
-|- {R_SCRIPTS.R}
+|- <script_1>.R
+|- ...
+|- <script_n>.R
 ```
 
-The `VALIDATION_REPORT.Rmd` file is responsible for HTML report generation and it depends on remaining files.
+The `<report-template>.Rmd` file is responsible for HTML report generation and it depends on remaining files.
 The `logo.png` file contains logo that will be shown at the top of the generated report.
 The `report.js` file contains additional `java script` code for displaying the report correctly.
-The `{R_SCRIPTS.R}` are additional files to run inside the report (data reading, validations, e.t.c)
+The `<script_1>.R` ... `<script_n>.R` are additional files to run inside the report (data reading, validations, e.t.c).
 
-Go to `example/HTML` folder to see the full example.
+Go to `examples/html` folder to see the full example.
 
-3. Run `datavalidator::render_validation_report()` function to generate the `HTML` report, for example:
+3. Run `datavalidator::render_validation_report()` function to generate the `html` report, for example:
 
 ```{r}
 datavalidator::render_validation_report(
- template = "example/HTML/example.Rmd", 
- output_dir = "example/HTML/",
+ template = "examples/html/example.Rmd", 
+ output_dir = "examples/html/",
  output_file = "validation_report.html",
  repo_path = "https://github.com/Appsilon/datavalidator",
  scripts = c("prepare_data.R", "validation_rules.R"))
@@ -101,10 +103,4 @@ if (validator$get_validations()$n_failed > 0) print("We've got a problem!")
 validator$save_log(output_path = "my_log_path")
 ```
 
-Go to `example/LOG` folder to see the full example.
-
-# To build package in docker use:
-
-```
-devtools::build(path = "/mnt/package")
-```
+Go to `examples/log` folder to see the full example.

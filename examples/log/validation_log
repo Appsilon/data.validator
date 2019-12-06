@@ -10,7 +10,7 @@ Advanced view:
 
 |object      |title                         |result  |validation_id        |
 |:-----------|:-----------------------------|:-------|:--------------------|
-|sample_data |x should have character class |Passed  |B4u28kcRoVKIFkJGe0VD |
-|sample_data |y should have numeric class   |Failed  |noIe1TSxa9e3pMmJekOW |
-|sample_data |y should have date class      |Failed  |HfXDBnL5nYIBPfBXpehb |
-|sample_data |z should have Date class      |Warning |p7pW4xo4jEpoKf1HRv15 |
+|sample_data |x should have character class |Passed  |AfbKcTOIMy9SiOI3FuDh |
+|sample_data |y should have numeric class   |Failed  |fJmH0Ceo5awkM6XBdibL |
+|sample_data |y should have date class      |Failed  |c4vYgr8K8MRQqIPr5iMV |
+|sample_data |z should have Date class      |Warning |m5T1TFNCZWXFF4Lf2nrk |

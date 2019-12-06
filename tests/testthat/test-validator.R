@@ -1,5 +1,4 @@
-context("Tests for Validator class")
-library(dplyr)
+context("validator")
 
 test_that("Validator is empty after initialization", {
   validator <- Validator$new()
@@ -9,7 +8,7 @@ test_that("Validator is empty after initialization", {
   expect_equal(results$n_failed, 0)
   expect_equal(results$n_warned, 0)
   expect_equal(results$n_passed, 0)
-  expect_equal(results$validation_results, tibble())
+  expect_equal(results$validation_results, dplyr::tibble())
 })
 
 test_that("Validator adds validations correctly when there are warnings, errors and passed validations", {

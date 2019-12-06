@@ -74,7 +74,7 @@ Validator <- R6::R6Class(
       if (nrow(private$validation_results) > 0) {
         cat("Advanced view: \n")
         print(private$validation_results %>%
-                select(object, title, result, validation_id) %>%
+                dplyr::select(object, title, result, validation_id) %>%
                 knitr::kable())
       }
       invisible(self)
@@ -87,7 +87,7 @@ Validator <- R6::R6Class(
       private$n_failed <- private$n_failed + nrow(errors)
       private$n_warned <- private$n_warned + nrow(warnings)
       private$n_passed <- private$n_passed + nrow(results) - nrow(errors) - nrow(warnings)
-      private$validation_results <- bind_rows(private$validation_results, results)
+      private$validation_results <- dplyr::bind_rows(private$validation_results, results)
       invisible(self)
     },
     get_validations = function() {

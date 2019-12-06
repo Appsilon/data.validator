@@ -19,7 +19,7 @@ segment <- function(title, ...) {
 
 #' Prepare modal content.
 #' @description Prepare modal content.
-#' @param error Error.
+#' @param error Assertr error.
 #' @return Modal content.
 prepare_modal_content <- function(error) {
   data_part <- NULL
