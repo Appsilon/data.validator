@@ -26,4 +26,4 @@ validator$add_validations(sample_data)
 if (validator$get_validations()$n_failed > 0) print("We've got a problem!")
 
 # To save report log we have to call `generate_report_log()` method
-validator$save_log(output_path = "example/LOG/validation_log")
+validator$save_log(output_path = "examples/log/validation_log")

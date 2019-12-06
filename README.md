@@ -28,8 +28,8 @@ Go to `example/HTML` folder to see the full example.
 
 ```{r}
 datavalidator::render_validation_report(
- template = "example/HTML/example.Rmd", 
- output_dir = "example/HTML/",
+ template = "examples/html/example.Rmd", 
+ output_dir = "examples/html/",
  output_file = "validation_report.html",
  repo_path = "https://github.com/Appsilon/datavalidator",
  scripts = c("prepare_data.R", "validation_rules.R"))
