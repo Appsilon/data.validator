@@ -1,10 +1,14 @@
 ---
-output: html_document
+output: 
+  html_document:
+    extra_dependencies: !expr list(dataval_deps)
 ---
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
+library(dplyr)
+library(tidyr)
 library(htmltools)
 library(assertr)
 library(shiny)
@@ -12,7 +16,7 @@ library(shiny.semantic)
 library(datavalidator)
 ```
 
-<script src="report.js"></script>
+<script class = "testjs" src="`r system.file('www/shared/semantic/semantic.min.js', package = 'shiny.semantic')`"></script>
 <div id="report_header" style="margin: 2em;">
   <img src="logo.png" alt="logo" style="float: left; width: 25%; margin-right: 4em;"/>
   <h1>Data validation report</h1>
@@ -21,7 +25,6 @@ library(datavalidator)
 
 ```{r validator_init, message = FALSE, warning = FALSE}
 validator <- Validator$new()
-validator$repo_path <- params$repo_path
 ```
 
 ```{r scripts, message = FALSE, warning = FALSE}

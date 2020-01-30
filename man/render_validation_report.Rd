@@ -5,7 +5,7 @@
 \title{Renders validation report.}
 \usage{
 render_validation_report(template, output_dir,
-  output_file = "validation_report.html", scripts, repo_path = NULL)
+  output_file = "validation_report.html", scripts)
 }
 \arguments{
 \item{template}{Report Rmd template.}
@@ -14,7 +14,8 @@ render_validation_report(template, output_dir,
 
 \item{output_file}{Output name for HTML report.}
 
-\item{scripts}{Vector containing paths for the scripts to run inside the template (e.g. data reading, validations). Note that the paths should be relative to the location of the template.}
+\item{scripts}{Vector containing paths for the scripts to run inside the template (e.g. data reading, validations).
+Note that the paths should be relative to the location of the template.}
 
 \item{repo_path}{Github repo path.}
 }

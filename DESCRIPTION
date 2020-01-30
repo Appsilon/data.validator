@@ -1,7 +1,7 @@
 Package: datavalidator
 Type: Package
 Title: Tools for automatic validation report
-Version: 0.1.0
+Version: 0.1.1
 Organization: Appsilon Data Science
 Author: Michal Maj <michal@appsilon.com>
 Maintainer: Dominik Krzeminski <filip@appsilondatascience.com>
@@ -16,6 +16,7 @@ Imports:
     knitr,
     purrr,
     dplyr,
+    tidyr,
     utils,
     R6,
     rlang,

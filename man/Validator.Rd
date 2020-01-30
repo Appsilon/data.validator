@@ -23,7 +23,7 @@ Class providing object with methods for simple data validation reports.
 \section{Methods}{
 
 \describe{
-\item{\code{add_validations(data, file_path = NULL)}}{This method adds \code{assertr} validation results to the report.}
+\item{\code{add_validations(data)}}{This method adds \code{assertr} validation results to the report.}
 \item{\code{get_validations()}}{This method returns list of current validations.}
 \item{\code{generate_html_report()}}{This method generates \code{HTML} validation report.}
 \item{\code{save_log(output_path = "validation_log")}}{This method saves report log into \code{output_path}}}

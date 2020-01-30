@@ -23,11 +23,11 @@ segment <- function(title, ...) {
 #' @return Modal content.
 prepare_modal_content <- function(error) {
   data_part <- NULL
-  if (!is.null(error$error_df)) {
+  if (!is.null(error$error_df[[1]])) {
     data_part <-
       shiny::div(style = "padding-left: 1em;",
                  shiny::div(class = "ui header", "Violated data"),
-                 shiny:: HTML(knitr::kable(utils::head(error$error_df), "html", align = NULL, table.attr = "class=\"ui cellable table\"")),
+                 shiny:: HTML(knitr::kable(utils::head(error$error_df[[1]]), "html", align = NULL, table.attr = "class=\"ui cellable table\"")),
                  shiny::div(class = "ui horizontal divider", shiny.semantic::uiicon("flag"))
       )
   }
@@ -56,26 +56,25 @@ prepare_modal_content <- function(error) {
 #' @importFrom dplyr %>%
 #' @importFrom rlang .data
 make_table_row <- function(results, mark) {
-  title <- results %>% dplyr::pull(.data$title)
-  id <- results %>% dplyr::pull(.data$validation_id)
-  data_name <- results %>% dplyr::pull(.data$object)
-  error <- list(list(message = results %>% dplyr::pull(.data$message), num.violations = results %>% dplyr::pull(.data$num.violations)))
-  result <- results %>% dplyr::pull(.data$result)
+  description <- results %>% dplyr::pull(.data$description)
+  id <- results %>% dplyr::pull(.data$assertion.id)
+  data_name <- results %>% dplyr::pull(.data$table_name)
+  result <- results %>% dplyr::pull(.data$type)
   button_class <- "ui disabled button"
   onclick <- NULL
   modal <- NULL
-  if (result != "Passed") {
+  if (result != success_id) {
     button_class <- "ui tiny button"
 
     onclick <- sprintf("$('#%s').modal('show');", id)
-    modal_header <- paste0(data_name, ": ", title)
+    modal_header <- paste0(data_name, ": ", description)
     modal <-
       shiny::div(id = id, class = "ui longer test modal visible scrolling",
                  shiny::div(class = "header", shiny::tags$h5(modal_header)),
                  shiny::div(class = "scrolling content",
                             shiny::div(class = "description",
                                        shiny::tagList(
-                                         purrr::map(error, ~ prepare_modal_content(.x))
+                                         prepare_modal_content(results)
                                        )
                             )
                  )
@@ -84,7 +83,7 @@ make_table_row <- function(results, mark) {
 
   shiny::tags$tr(
     shiny::tags$td(class = "left aligned",
-                   shiny::tags$h6(title)
+                   shiny::tags$h6(description)
     ),
     shiny::tags$td(class = "center aligned",
                    shiny.semantic::uiicon(mark)
@@ -149,7 +148,7 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
     state <- "active"
   }
   shiny::tagList(
-    shiny::div(class = paste("title", state), shiny.semantic::uiicon("dropdown"), onclick = "classToggle(this)",
+    shiny::div(class = paste("title", state), shiny.semantic::uiicon("dropdown"),
                shiny::tagList(shiny.semantic::uilabel(nrow(results), type = paste(color, "circular tiny")), label)),
     shiny::div(class = paste("content", state), result_table(results, mark))
   )
@@ -158,15 +157,14 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
 #' Displays results of validations.
 #' @description Displays results of validations.
 #' @param data Report data.
-#' @param repo_path Github repo path.
 #' @return Validation report.
-display_results <- function(data, repo_path = NULL) {
+display_results <- function(data) {
   results_failed <- data %>%
-    dplyr::filter(.data$result == "Failed")
+    dplyr::filter(.data$type == error_id)
   results_warning <- data %>%
-    dplyr::filter(.data$result == "Warning")
+    dplyr::filter(.data$type == warning_id)
   results_passed <- data %>%
-    dplyr::filter(.data$result == "Passed")
+    dplyr::filter(.data$type == success_id)
 
   is_negative_active <- is_neutral_active <- FALSE
   label_color_negative <- label_color_neutral <- ""
@@ -178,18 +176,10 @@ display_results <- function(data, repo_path = NULL) {
     is_neutral_active <- TRUE
     label_color_neutral <- "blue"
   }
-  file_path <- data$file_path[1]
-  data_name <- data$object[1]
-  segmant_title <- if (!is.null(repo_path) & !is.na(file_path)) {
-    shiny::tagList(
-      data_name,
-      shiny::tags$a(shiny.semantic::uiicon("github square white large"), href = paste0(repo_path, "/", file_path), target = "_blank", style = "opacity:1; margin-left:1em;")
-    )
-  } else {
-    data_name
-  }
+  data_name <- data$table_name[1]
+  segment_title <- data_name
   code <- segment(
-    segmant_title,
+    segment_title,
     shiny::p(),
     make_accordion_container(
       make_accordion_element(
@@ -245,9 +235,9 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
   code <- shiny::tags$table(id = "summary", class = "ui padded table",
                             shiny::tags$tbody(
                               shiny::tags$tr(
-                                create_summary_row("failed_total", n_fails, fails_label_color, "Failed"),
-                                create_summary_row("warned_total", n_warns, warns_label_color, "Warnings"),
-                                create_summary_row("passed_total", n_passes, "green", "Passed")
+                                if (!is.null(n_fails)) create_summary_row("failed_total", n_fails, fails_label_color, "Failed"),
+                                if (!is.null(n_warns)) create_summary_row("warned_total", n_warns, warns_label_color, "Warnings"),
+                                if (!is.null(n_passes)) create_summary_row("passed_total", n_passes, "green", "Passed")
                               )
                             )
   )
@@ -256,18 +246,25 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 
 #' Generate HTML report.
 #' @description Generate HTML validation report.
-#' @param n_passed Nr of passed validations
-#' @param n_failed Nr of failed validations.
-#' @param n_warned Nr of warnings.
+#' @param n_passed Number of passed validations
+#' @param n_failed Number of failed validations.
+#' @param n_warned Number of warnings.
 #' @param validation_results Data frame with validation results.
 #' @param repo_path Github repo path.
 #' @return HTML validation report.
-generate_html_report <- function(n_passed, n_failed, n_warned, validation_results, repo_path) {
+get_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
   summary_table <- make_summary_table(n_passed, n_failed, n_warned)
-  unique_objects <- validation_results %>% dplyr::pull(.data$object) %>% unique()
+  unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {
-    validation_results %>% dplyr::filter(.data$object == .x) %>%
-      display_results(repo_path)
+    validation_results %>% dplyr::filter(.data$table_name == .x) %>%
+      display_results()
   }) %>% shiny::div()
   shiny::div(summary_table, html_report)
+}
+
+#' @export
+render_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
+  get_semantic_report_ui(n_passed, n_failed, n_warned,
+                       validation_results) %>%
+    shiny.semantic::uirender(., width = "100%", height = "100%")
 }

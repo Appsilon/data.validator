@@ -4,12 +4,10 @@
 \alias{display_results}
 \title{Displays results of validations.}
 \usage{
-display_results(data, repo_path = NULL)
+display_results(data)
 }
 \arguments{
 \item{data}{Report data.}
-
-\item{repo_path}{Github repo path.}
 }
 \value{
 Validation report.

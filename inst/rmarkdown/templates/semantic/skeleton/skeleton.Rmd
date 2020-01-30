@@ -1,0 +1,22 @@
+---
+output: 
+  html_document:
+    extra_dependencies: !expr list(dataval_deps)
+params:
+  generate_report_html: !expr function(...) {}
+  sum_up: !expr c("success", "warning", "error")
+  render_report_ui: !expr render_semantic_report_ui
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data validation report
+
+#### `r format(Sys.time(), "%Y-%m-%d %H:%M:%S")`
+
+```{r generate_report, echo = FALSE}
+params$generate_report_html(params$sum_up, params$render_report_ui)
+```

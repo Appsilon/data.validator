@@ -4,7 +4,7 @@
 \alias{create_validation_results}
 \title{Creates data frame from validation results.}
 \usage{
-create_validation_results(data, errors, warnings, file_path, object_name)
+create_validation_results(data, errors, warnings, object_name)
 }
 \arguments{
 \item{data}{Validated data frame.}
@@ -12,8 +12,6 @@ create_validation_results(data, errors, warnings, file_path, object_name)
 \item{errors}{Data frame with validation errors. See \code{get_validations_attribute} function.}
 
 \item{warnings}{Data frame with validation warnings. See \code{get_validations_attribute} function.}
-
-\item{file_path}{Github repo file path to redirect.}
 
 \item{object_name}{Title to display in the report.}
 }
