@@ -14,12 +14,6 @@ Object of \code{\link{R6Class}} with methods for simple data validation reports.
 \description{
 Class providing object with methods for simple data validation reports.
 }
-\section{Fields}{
-
-\describe{
-\item{\code{repo_path}}{Github repository url of a project.}
-}}
-
 \section{Methods}{
 
 \describe{

@@ -1,10 +1,3 @@
-#' Generate a random ID.
-#' @description Generate a random ID.
-#' @return A characters corresponding to random ID.
-generate_id <- function() {
-  paste0(sample(c(LETTERS, letters, 0:9), 20, TRUE), collapse = "")
-}
-
 #' Create a UI segment element.
 #' @description Create a UI segment element.
 #' @param title Title of the segment.
@@ -126,10 +119,8 @@ result_table <- function(results, mark) {
 #' @param ... Additional agruments inside accordion container.
 #' @return Accordion container.
 make_accordion_container <- function(...) {
-  id <- generate_id()
   shiny::tagList(
-    shiny::div(id = id, class = "ui styled accordion", style = "width:100%", ...),
-    shiny::tags$script(sprintf("$('#%s').accordion();", id))
+    shiny::div(class = "ui styled accordion", style = "width:100%", ...)
   )
 
 }
@@ -158,7 +149,7 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
 #' @description Displays results of validations.
 #' @param data Report data.
 #' @return Validation report.
-display_results <- function(data) {
+display_results <- function(data, n_passed, n_failed, n_warned) {
   results_failed <- data %>%
     dplyr::filter(.data$type == error_id)
   results_warning <- data %>%
@@ -182,19 +173,19 @@ display_results <- function(data) {
     segment_title,
     shiny::p(),
     make_accordion_container(
-      make_accordion_element(
+      if (!is.null(n_failed)) make_accordion_element(
         results = results_failed,
         color = label_color_negative,
         label = "Failed",
         mark = "red big remove",
         active = is_negative_active),
-      make_accordion_element(
+      if (!is.null(n_warned)) make_accordion_element(
         results = results_warning,
         color = label_color_neutral,
         label = "Warnings",
         mark = "big blue exclamation circle",
         active = is_neutral_active),
-      make_accordion_element(
+      if (!is.null(n_passed)) make_accordion_element(
         results = results_passed,
         label = "Passed",
         mark = "big green checkmark")
@@ -250,14 +241,13 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 #' @param n_failed Number of failed validations.
 #' @param n_warned Number of warnings.
 #' @param validation_results Data frame with validation results.
-#' @param repo_path Github repo path.
 #' @return HTML validation report.
 get_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
   summary_table <- make_summary_table(n_passed, n_failed, n_warned)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {
     validation_results %>% dplyr::filter(.data$table_name == .x) %>%
-      display_results()
+      display_results(n_passed, n_failed, n_warned)
   }) %>% shiny::div()
   shiny::div(summary_table, html_report)
 }

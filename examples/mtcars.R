@@ -21,4 +21,4 @@ mtcars %>%
   chain_end(error_fun = error_append) %>%
   validator$add_validations()
 
-validator$save_html_report()
+validator$save_html_report(summary = c("warning", "error", "success"))

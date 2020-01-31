@@ -1,7 +1,9 @@
 #' @export
-dataval_deps <- htmltools::htmlDependency(
-  "datavalidator",
-  "1.0",
-  src = system.file('rmarkdown', package = 'datavalidator'),
-  script = c("templates/report/skeleton/report.js")
-)
+semantic_report_deps <- function() {
+  htmltools::htmlDependency(
+    "datavalidator",
+    "1.0",
+    src = system.file('www', package = 'datavalidator'),
+    script = c("report.js")
+  )
+}
