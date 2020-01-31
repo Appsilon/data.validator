@@ -258,3 +258,24 @@ render_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_r
                        validation_results) %>%
     shiny.semantic::uirender(., width = "100%", height = "100%")
 }
+
+#' @export
+render_raw_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
+  types <- c(
+    if(!is.null(n_passed)) success_id,
+    if(!is.null(n_warned)) warning_id,
+    if(!is.null(n_failed)) error_id
+  )
+  shiny::tagList(
+    if(!is.null(n_passed)) shiny::tags$div("Passed rules:", n_passed),
+    if(!is.null(n_failed)) shiny::tags$div("Failed rules:", n_failed),
+    if(!is.null(n_warned)) shiny::tags$div("Warning rules:", n_warned),
+    shiny:: HTML(
+      knitr::kable(
+        tidyr::unnest(validation_results, error_df, keep_empty = TRUE) %>%
+          dplyr::filter(type %in% types),
+        "html", align = NULL, table.attr = "class=\"ui cellable table\""
+      )
+    )
+  )
+}

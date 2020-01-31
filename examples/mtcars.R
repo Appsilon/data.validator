@@ -21,4 +21,9 @@ mtcars %>%
   chain_end(error_fun = error_append) %>%
   validator$add_validations()
 
-validator$save_html_report(summary = c("warning", "error", "success"))
+#validator$save_html_report(summary = c("warning", "error", "success"))
+validator$save_html_report(
+  system.file("rmarkdown/templates/raw/skeleton/skeleton.Rmd", package = "datavalidator"),
+  summary = c("warning", "error", "success"),
+  render_report_ui = render_raw_report_ui
+)
