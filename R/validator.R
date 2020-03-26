@@ -1,17 +1,20 @@
 Validator <- R6::R6Class(
   classname = "Validator",
   public = list(
-    print = function(...) {
+    print = function(summary = c("error", "warning", "success")) {
       cat("\n")
       cat("Validation summary: \n")
-      cat(" Number of passed validations: ", private$n_passed, "\n", sep = "")
-      cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
-      cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
+      if (success_id %in% summary) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
+      if (error_id %in% summary) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
+      if (warning_id %in% summary) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
       cat("\n")
       if (nrow(private$validation_results) > 0) {
         cat("Advanced view: \n")
         print(private$validation_results %>%
-                dplyr::select(object, title, result, validation_id) %>%
+                dplyr::filter(type %in% summary) %>%
+                dplyr::select(table_name, description, type, num.violations) %>%
+                dplyr::group_by(table_name, description, type) %>%
+                dplyr::summarise(total_violations = sum(num.violations)) %>%
                 knitr::kable())
       }
       invisible(self)
@@ -44,9 +47,9 @@ Validator <- R6::R6Class(
       render_report_ui(n_passed, n_failed, n_warned, validation_results)
     },
     save_html_report = function(
-      template = system.file("rmarkdown/templates/semantic/skeleton/skeleton.Rmd", package = "datavalidator"),
+      template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "datavalidator"),
       output_file = "validation_report.html", output_dir = getwd(), summary = c("error", "warning", "success"),
-      render_report_ui = render_semantic_report_ui) {
+      report_ui_constructor = render_semantic_report_ui, ...) {
 
       rmarkdown::render(
         input = template,
@@ -55,7 +58,8 @@ Validator <- R6::R6Class(
         params = list(
           generate_report_html = self$generate_html_report,
           summary = summary,
-          render_report_ui = render_report_ui
+          report_ui_constructor = report_ui_constructor,
+          ...
         )
       )
     },
@@ -98,10 +102,10 @@ get_results <- function(validator) {
 
 #' @export
 save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
-  summary = c("error", "warning", "success"), render_report_ui = render_semantic_report_ui,
-  template = system.file("rmarkdown/templates/semantic/skeleton/skeleton.Rmd", package = "datavalidator")) {
+  summary = c("error", "warning", "success"), ui_constructor = render_semantic_report_ui,
+  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "datavalidator")) {
 
-  validator$save_html_report(template, output_file, output_dir, summary, render_report_ui)
+  validator$save_html_report(template, output_file, output_dir, summary, ui_constructor)
 }
 
 #' @export

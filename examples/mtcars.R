@@ -26,12 +26,9 @@ get_results(validator)
 
 save_report(validator, summary = c("warning", "error", "success"))
 
-validator$save_html_report(summary = c("warning", "error"))
+save_report(validator, summary = c("warning", "error"))
 
-validator$save_html_report(
-  system.file("rmarkdown/templates/raw/skeleton/skeleton.Rmd", package = "datavalidator"),
-  summary = c("warning", "error", "success"),
-  render_report_ui = render_raw_report_ui
-)
+save_report(validator, report_ui_constructor = render_raw_report_ui)
 
-validator$save_log("results", type = "csv")
+browseURL("validation_report.html")
+validator$save_log("results", type = "txt")
