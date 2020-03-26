@@ -1,106 +1,77 @@
 # Description
 
-`datavalidator` is a set of tools for creating a HTML validation report.
+`datavalidator` is a set of tools for creating reports based on [assertr's]() validation results.
 
-# How to generate HTML report:
+# How to validate data with assertr
 
-1. Create a new validation report template.
+## Basic example
 
-To create new template open `File -> New file -> R Markdown...` and select `Appsilon Validation Report Template (datavalidator)` form `From template` tab.
-
-2. The newly created report template has predefined structure. Add `R` scripts to run in the validation process:
 ```
-- <project-folder>
-|- <report-template>.Rmd
-|- logo.png
-|- report.js
-|- <script_1>.R
-|- ...
-|- <script_n>.R
-```
-
-The `<report-template>.Rmd` file is responsible for HTML report generation and it depends on remaining files.
-The `logo.png` file contains logo that will be shown at the top of the generated report.
-The `report.js` file contains additional `java script` code for displaying the report correctly.
-The `<script_1>.R` ... `<script_n>.R` are additional files to run inside the report (data reading, validations, e.t.c).
-
-Go to `examples/html` folder to see the full example.
-
-3. Run `datavalidator::render_validation_report()` function to generate the `html` report, for example:
-
-```{r}
-datavalidator::render_validation_report(
- template = "examples/html/example.Rmd", 
- output_dir = "examples/html/",
- output_file = "validation_report.html",
- repo_path = "https://github.com/Appsilon/datavalidator",
- scripts = c("prepare_data.R", "validation_rules.R"))
-```
-
-# How to log validation results without HTML report:
-
-Simply create an `R` validation script and use `generate_report_log()` method.
-
-EXAMPLE:
-
-```{r}
-library(datavalidator)
 library(assertr)
 library(dplyr)
-# Create new 'validator' object of class 'Validator'
-validator <- Validator$new()
-
-# After initialization number of warnings, failed and passed validations is set to 0
-validator
-# Github repo path:  NOT DEFINED 
-# 
-# Validation summary: 
-#  Number of fulfilled validations: 0
-#  Number of failed validations: 0
-#  Number of validations with warnings: 0
-
-# We can set url to Github repo by:
-validator$repo_path <- "https://github.com/my_account/my_proj/"
-
-# Let's add some basic validations:
-sample_data <- tibble(
-  x = letters[1:3],
-  y = letters[1:3],
-  z = 1:3) %>%
-  clear_results() %>%  chain_start() %>%
-  verify(title = "x should have character class", v_class(x) == "character") %>%
-  verify(title = "y should have numeric class", v_class(y) == "numeric") %>%
-  verify(title = "y should have date class", v_class(y) == "Date") %>%
-  verify(title = "z should have Date class", ignore_chain_funs = TRUE,
-         error_fun = append_as_warning, v_class(z) == "Date") %>%
+mtcars %>%
+  chain_start(store_success = TRUE) %>%
+  assert(description = "vs and am values equal 0 or 2 only", in_set(c(0, 2)), vs, am) %>%
+  assert(description = "vs and am values should equal 3 or 4", skip_chain_opts = TRUE,
+         error_fun = warning_append, in_set(c(3, 4)), gear, carb) %>%
+  assert_rows(description = "Each row sum for am:vs columns is less or equal 1", rowSums, within_bounds(0, 1), vs:am) %>%
+  insist(description = "For wt and qsec we have: abs(col) < 2 * sd(col)", within_n_sds(2), wt, qsec) %>%
+  verify(description = "Column drat has only positive values", drat > 0) %>%
+  verify(description = "Column drat has only values larger than 3", drat > 3) %>%
   chain_end(error_fun = error_append)
+```
 
-validator$add_validations(sample_data)
+For full specification see [assertr vignette]().
 
-validator
-# Github repo path:  https://github.com/Appsilon/datavalidator 
-# 
+# How to use data.validator for presenting the results
+
+1. Create new validator
+```
+library(data.validator)
+validator <- create_validator()
+```
+
+2. Add results to created object
+```
+mtcars %>%
+  chain_start(store_success = TRUE) %>%
+  assert(description = "vs and am values equal 0 or 2 only", in_set(c(0, 2)), vs, am) %>%
+  assert(description = "vs and am values should equal 3 or 4", skip_chain_opts = TRUE,
+         error_fun = warning_append, in_set(c(3, 4)), gear, carb) %>%
+  assert_rows(description = "Each row sum for am:vs columns is less or equal 1", rowSums, within_bounds(0, 1), vs:am) %>%
+  insist(description = "For wt and qsec we have: abs(col) < 2 * sd(col)", within_n_sds(2), wt, qsec) %>%
+  verify(description = "Column drat has only positive values", drat > 0) %>%
+  verify(description = "Column drat has only values larger than 3", drat > 3) %>%
+  chain_end(error_fun = error_append) %>%
+  add_results(validator)
+```
+
+3. Use one of available methods to present results
+
+- print summary
+```
+print(validator)
+
 # Validation summary: 
-#  Number of passed validations: 1
-#  Number of failed validations: 2
+#  Number of successful validations: 1
+#  Number of failed validations: 4
 #  Number of validations with warnings: 1
-# 
 # Advanced view: 
 # 
 # 
-# |object      |title                         |result  |validation_id        |
-# |:-----------|:-----------------------------|:-------|:--------------------|
-# |sample_data |x should have character class |Passed  |B4u28kcRoVKIFkJGe0VD |
-# |sample_data |y should have numeric class   |Failed  |noIe1TSxa9e3pMmJekOW |
-# |sample_data |y should have date class      |Failed  |HfXDBnL5nYIBPfBXpehb |
-# |sample_data |z should have Date class      |Warning |p7pW4xo4jEpoKf1HRv15 |
+# |table_name |description                                       |type    | total_violations|
+# |:----------|:-------------------------------------------------|:-------|----------------:|
+# |mtcars     |Column drat has only positive values              |success |               NA|
+# |mtcars     |Column drat has only values larger than 3         |error   |                4|
+# |mtcars     |Each row sum for am:vs columns is less or equal 1 |error   |                7|
+# |mtcars     |For wt and qsec we have: abs(col) < 2 * sd(col)   |error   |                4|
+# |mtcars     |vs and am values equal 0 or 2 only                |error   |               27|
+# |mtcars     |vs and am values should equal 3 or 4              |warning |               24|
+```
+- save as HTML report
 
-# If we want to do some action depending on validation results we can use `get_validations()` method
-if (validator$get_validations()$n_failed > 0) print("We've got a problem!")
-# "We've got a problem!"
-
-# To save report log we have to call `generate_report_log()` method
-validator$save_log(output_path = "my_log_path")
+```
+save_report(validator)
 ```
 
-Go to `examples/log` folder to see the full example.
+For more options check package documentation or [examples](examples).
