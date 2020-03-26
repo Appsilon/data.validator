@@ -7,7 +7,6 @@ Validator <- R6::R6Class(
       if (success_id %in% summary) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
       if (error_id %in% summary) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
       if (warning_id %in% summary) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
-      cat("\n")
       if (nrow(private$validation_results) > 0) {
         cat("Advanced view: \n")
         print(private$validation_results %>%
@@ -63,18 +62,15 @@ Validator <- R6::R6Class(
         )
       )
     },
-    save_log = function(file_name = "validation_log", type = "txt") {
-      full_path <- paste0(file_name, ".", type)
-      if (type == "txt") {
-        sink(full_path)
+    save_log = function(file_name = "validation_log.txt") {
+        sink(file_name)
         self$print()
         sink()
-      }
-      if (type == "csv") {
-        private$validation_results %>%
-          tidyr::unnest(error_df, keep_empty = TRUE) %>%
-          write.csv(file = full_path)
-      }
+    },
+    save_results = function(file_name, method = write.csv, ...) {
+      private$validation_results %>%
+        tidyr::unnest(error_df, keep_empty = TRUE) %>%
+        write.csv(file = file_name)
     }
   ),
   private = list(
@@ -101,6 +97,11 @@ get_results <- function(validator) {
 }
 
 #' @export
+save_results <- function(validator, file_name = "results.csv", method = write.csv, ...) {
+  validator$save_results(file_name, method, ...)
+}
+
+#' @export
 save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
   summary = c("error", "warning", "success"), ui_constructor = render_semantic_report_ui,
   template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "datavalidator")) {
@@ -109,6 +110,6 @@ save_report <- function(validator, output_file = "validation_report.html", outpu
 }
 
 #' @export
-save_summary <- function(validator, file_name = "validation_log", type = "txt") {
-  validator$save_log(file_name, type)
+save_summary <- function(validator, file_name = "validation_log.txt") {
+  validator$save_log(file_name)
 }
