@@ -248,15 +248,36 @@ get_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_resu
   html_report <- unique_objects %>% purrr::map(~ {
     validation_results %>% dplyr::filter(.data$table_name == .x) %>%
       display_results(n_passed, n_failed, n_warned)
-  }) %>% shiny::div()
+  }) %>% htmltools::div()
+  # activate_accordion <- htmlwidgets::onStaticRenderComplete("
+  #   function activateAccordion() {
+  #     $('.ui.accordion').accordion();
+  #   }
+  #   activateAccordion();
+  #   $(document).ready(function () {
+  #     activateAccordion();
+  #   });
+  # ")
   htmltools::div(summary_table, html_report)
 }
+
+post_render_js <- "
+  function activateAccordion() {
+    $('.ui.accordion').accordion();
+  }
+  $(window).on('load', function () {
+    activateAccordion();
+  });
+"
 
 #' @export
 render_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
   get_semantic_report_ui(n_passed, n_failed, n_warned,
                        validation_results) %>%
-    shiny.semantic::uirender(., width = "100%", height = "100%")
+    shiny.semantic::uirender(., width = "100%", height = "100%") %>%
+    htmltools::tagList(
+      htmlwidgets::onStaticRenderComplete(post_render_js)
+    )
 }
 
 #' @export
