@@ -21,3 +21,9 @@ package/*.tar.gz
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+
+# testing files
+validation_report.html
+validation_report.csv
+results.csv
+

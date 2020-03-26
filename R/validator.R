@@ -81,7 +81,7 @@ Validator <- R6::R6Class(
         sink()
       }
       if (type == "csv") {
-        self$validation_results %>%
+        private$validation_results %>%
           tidyr::unnest(error_df, keep_empty = TRUE) %>%
           write.csv(file = full_path)
       }

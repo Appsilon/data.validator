@@ -2,6 +2,8 @@ library(dplyr)
 library(assertr)
 library(datavalidator)
 validator <- Validator$new()
+
+validator <- create_validator()
 mtcars %>%
   chain_start(store_success = TRUE) %>%
   assert(description = "mpg:carb shouldn't have missing values", not_na, mpg:carb) %>%
@@ -19,11 +21,18 @@ mtcars %>%
   verify(description = "drat should be positive", drat > 0) %>%
   verify(description = "drat should have values over 3", drat > 3) %>%
   chain_end(error_fun = error_append) %>%
-  validator$add_validations()
+  add_validation()
 
-#validator$save_html_report(summary = c("warning", "error", "success"))
+validator$get_validations()
+
+validator$save_html_report(summary = c("warning", "error", "success"))
+
+validator$save_html_report(summary = c("warning", "error"))
+
 validator$save_html_report(
   system.file("rmarkdown/templates/raw/skeleton/skeleton.Rmd", package = "datavalidator"),
   summary = c("warning", "error", "success"),
   render_report_ui = render_raw_report_ui
 )
+
+validator$save_log("results", type = "csv")
