@@ -1,7 +1,6 @@
 library(dplyr)
 library(assertr)
 library(datavalidator)
-validator <- Validator$new()
 
 validator <- create_validator()
 mtcars %>%
@@ -21,11 +20,11 @@ mtcars %>%
   verify(description = "drat should be positive", drat > 0) %>%
   verify(description = "drat should have values over 3", drat > 3) %>%
   chain_end(error_fun = error_append) %>%
-  add_validation()
+  add_results(validator)
 
-validator$get_validations()
+get_results(validator)
 
-validator$save_html_report(summary = c("warning", "error", "success"))
+save_report(validator, summary = c("warning", "error", "success"))
 
 validator$save_html_report(summary = c("warning", "error"))
 

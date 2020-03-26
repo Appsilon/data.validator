@@ -249,7 +249,7 @@ get_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_resu
     validation_results %>% dplyr::filter(.data$table_name == .x) %>%
       display_results(n_passed, n_failed, n_warned)
   }) %>% shiny::div()
-  shiny::div(summary_table, html_report)
+  htmltools::div(summary_table, html_report)
 }
 
 #' @export

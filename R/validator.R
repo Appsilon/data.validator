@@ -1,17 +1,3 @@
-#' Class providing object with methods for simple data validation reports.
-#' @docType class
-#' @return Object of \code{\link{R6Class}} with methods for simple data validation reports.
-#' @export
-#' @keywords data
-#' @format \code{\link{R6Class}} object.
-#' @examples
-#' validator <- Validator$new()
-#' @section Methods:
-#' \describe{
-#' \item{\code{add_validations(data)}}{This method adds \code{assertr} validation results to the report.}
-#' \item{\code{get_validations()}}{This method returns list of current validations.}
-#' \item{\code{generate_html_report()}}{This method generates \code{HTML} validation report.}
-#' \item{\code{save_log(output_path = "validation_log")}}{This method saves report log into \code{output_path}}}
 Validator <- R6::R6Class(
   classname = "Validator",
   public = list(
@@ -94,3 +80,31 @@ Validator <- R6::R6Class(
     validation_results = dplyr::tibble()
   )
 )
+
+#' @export
+create_validator <- function() {
+  Validator$new()
+}
+
+#' @export
+add_results <- function(data, validator, name = NULL) {
+  validator$add_validations(data, name)
+}
+
+#' @export
+get_results <- function(validator) {
+  validator$get_validations()
+}
+
+#' @export
+save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
+  summary = c("error", "warning", "success"), render_report_ui = render_semantic_report_ui,
+  template = system.file("rmarkdown/templates/semantic/skeleton/skeleton.Rmd", package = "datavalidator")) {
+
+  validator$save_html_report(template, output_file, output_dir, summary, render_report_ui)
+}
+
+#' @export
+save_summary <- function(validator, file_name = "validation_log", type = "txt") {
+  validator$save_log(file_name, type)
+}
