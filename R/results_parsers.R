@@ -16,6 +16,9 @@ get_assertion_type <- function(assertion) {
 }
 
 parse_errors_to_df <- function(data) {
+  if (is.null(attr(data, error_class))) {
+    return(NULL)
+  }
   attr(data, error_class) %>%
     purrr::map_df(
       ~ tibble::tibble(
@@ -34,6 +37,9 @@ parse_errors_to_df <- function(data) {
 }
 
 parse_successes_to_df <- function(data) {
+  if (is.null(attr(data, success_class))) {
+    return(NULL)
+  }
   attr(data, success_class) %>%
     purrr::map_df(
       ~ tibble::tibble(
