@@ -11,7 +11,7 @@ save_report(
   summary = c("error", "warning", "success"),
   ui_constructor = render_semantic_report_ui,
   template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package
-    = "datavalidator")
+    = "data.validator")
 )
 }
 \arguments{
@@ -28,12 +28,12 @@ that is passed to \code{ui_contructor} function as NULL - helpful if you want to
 to include related information in report or not (comparing to value 0 that means there were no results
 of related type).}
 
-\item{template}{Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
-template to see basic construction - the one is used as a default template.}
-
-\item{ui_contructor}{Function of four arguments \code{n_failed}, \code{n_warned} or \code{n_passed} and
+\item{ui_constructor}{Function of four arguments \code{n_failed}, \code{n_warned} or \code{n_passed} and
 \code{validation_reults} that generates HTML code or HTML widget that should be used to generate report
 content. See \code{custom_report} example.}
+
+\item{template}{Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
+template to see basic construction - the one is used as a default template.}
 }
 \description{
 Saving results as a HTML report

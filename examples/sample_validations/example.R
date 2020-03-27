@@ -1,6 +1,6 @@
 library(dplyr)
 library(assertr)
-library(datavalidator)
+library(data.validator)
 
 validator <- create_validator()
 mtcars %>%

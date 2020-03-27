@@ -55,7 +55,7 @@ Validator <- R6::R6Class(
       render_report_ui(n_passed, n_failed, n_warned, validation_results)
     },
     save_html_report = function(
-      template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "datavalidator"),
+      template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"),
       output_file = "validation_report.html", output_dir = getwd(), summary = c("error", "warning", "success"),
       report_ui_constructor = render_semantic_report_ui, ...) {
 
@@ -107,7 +107,7 @@ create_validator <- function() {
 #'   them inside usable table.
 #'
 #' @param data Data that was validated.
-#' @param validator Validator object to store results to created with \link{create_results}.
+#' @param validator Validator object to store results to created with \link{create_validator}.
 #' @param name Optional name for data that was validated.
 #'   By default the name of first object used in validation chain.
 #' @export
@@ -143,7 +143,7 @@ get_results <- function(validator, unnest = FALSE) {
 #' @param method Function that should be used to save results table (write.csv default).
 #' @param ... Remaining parameters passed to \code{method}.
 #' @export
-save_results <- function(validator, file_name = "results.csv", method = write.csv, ...) {
+save_results <- function(validator, file_name = "results.csv", method = utils::write.csv, ...) {
   validator$save_results(file_name, method, ...)
 }
 
@@ -158,7 +158,7 @@ save_results <- function(validator, file_name = "results.csv", method = write.cs
 #'   that is passed to \code{ui_contructor} function as NULL - helpful if you want to distinguish whether
 #'   to include related information in report or not (comparing to value 0 that means there were no results
 #'   of related type).
-#' @param ui_contructor Function of four arguments \code{n_failed}, \code{n_warned} or \code{n_passed} and
+#' @param ui_constructor Function of four arguments \code{n_failed}, \code{n_warned} or \code{n_passed} and
 #'   \code{validation_reults} that generates HTML code or HTML widget that should be used to generate report
 #'   content. See \code{custom_report} example.
 #' @param template Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
@@ -166,7 +166,7 @@ save_results <- function(validator, file_name = "results.csv", method = write.cs
 #' @export
 save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
   summary = c("error", "warning", "success"), ui_constructor = render_semantic_report_ui,
-  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "datavalidator")) {
+  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator")) {
 
   validator$save_html_report(template, output_file, output_dir, summary, ui_constructor)
 }

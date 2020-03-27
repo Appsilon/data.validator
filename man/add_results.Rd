@@ -9,7 +9,7 @@ add_results(data, validator, name = NULL)
 \arguments{
 \item{data}{Data that was validated.}
 
-\item{validator}{Validator object to store results to created with \link{create_results}.}
+\item{validator}{Validator object to store results to created with \link{create_validator}.}
 
 \item{name}{Optional name for data that was validated.
 By default the name of first object used in validation chain.}

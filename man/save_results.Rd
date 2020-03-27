@@ -4,7 +4,12 @@
 \alias{save_results}
 \title{Saving results table to external file}
 \usage{
-save_results(validator, file_name = "results.csv", method = write.csv, ...)
+save_results(
+  validator,
+  file_name = "results.csv",
+  method = utils::write.csv,
+  ...
+)
 }
 \arguments{
 \item{validator}{Validator object that stores validation results. See \link{get_results}.}

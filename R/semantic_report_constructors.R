@@ -148,6 +148,9 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
 #' Displays results of validations.
 #' @description Displays results of validations.
 #' @param data Report data.
+#' @param n_passed Number of successful assertions.
+#' @param n_failed Number of warning assertions.
+#' @param n_warned Number of violation assertions.
 #' @return Validation report.
 display_results <- function(data, n_passed, n_failed, n_warned) {
   results_failed <- data %>%
@@ -270,6 +273,14 @@ post_render_js <- "
   });
 "
 
+#' Render semantic version of report
+#'
+#' @description Renders content of semantic report version.
+#'
+#' @param n_passed Number of successful assertions.
+#' @param n_failed Number of warning assertions.
+#' @param n_warned Number of violation assertions.
+#' @param validation_results Validation results table (see \link{get_results}).
 #' @export
 render_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
   get_semantic_report_ui(n_passed, n_failed, n_warned,
@@ -280,6 +291,14 @@ render_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_r
     )
 }
 
+#' Render simple version of report
+#'
+#' @description Renders content of simple report version that prints \code{validation_results} table.
+#'
+#' @param n_passed Number of successful assertions.
+#' @param n_failed Number of warning assertions.
+#' @param n_warned Number of violation assertions.
+#' @param validation_results Validation results table (see \link{get_results}).
 #' @export
 render_raw_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
   types <- c(

@@ -95,7 +95,7 @@ data.validator automatically filters out `validation_results` passed to the func
 In this example we create custom report that shows validation results of checking wheter population across polish counties fits within 3 standard deviations. The results are shown on leaflet map.
 
 ```
-library(datavalidator)
+library(data.validator)
 library(magrittr)
 library(assertr)
 

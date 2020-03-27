@@ -8,6 +8,12 @@ display_results(data, n_passed, n_failed, n_warned)
 }
 \arguments{
 \item{data}{Report data.}
+
+\item{n_passed}{Number of successful assertions.}
+
+\item{n_failed}{Number of warning assertions.}
+
+\item{n_warned}{Number of violation assertions.}
 }
 \value{
 Validation report.

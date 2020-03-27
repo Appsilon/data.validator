@@ -1,4 +1,4 @@
-library(datavalidator)
+library(data.validator)
 library(magrittr)
 library(assertr)
 

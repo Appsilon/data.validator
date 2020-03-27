@@ -16,6 +16,7 @@ get_assertion_type <- function(assertion) {
 }
 
 parse_errors_to_df <- function(data) {
+  warning(attr(data, error_class))
   if (is.null(attr(data, error_class))) {
     return(NULL)
   }
