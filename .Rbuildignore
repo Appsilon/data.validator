@@ -9,4 +9,5 @@ environment
 .git
 .github
 package
-examples
+assets
+

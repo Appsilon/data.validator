@@ -76,7 +76,7 @@ print(validator)
 save_report(validator)
 ```
 
-![](inst/examples/semantic_report_example.gif)
+![](assets/semantic_report_example.gif)
 
 ## Creating custom reports
 
@@ -137,7 +137,7 @@ save_report(validator, ui_constructor = render_leaflet_report)
 ```
 
 The resulting report
-![](inst/examples/custom_report/custom_report.gif)
+![](assets/custom_report/custom_report_example.gif)
 
 # Using custom report templates
 
@@ -162,5 +162,25 @@ params$generate_report_html(params$summary, params$report_ui_constructor)
 If you want to use the template as a base you can use RStudio.
 Load the package and use `File -> New File -> R Markdown -> From template -> Simple structure for HTML report summary`.
 Then modify the template adding custom title, or graphics with leaving the below points unchanged and specify the path inside `save_report`'s `template` parameter.
+
+# How can the package be used in production
+
+The package was successfuly used by Appsilon in production enviroment for protecting Shiny Apps against beeing run on incorrect data.
+
+The workflow was based on the below steps:
+1. Running [RStudio Connect Scheduler](https://rstudio.com/products/connect/) daily.
+2. Scheduler sources the data from PostgreSQL table and validates it based on predefined rules.
+3. Based on validation results a new `data.validator` report is created.
+4a. When data is violated:
+- data provider and person responsible for data quality receives report via email
+- thanks to `assertr` functionality, the report is easily understandable both for technical, and non-technical person
+- data provider makes required data fixes
+4b. When data is correct:
+- a specific trigger is sent in order to reload Shiny data 
+
+The workflow is presented on below graphics
+![](assets/workflow.png)
+
+# More examples
 
 For more options check package documentation or [examples](inst/examples).
