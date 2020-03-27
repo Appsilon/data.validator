@@ -1,4 +1,4 @@
-Package: datavalidator
+Package: data.validator
 Type: Package
 Title: Tools for automatic validation report
 Version: 0.1.1
@@ -20,6 +20,7 @@ Imports:
     utils,
     R6,
     rlang,
-    rmarkdown
+    rmarkdown,
+    assertr (>= 2.6.9000)
 Suggests:
     testthat

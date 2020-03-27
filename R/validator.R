@@ -92,26 +92,77 @@ Validator <- R6::R6Class(
   )
 )
 
+#' Create new validator object
+#'
+#' @description  The object returns R6 class environment resposible for storing validation results.
 #' @export
 create_validator <- function() {
   Validator$new()
 }
 
+#' Add validation results to validator object
+#'
+#' @description This function adds results to validator object with aggregating summary of
+#'   success, error and warning checks. Moreover it parses assertr results attributes and stores
+#'   them inside usable table.
+#'
+#' @param data Data that was validated.
+#' @param validator Validator object to store results to created with \link{create_results}.
+#' @param name Optional name for data that was validated.
+#'   By default the name of first object used in validation chain.
 #' @export
 add_results <- function(data, validator, name = NULL) {
   validator$add_validations(data, name)
 }
 
+#' Get validation results
+#'
+#' @description The response is a list containing information about successful, failed, warning assertions and
+#'   the table stores important information about validation results. Those are:
+#'   \itemize{
+#'     \item table_name - name of validated table
+#'     \item assertion.id - id used for each assertion
+#'     \item description - assertion description
+#'     \item num.violations - number of violations (assertion and column specific)
+#'     \item call - assertion call
+#'     \item message - assertion result message for specific column
+#'     \item type - error, warning or success
+#'     \item error_df - nested table storing details about error or warning result (like vilated indexes and valies)
+#'   }
+#' @param validator Validator object that stores validation results. See \link{add_results}.
+#' @param unnest If TRUE, error_df table is unnested. Results with remaining columns duplicated in table.
 #' @export
 get_results <- function(validator, unnest = FALSE) {
   validator$get_validations(unnest)
 }
 
+#' Saving results table to external file
+#'
+#' @param validator Validator object that stores validation results. See \link{get_results}.
+#' @param file_name Name of the resulting file (including extension).
+#' @param method Function that should be used to save results table (write.csv default).
+#' @param ... Remaining parameters passed to \code{method}.
 #' @export
 save_results <- function(validator, file_name = "results.csv", method = write.csv, ...) {
   validator$save_results(file_name, method, ...)
 }
 
+#' Saving results as a HTML report
+#'
+#' @param validator Validator object that stores validation results.
+#' @param output_file Html file name to write report to.
+#' @param output_dir Report directory.
+#' @param summary Vector storing at least one of \code{"error"}, \code{"warning"}, \code{"success"}.
+#'   Results with using validation filtered out results table in report.
+#'   Moreover, skipping one of the options sets up \code{n_failed}, \code{n_warned} or \code{n_passed}
+#'   that is passed to \code{ui_contructor} function as NULL - helpful if you want to distinguish whether
+#'   to include related information in report or not (comparing to value 0 that means there were no results
+#'   of related type).
+#' @param ui_contructor Function of four arguments \code{n_failed}, \code{n_warned} or \code{n_passed} and
+#'   \code{validation_reults} that generates HTML code or HTML widget that should be used to generate report
+#'   content. See \code{custom_report} example.
+#' @param template Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
+#'   template to see basic construction - the one is used as a default template.
 #' @export
 save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
   summary = c("error", "warning", "success"), ui_constructor = render_semantic_report_ui,
@@ -120,6 +171,11 @@ save_report <- function(validator, output_file = "validation_report.html", outpu
   validator$save_html_report(template, output_file, output_dir, summary, ui_constructor)
 }
 
+#' Save simple validation summary in text file
+#'
+#' @description Saves \code{print(validator)} output inside text file.
+#' @param validator Validator object that stores validation results.
+#' @param file_name Name of the resulting file (including extension).
 #' @export
 save_summary <- function(validator, file_name = "validation_log.txt") {
   validator$save_log(file_name)
