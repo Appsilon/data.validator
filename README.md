@@ -190,4 +190,4 @@ The workflow is presented on below graphics
 
 # More examples
 
-For more options check package documentation or [examples](inst/examples).
+For more options check package documentation or [examples](examples).
