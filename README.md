@@ -96,7 +96,19 @@ population <- read.csv("population.csv", colClasses = c("character", "character"
 population %>%
   insist(within_n_sds(3), total, success_fun = success_append, error_fun = error_append) %>%
   add_results(validator)
+
 validator
+
+# Validation summary: 
+#  Number of successful validations: 0
+#  Number of failed validations: 1
+#  Number of validations with warnings: 0
+# Advanced view: 
+# 
+# 
+# |table_name |description |type  | total_violations|
+# |:----------|:-----------|:-----|----------------:|
+# |population |NA          |error |                6|
 
 render_leaflet_report <- function(n_passed, n_failed, n_warned, validation_results) {
   states <- rgdal::readOGR("counties.shp", GDAL1_integer64_policy = TRUE, verbose = FALSE)
