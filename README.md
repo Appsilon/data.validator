@@ -1,3 +1,10 @@
+<link href="http://fonts.googleapis.com/css?family=Maven+Pro:400,700|Inconsolata" rel="stylesheet" type="text/css"> <link href='docs/style.css' rel='stylesheet' type='text/css'>
+
+[![Codecov test coverage](https://codecov.io/gh/Appsilon/data.validator/branch/master/graph/badge.svg)](https://codecov.io/gh/Appsilon/shiny.info?branch=master)
+
+data.validator
+==============
+
 # Description
 
 `data.validator` is a set of tools for creating reports based on [assertr's](https://github.com/ropensci/assertr) validation results.
