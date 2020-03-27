@@ -170,11 +170,11 @@ The package was successfuly used by Appsilon in production enviroment for protec
 The workflow was based on the below steps:
 1. Running [RStudio Connect Scheduler](https://rstudio.com/products/connect/) daily.
 2. Scheduler sources the data from PostgreSQL table and validates it based on predefined rules.
-3. Based on validation results a new `data.validator` report is created.
+3. Based on validation results a new `data.validator` report is created.  
 4a. When data is violated:
 - data provider and person responsible for data quality receives report via email
 - thanks to `assertr` functionality, the report is easily understandable both for technical, and non-technical person
-- data provider makes required data fixes
+- data provider makes required data fixes  
 4b. When data is correct:
 - a specific trigger is sent in order to reload Shiny data 
 
