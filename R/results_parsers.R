@@ -32,8 +32,8 @@ parse_errors_to_df <- function(data) {
         error_df = list(.$error_df)
       )
     ) %>%
-    dplyr::group_by(assertion.id, description) %>%
-    dplyr::mutate(type = type[1]) %>% # fixes simple assertr warning assignment
+    dplyr::group_by(.data$assertion.id, .data$description) %>%
+    dplyr::mutate(type = .data$type[1]) %>% # fixes simple assertr warning assignment
     dplyr::ungroup()
 }
 
@@ -64,8 +64,8 @@ parse_results_to_df <- function(data) {
 
 get_results_number <- function(results) {
   results %>%
-    dplyr::select(assertion.id, type) %>%
+    dplyr::select(.data$assertion.id, .data$type) %>%
     dplyr::distinct() %>%
-    dplyr::pull(type) %>%
+    dplyr::pull(.data$type) %>%
     table()
 }
