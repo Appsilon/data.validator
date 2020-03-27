@@ -1,6 +1,6 @@
 # Description
 
-`datavalidator` is a set of tools for creating reports based on [assertr's](https://github.com/ropensci/assertr) validation results.
+`data.validator` is a set of tools for creating reports based on [assertr's](https://github.com/ropensci/assertr) validation results.
 
 # How to validate data with assertr
 
@@ -33,6 +33,8 @@ validator <- create_validator()
 
 2. Add results to created object
 ```
+library(assertr)
+library(dplyr)
 mtcars %>%
   chain_start(store_success = TRUE) %>%
   assert(description = "vs and am values equal 0 or 2 only", in_set(c(0, 2)), vs, am) %>%
@@ -74,7 +76,7 @@ print(validator)
 save_report(validator)
 ```
 
-![](examples/semantic_report_example.gif)
+![](inst/examples/semantic_report_example.gif)
 
 ## Creating custom reports
 
@@ -135,12 +137,12 @@ save_report(validator, ui_constructor = render_leaflet_report)
 ```
 
 The resulting report
-![](examples/custom_report/custom_report.gif)
+![](inst/examples/custom_report/custom_report.gif)
 
 # Using custom report templates
 
 In order to generate rmarkdown report data.validator uses predefined report template.
-You may find it [here](inst/rmarkdown/templates/srandard/skeleton/skeleton.Rmd).
+You may find it [here](inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd).
 
 The report contains basic requirements for each report template used by `save_report` function:
 - defining params
@@ -161,4 +163,4 @@ If you want to use the template as a base you can use RStudio.
 Load the package and use `File -> New File -> R Markdown -> From template -> Simple structure for HTML report summary`.
 Then modify the template adding custom title, or graphics with leaving the below points unchanged and specify the path inside `save_report`'s `template` parameter.
 
-For more options check package documentation or [examples](examples).
+For more options check package documentation or [examples](inst/examples).
