@@ -21,8 +21,8 @@ Validator <- R6::R6Class(
     add_validations = function(data, name = NULL) {
       object_name <- ifelse(!is.null(name), name, get_first_name(data))
       results <- parse_results_to_df(data) %>%
-        mutate(table_name = object_name) %>%
-        select(table_name, everything())
+        dplyr::mutate(table_name = object_name) %>%
+        dplyr::select(table_name, everything())
       n_results <- get_results_number(results)
       private$n_failed <- sum(private$n_failed, n_results[error_id], na.rm = TRUE)
       private$n_warned <- sum(private$n_warned, n_results[warning_id], na.rm = TRUE)
@@ -30,9 +30,18 @@ Validator <- R6::R6Class(
       private$validation_results <- dplyr::bind_rows(private$validation_results, results)
       invisible(self)
     },
-    get_validations = function() {
-      list(n_failed = private$n_failed, n_warned = private$n_warned,
-           n_passed = private$n_passed, validation_results = private$validation_results)
+    get_validations = function(unnest = FALSE) {
+      results <- list(
+        n_failed = private$n_failed,
+        n_warned = private$n_warned,
+        n_passed = private$n_passed,
+        validation_results = private$validation_results
+      )
+      if (unnest) {
+        results$validation_results <- results$validation_results %>%
+          tidyr::unnest(error_df, keep_empty = TRUE)
+      }
+      results
     },
     generate_html_report = function(summary, render_report_ui) {
       n_passed <- NULL
@@ -42,7 +51,7 @@ Validator <- R6::R6Class(
       if (warning_id %in% summary) n_warned <- private$n_warned
       if (error_id %in% summary) n_failed <- private$n_failed
       validation_results <- private$validation_results %>%
-        filter(type %in% summary)
+        dplyr::filter(type %in% summary)
       render_report_ui(n_passed, n_failed, n_warned, validation_results)
     },
     save_html_report = function(
@@ -54,6 +63,8 @@ Validator <- R6::R6Class(
         input = template,
         output_format = "html_document", output_file = output_file,
         output_dir = output_dir,
+        knit_root_dir = getwd(),
+        output_option = list(message = FALSE, warning = FALSE),
         params = list(
           generate_report_html = self$generate_html_report,
           summary = summary,
@@ -92,8 +103,8 @@ add_results <- function(data, validator, name = NULL) {
 }
 
 #' @export
-get_results <- function(validator) {
-  validator$get_validations()
+get_results <- function(validator, unnest = FALSE) {
+  validator$get_validations(unnest)
 }
 
 #' @export
