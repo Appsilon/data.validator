@@ -4,8 +4,8 @@
 #' @param ... Additional agruments inside segment.
 #' @return Segment.
 segment <- function(title, ...) {
-  shiny::div(class = "ui raised segment", style = "margin-bottom: 0.5em",
-             shiny::div(class = "ui demo ribbon label blue", title),
+  htmltools::div(class = "ui raised segment", style = "margin-bottom: 0.5em",
+             htmltools::div(class = "ui demo ribbon label blue", title),
              ...
   )
 }
@@ -19,21 +19,21 @@ prepare_modal_content <- function(error) {
   errors_number <- seq_along(error$error_df[[1]])
   purrr::map(errors_number, ~ {
     data_part <-
-      shiny::div(style = "padding-left: 1em;",
-                 shiny::div(class = "ui header", "Violated data (sample)"),
-                 shiny:: HTML(knitr::kable(utils::head(error$error_df[[1]][[.x]]), "html", align = NULL, table.attr = "class=\"ui cellable table\"")),
-                 shiny::div(class = "ui horizontal divider", shiny.semantic::uiicon("flag"))
+      htmltools::div(style = "padding-left: 1em;",
+                 htmltools::div(class = "ui header", "Violated data (sample)"),
+                 htmltools::HTML(knitr::kable(utils::head(error$error_df[[1]][[.x]]), "html", align = NULL, table.attr = "class=\"ui cellable table\"")),
+                 htmltools::div(class = "ui horizontal divider", shiny.semantic::uiicon("flag"))
       )
-    shiny::tagList(
-      shiny::tags$table(class = "ui definition table",
-                        shiny::tags$tbody(
-                          shiny::tags$tr(
-                            shiny::tags$td(shiny::tags$h6("Error message")),
-                            shiny::tags$td(class = "middle aligned", shiny::tags$code(style="white-space: pre-wrap; font-size: 0.85em", error$message[[1]][.x]))
+    htmltools::tagList(
+      htmltools::tags$table(class = "ui definition table",
+                        htmltools::tags$tbody(
+                          htmltools::tags$tr(
+                            htmltools::tags$td(htmltools::tags$h6("Error message")),
+                            htmltools::tags$td(class = "middle aligned", htmltools::tags$code(style="white-space: pre-wrap; font-size: 0.85em", error$message[[1]][.x]))
                           ),
-                          shiny::tags$tr(
-                            shiny::tags$td(shiny::tags$h6("Violations")),
-                            shiny::tags$td(class = "middle aligned", error$num.violations[[1]][.x])
+                          htmltools::tags$tr(
+                            htmltools::tags$td(htmltools::tags$h6("Violations")),
+                            htmltools::tags$td(class = "middle aligned", error$num.violations[[1]][.x])
                           )
                         )
       ),
@@ -64,11 +64,11 @@ make_table_row <- function(results, type, mark) {
     onclick <- sprintf("$('#%s').modal('show');", id)
     modal_header <- paste0(data_name, ": ", description)
     modal <-
-      shiny::div(id = id, class = "ui longer test modal visible scrolling",
-                 shiny::div(class = "header", shiny::tags$h5(modal_header)),
-                 shiny::div(class = "scrolling content",
-                            shiny::div(class = "description",
-                                       shiny::tagList(
+      htmltools::div(id = id, class = "ui longer test modal visible scrolling",
+                 htmltools::div(class = "header", htmltools::tags$h5(modal_header)),
+                 htmltools::div(class = "scrolling content",
+                            htmltools::div(class = "description",
+                                       htmltools::tagList(
                                          prepare_modal_content(results)
                                        )
                             )
@@ -76,17 +76,17 @@ make_table_row <- function(results, type, mark) {
       )
   }
 
-  shiny::tags$tr(
-    shiny::tags$td(class = "left aligned",
-                   shiny::tags$h6(description)
+  htmltools::tags$tr(
+    htmltools::tags$td(class = "left aligned",
+                   htmltools::tags$h6(description)
     ),
-    shiny::tags$td(class = "center aligned",
+    htmltools::tags$td(class = "center aligned",
                    shiny.semantic::uiicon(mark)
     ),
-    shiny::tags$td(class = "center aligned",
-                   shiny::tagList(
+    htmltools::tags$td(class = "center aligned",
+                   htmltools::tagList(
                      modal,
-                     shiny::tags$button(class = button_class, "Show", onclick = onclick)
+                     htmltools::tags$button(class = button_class, "Show", onclick = onclick)
                    )
     )
   )
@@ -104,15 +104,15 @@ result_table <- function(results, type, mark) {
   } else {
     results <- dplyr::group_by(results, .data$table_name, .data$assertion.id, .data$description) %>%
       dplyr::summarise_at(dplyr::vars(-dplyr::group_cols()), list)
-    shiny::tags$table(class = "ui padded striped table",
-                      shiny::tags$thead(
-                        shiny::tags$tr(
-                          shiny::tags$th(class = "twelve wide left aligned", shiny::tags$h5("Validation rule")),
-                          shiny::tags$th(class = "one wide center aligned", shiny::tags$h5("Status")),
-                          shiny::tags$th(class = "three wide center aligned", shiny::tags$h5("Error details"))
+    htmltools::tags$table(class = "ui padded striped table",
+                      htmltools::tags$thead(
+                        htmltools::tags$tr(
+                          htmltools::tags$th(class = "twelve wide left aligned", htmltools::tags$h5("Validation rule")),
+                          htmltools::tags$th(class = "one wide center aligned", htmltools::tags$h5("Status")),
+                          htmltools::tags$th(class = "three wide center aligned", htmltools::tags$h5("Error details"))
                         )
                       ),
-                      shiny::tags$tbody(
+                      htmltools::tags$tbody(
                         purrr::map(1:nrow(results), ~ make_table_row(results[.x, ], type, mark))
                       )
     )
@@ -124,8 +124,8 @@ result_table <- function(results, type, mark) {
 #' @param ... Additional agruments inside accordion container.
 #' @return Accordion container.
 make_accordion_container <- function(...) {
-  shiny::tagList(
-    shiny::div(class = "ui styled accordion", style = "width:100%", ...)
+  htmltools::tagList(
+    htmltools::div(class = "ui styled accordion", style = "width:100%", ...)
   )
 
 }
@@ -144,10 +144,10 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
   if (active) {
     state <- "active"
   }
-  shiny::tagList(
-    shiny::div(class = paste("title", state), shiny.semantic::uiicon("dropdown"),
-               shiny::tagList(shiny.semantic::uilabel(length(unique(results$assertion.id)), type = paste(color, "circular tiny")), label)),
-    shiny::div(class = paste("content", state), result_table(results, type, mark))
+  htmltools::tagList(
+    htmltools::div(class = paste("title", state), shiny.semantic::uiicon("dropdown"),
+               htmltools::tagList(shiny.semantic::uilabel(length(unique(results$assertion.id)), type = paste(color, "circular tiny")), label)),
+    htmltools::div(class = paste("content", state), result_table(results, type, mark))
   )
 }
 
@@ -180,7 +180,7 @@ display_results <- function(data, n_passed, n_failed, n_warned) {
   segment_title <- data_name
   code <- segment(
     segment_title,
-    shiny::p(),
+    htmltools::p(),
     make_accordion_container(
       if (!is.null(n_failed)) make_accordion_element(
         results = results_failed,
@@ -214,10 +214,10 @@ display_results <- function(data, n_passed, n_failed, n_warned) {
 #' @param label Label to display.
 #' @return Summary table row.
 create_summary_row <- function(id, number, color, label) {
-  list(shiny::tags$td(id = id,
+  list(htmltools::tags$td(id = id,
                  class = "two wide right aligned",
                  shiny.semantic::uilabel(number, type = paste(color, "circular huge"))),
-  shiny::tags$td(class = "three wide left aligned", shiny::tags$h2(label)))
+  htmltools::tags$td(class = "three wide left aligned", htmltools::tags$h2(label)))
 }
 
 #' Create summary table.
@@ -235,9 +235,9 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
   if (n_warns == 0) {
     warns_label_color <- ""
   }
-  code <- shiny::tags$table(id = "summary", class = "ui padded table",
-                            shiny::tags$tbody(
-                              shiny::tags$tr(
+  code <- htmltools::tags$table(id = "summary", class = "ui padded table",
+                            htmltools::tags$tbody(
+                              htmltools::tags$tr(
                                 if (!is.null(n_fails)) create_summary_row("failed_total", n_fails, fails_label_color, "Failed"),
                                 if (!is.null(n_warns)) create_summary_row("warned_total", n_warns, warns_label_color, "Warnings"),
                                 if (!is.null(n_passes)) create_summary_row("passed_total", n_passes, "green", "Passed")
@@ -306,11 +306,11 @@ render_raw_report_ui <- function(n_passed, n_failed, n_warned, validation_result
     if(!is.null(n_warned)) warning_id,
     if(!is.null(n_failed)) error_id
   )
-  shiny::tagList(
-    if(!is.null(n_passed)) shiny::tags$div("Passed rules:", n_passed),
-    if(!is.null(n_failed)) shiny::tags$div("Failed rules:", n_failed),
-    if(!is.null(n_warned)) shiny::tags$div("Warning rules:", n_warned),
-    shiny:: HTML(
+  htmltools::tagList(
+    if(!is.null(n_passed)) htmltools::tags$div("Passed rules:", n_passed),
+    if(!is.null(n_failed)) htmltools::tags$div("Failed rules:", n_failed),
+    if(!is.null(n_warned)) htmltools::tags$div("Warning rules:", n_warned),
+    htmltools::HTML(
       knitr::kable(
         tidyr::unnest(validation_results, .data$error_df, keep_empty = TRUE) %>%
           dplyr::filter(.data$type %in% types),
