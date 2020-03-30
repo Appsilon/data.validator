@@ -4,7 +4,14 @@
 \alias{make_accordion_element}
 \title{Create a UI accordion element.}
 \usage{
-make_accordion_element(results, color = "green", label, active = FALSE, mark)
+make_accordion_element(
+  results,
+  color = "green",
+  label,
+  active = FALSE,
+  type,
+  mark
+)
 }
 \arguments{
 \item{results}{Results to display.}
@@ -14,6 +21,8 @@ make_accordion_element(results, color = "green", label, active = FALSE, mark)
 \item{label}{Label.}
 
 \item{active}{Is active?}
+
+\item{type}{Result type.}
 
 \item{mark}{Icon to display.}
 }

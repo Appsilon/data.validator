@@ -16,43 +16,45 @@ segment <- function(title, ...) {
 #' @return Modal content.
 prepare_modal_content <- function(error) {
   data_part <- NULL
-  if (!is.null(error$error_df[[1]])) {
+  errors_number <- seq_along(error$error_df[[1]])
+  purrr::map(errors_number, ~ {
     data_part <-
       shiny::div(style = "padding-left: 1em;",
-                 shiny::div(class = "ui header", "Violated data"),
-                 shiny:: HTML(knitr::kable(utils::head(error$error_df[[1]]), "html", align = NULL, table.attr = "class=\"ui cellable table\"")),
+                 shiny::div(class = "ui header", "Violated data (sample)"),
+                 shiny:: HTML(knitr::kable(utils::head(error$error_df[[1]][[.x]]), "html", align = NULL, table.attr = "class=\"ui cellable table\"")),
                  shiny::div(class = "ui horizontal divider", shiny.semantic::uiicon("flag"))
       )
-  }
-  shiny::tagList(
-    shiny::tags$table(class = "ui definition table",
-                      shiny::tags$tbody(
-                        shiny::tags$tr(
-                          shiny::tags$td(shiny::tags$h6("Error message")),
-                          shiny::tags$td(class = "middle aligned", shiny::tags$code(style="white-space: pre-wrap; font-size: 0.85em", error$message))
-                        ),
-                        shiny::tags$tr(
-                          shiny::tags$td(shiny::tags$h6("Violations")),
-                          shiny::tags$td(class = "middle aligned", error$num.violations)
+    shiny::tagList(
+      shiny::tags$table(class = "ui definition table",
+                        shiny::tags$tbody(
+                          shiny::tags$tr(
+                            shiny::tags$td(shiny::tags$h6("Error message")),
+                            shiny::tags$td(class = "middle aligned", shiny::tags$code(style="white-space: pre-wrap; font-size: 0.85em", error$message[[1]][.x]))
+                          ),
+                          shiny::tags$tr(
+                            shiny::tags$td(shiny::tags$h6("Violations")),
+                            shiny::tags$td(class = "middle aligned", error$num.violations[[1]][.x])
+                          )
                         )
-                      )
-    ),
-    data_part
-  )
+      ),
+      data_part
+    )
+  }) %>% htmltools::tagList()
 }
 
 #' Create table row.
 #' @description Create table row.
 #' @param results Results to display in a row.
+#' @param type Result type.
 #' @param mark Icon to display.
 #' @return Table row.
 #' @importFrom dplyr %>%
 #' @importFrom rlang .data
-make_table_row <- function(results, mark) {
+make_table_row <- function(results, type, mark) {
   description <- results %>% dplyr::pull(.data$description)
   id <- results %>% dplyr::pull(.data$assertion.id)
   data_name <- results %>% dplyr::pull(.data$table_name)
-  result <- results %>% dplyr::pull(.data$type)
+  result <- type
   button_class <- "ui disabled button"
   onclick <- NULL
   modal <- NULL
@@ -93,12 +95,15 @@ make_table_row <- function(results, mark) {
 #' Create table with results.
 #' @description Create table with results.
 #' @param results Result to display in table.
+#' @param type Result type.
 #' @param mark Icon to display.
 #' @return Table row.
-result_table <- function(results, mark) {
+result_table <- function(results, type, mark) {
   if (nrow(results) == 0) {
     "No cases to display."
   } else {
+    results <- dplyr::group_by(results, .data$table_name, .data$assertion.id, .data$description) %>%
+      dplyr::summarise_at(dplyr::vars(-dplyr::group_cols()), list)
     shiny::tags$table(class = "ui padded striped table",
                       shiny::tags$thead(
                         shiny::tags$tr(
@@ -108,7 +113,7 @@ result_table <- function(results, mark) {
                         )
                       ),
                       shiny::tags$tbody(
-                        purrr::map(1:nrow(results), ~ make_table_row(results[.x, ], mark))
+                        purrr::map(1:nrow(results), ~ make_table_row(results[.x, ], type, mark))
                       )
     )
   }
@@ -131,17 +136,18 @@ make_accordion_container <- function(...) {
 #' @param mark Icon to display.
 #' @param label Label.
 #' @param color Color of the label icon.
+#' @param type Result type.
 #' @param active Is active?
 #' @return Accordion.
-make_accordion_element <- function(results, color = "green", label, active = FALSE, mark) {
+make_accordion_element <- function(results, color = "green", label, active = FALSE, type, mark) {
   state <- NULL
   if (active) {
     state <- "active"
   }
   shiny::tagList(
     shiny::div(class = paste("title", state), shiny.semantic::uiicon("dropdown"),
-               shiny::tagList(shiny.semantic::uilabel(nrow(results), type = paste(color, "circular tiny")), label)),
-    shiny::div(class = paste("content", state), result_table(results, mark))
+               shiny::tagList(shiny.semantic::uilabel(length(unique(results$assertion.id)), type = paste(color, "circular tiny")), label)),
+    shiny::div(class = paste("content", state), result_table(results, type, mark))
   )
 }
 
@@ -153,6 +159,7 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
 #' @param n_warned Number of violation assertions.
 #' @return Validation report.
 display_results <- function(data, n_passed, n_failed, n_warned) {
+  data_name <- data$table_name[1]
   results_failed <- data %>%
     dplyr::filter(.data$type == error_id)
   results_warning <- data %>%
@@ -170,7 +177,6 @@ display_results <- function(data, n_passed, n_failed, n_warned) {
     is_neutral_active <- TRUE
     label_color_neutral <- "blue"
   }
-  data_name <- data$table_name[1]
   segment_title <- data_name
   code <- segment(
     segment_title,
@@ -181,16 +187,19 @@ display_results <- function(data, n_passed, n_failed, n_warned) {
         color = label_color_negative,
         label = "Failed",
         mark = "red big remove",
+        type = error_id,
         active = is_negative_active),
       if (!is.null(n_warned)) make_accordion_element(
         results = results_warning,
         color = label_color_neutral,
         label = "Warnings",
         mark = "big blue exclamation circle",
+        type = warning_id,
         active = is_neutral_active),
       if (!is.null(n_passed)) make_accordion_element(
         results = results_passed,
         label = "Passed",
+        type = success_id,
         mark = "big green checkmark")
     )
   )

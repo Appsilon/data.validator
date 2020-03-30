@@ -4,10 +4,12 @@
 \alias{make_table_row}
 \title{Create table row.}
 \usage{
-make_table_row(results, mark)
+make_table_row(results, type, mark)
 }
 \arguments{
 \item{results}{Results to display in a row.}
+
+\item{type}{Result type.}
 
 \item{mark}{Icon to display.}
 }

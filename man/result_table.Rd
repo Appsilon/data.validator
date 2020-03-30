@@ -4,10 +4,12 @@
 \alias{result_table}
 \title{Create table with results.}
 \usage{
-result_table(results, mark)
+result_table(results, type, mark)
 }
 \arguments{
 \item{results}{Result to display in table.}
+
+\item{type}{Result type.}
 
 \item{mark}{Icon to display.}
 }
