@@ -252,15 +252,6 @@ get_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_resu
     validation_results %>% dplyr::filter(.data$table_name == .x) %>%
       display_results(n_passed, n_failed, n_warned)
   }) %>% htmltools::div()
-  # activate_accordion <- htmlwidgets::onStaticRenderComplete("
-  #   function activateAccordion() {
-  #     $('.ui.accordion').accordion();
-  #   }
-  #   activateAccordion();
-  #   $(document).ready(function () {
-  #     activateAccordion();
-  #   });
-  # ")
   htmltools::div(summary_table, html_report)
 }
 
