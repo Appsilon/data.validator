@@ -87,10 +87,10 @@ save_report(validator)
 
 ## Creating custom reports
 
-Define function of three parameters `n_passed`, `n_failed`, `n_warned`, `validation_results` and returns HTML object or HTML widget.
+Define function of four parameters `n_passed`, `n_failed`, `n_warned`, `validation_results` that returns HTML object or HTML widget.
 
 *Note*
-data.validator automatically filters out `validation_results` passed to the function based on `save_report`'s `summary parameter`
+data.validator automatically filters out `validation_results` passed to the function based on `save_report`'s `summary` parameter. Omitting result type inside `summary` results with pasing `NULL` values of `n_passed`, `n_failed` or `n_warned` to created function.
 
 In this example we create custom report that shows validation results of checking wheter population across polish counties fits within 3 standard deviations. The results are shown on leaflet map.
 
@@ -120,6 +120,9 @@ validator
 # |population |NA          |error |                6|
 
 render_leaflet_report <- function(n_passed, n_failed, n_warned, validation_results) {
+  if (is.null(n_failed)) {
+    return(htmltools::tags$div("Please add summary = c('error') to display vilated rules."))
+  }
   states <- rgdal::readOGR("counties.shp", GDAL1_integer64_policy = TRUE, verbose = FALSE)
   population <- read.csv("population.csv", colClasses = c("character", "character", "factor", "integer", "integer", "integer"))
   violated <- validation_results %>%

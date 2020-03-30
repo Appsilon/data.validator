@@ -11,6 +11,9 @@ population %>%
 validator
 
 render_leaflet_report <- function(n_passed, n_failed, n_warned, validation_results) {
+  if (is.null(n_failed)) {
+    return(htmltools::tags$div("Please add summary = c('error') to display vilated rules."))
+  }
   states <- rgdal::readOGR("counties.shp", GDAL1_integer64_policy = TRUE, verbose = FALSE)
   population <- read.csv("population.csv", colClasses = c("character", "character", "factor", "integer", "integer", "integer"))
   violated <- validation_results %>%
