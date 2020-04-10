@@ -24,10 +24,10 @@ mtcars %>%
 
 get_results(validator)
 
-save_report(validator, summary = c("warning", "error", "success"))
+save_report(validator)
 browseURL("validation_report.html")
 
-save_report(validator, summary = c("warning", "error"))
+save_report(validator, success = FALSE)
 browseURL("validation_report.html")
 
 save_report(validator, ui_constructor = render_raw_report_ui)

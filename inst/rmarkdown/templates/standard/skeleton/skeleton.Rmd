@@ -3,12 +3,11 @@ title: Data validation report
 output: html_document
 params:
   generate_report_html: !expr function(...) {}
-  summary: !expr c("success", "warning", "error")
-  report_ui_constructor: !expr render_raw_report_ui
+  extra_params: !expr list()
 ---
 
 #### `r format(Sys.time(), "%Y-%m-%d %H:%M:%S")`
 
 ```{r generate_report, echo = FALSE}
-params$generate_report_html(params$summary, params$report_ui_constructor)
+params$generate_report_html(params$extra_params)
 ```

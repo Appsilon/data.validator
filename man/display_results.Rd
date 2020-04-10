@@ -4,16 +4,16 @@
 \alias{display_results}
 \title{Displays results of validations.}
 \usage{
-display_results(data, n_passed, n_failed, n_warned)
+display_results(data, n_passes, n_fails, n_warns)
 }
 \arguments{
 \item{data}{Report data.}
 
-\item{n_passed}{Number of successful assertions.}
+\item{n_passes}{Number of successful assertions.}
 
-\item{n_failed}{Number of warning assertions.}
+\item{n_fails}{Number of warning assertions.}
 
-\item{n_warned}{Number of violation assertions.}
+\item{n_warns}{Number of violation assertions.}
 }
 \value{
 Validation report.

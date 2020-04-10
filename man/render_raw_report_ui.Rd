@@ -4,16 +4,21 @@
 \alias{render_raw_report_ui}
 \title{Render simple version of report}
 \usage{
-render_raw_report_ui(n_passed, n_failed, n_warned, validation_results)
+render_raw_report_ui(
+  validation_results,
+  success = TRUE,
+  warning = TRUE,
+  error = TRUE
+)
 }
 \arguments{
-\item{n_passed}{Number of successful assertions.}
-
-\item{n_failed}{Number of warning assertions.}
-
-\item{n_warned}{Number of violation assertions.}
-
 \item{validation_results}{Validation results table (see \link{get_results}).}
+
+\item{success}{Should success results be presented?}
+
+\item{warning}{Should warning results be presented?}
+
+\item{error}{Should error results be presented?}
 }
 \description{
 Renders content of simple report version that prints \code{validation_results} table.
