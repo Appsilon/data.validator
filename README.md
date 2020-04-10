@@ -10,7 +10,7 @@ data.validator
 `data.validator` is a set of tools for creating reports based on [assertr's](https://github.com/ropensci/assertr) validation results.
 
 It provides tools for creating user-friendly reports that you can send to email,
-store in logs folder, or generate automatically with RConnect.
+store in logs folder, or generate automatically with RStudio Connect.
 
 ![](assets/semantic_report_example.gif)
 
