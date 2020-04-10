@@ -1,6 +1,6 @@
-<link href="http://fonts.googleapis.com/css?family=Maven+Pro:400,700|Inconsolata" rel="stylesheet" type="text/css"> <link href='docs/style.css' rel='stylesheet' type='text/css'>
-
 [![Codecov test coverage](https://codecov.io/gh/Appsilon/data.validator/branch/master/graph/badge.svg)](https://codecov.io/gh/Appsilon/data.validator?branch=master)
+
+<img src="assets/hexsticker.png" width="200px" align="right"/>
 
 data.validator
 ==============
@@ -8,6 +8,11 @@ data.validator
 # Description
 
 `data.validator` is a set of tools for creating reports based on [assertr's](https://github.com/ropensci/assertr) validation results.
+
+It provides tools for creating user-friendly reports that you can send to email,
+store in logs folder, or generate automatically with RConnect.
+
+![](assets/semantic_report_example.gif)
 
 # How to validate data with assertr
 
@@ -33,12 +38,14 @@ For full specification see [assertr vignette](https://docs.ropensci.org/assertr/
 # How to use data.validator for presenting the results
 
 1. Create new validator
+
 ```
 library(data.validator)
 validator <- create_validator()
 ```
 
 2. Add results to created object
+
 ```
 library(assertr)
 library(dplyr)
@@ -58,6 +65,7 @@ mtcars %>%
 3. Use one of available methods to present results
 
 - print summary
+
 ```
 print(validator)
 
@@ -83,7 +91,6 @@ print(validator)
 save_report(validator)
 ```
 
-![](assets/semantic_report_example.gif)
 
 ## Creating custom reports
 
@@ -156,6 +163,7 @@ You may find it [here](inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd).
 
 The report contains basic requirements for each report template used by `save_report` function:
 - defining params
+
 ```
 params:
   generate_report_html: !expr function(...) {}
@@ -163,6 +171,7 @@ params:
   report_ui_constructor: !expr render_raw_report_ui
 ```
 - calling content renderer chunk
+
 ````
 ```{r generate_report, echo = FALSE}
 params$generate_report_html(params$summary, params$report_ui_constructor)
@@ -173,7 +182,7 @@ If you want to use the template as a base you can use RStudio.
 Load the package and use `File -> New File -> R Markdown -> From template -> Simple structure for HTML report summary`.
 Then modify the template adding custom title, or graphics with leaving the below points unchanged and specify the path inside `save_report`'s `template` parameter.
 
-# How can the package be used in production
+# How the package can be used in production?
 
 The package was successfuly used by Appsilon in production enviroment for protecting Shiny Apps against beeing run on incorrect data.
 
