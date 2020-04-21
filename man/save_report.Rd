@@ -10,8 +10,8 @@ save_report(
   output_dir = getwd(),
   summary = c("error", "warning", "success"),
   ui_constructor = render_semantic_report_ui,
-  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package
-    = "data.validator")
+  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package =
+    "data.validator")
 )
 }
 \arguments{

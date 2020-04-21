@@ -1,3 +1,4 @@
+#' Constants
 error_class <- "assertr_error"
 success_class <- "assertr_success"
 
@@ -5,6 +6,11 @@ error_id <- "error"
 success_id <- "success"
 warning_id <- "warning"
 
+#' get assertion type
+#'
+#' @param assertion assertion object (check \code{assertr} package for details)
+#'
+#' @return character with id of assertion: "error", "success", "warning"
 get_assertion_type <- function(assertion) {
   assertr_types <- class(assertion)
   dplyr::case_when(
@@ -15,6 +21,12 @@ get_assertion_type <- function(assertion) {
   )
 }
 
+#' Parse errors to data.frame
+#'
+#' @param data object of assertr error class  (check \code{assertr} package
+#'  for details)
+#'
+#' @return data.frame with errors
 parse_errors_to_df <- function(data) {
   if (is.null(attr(data, error_class))) {
     return(NULL)
@@ -36,6 +48,12 @@ parse_errors_to_df <- function(data) {
     dplyr::ungroup()
 }
 
+#' Parse successes to data.frame
+#'
+#' @param data object of assertr success class  (check \code{assertr} package
+#'  for details)
+#'
+#' @return data.frame with successes
 parse_successes_to_df <- function(data) {
   if (is.null(attr(data, success_class))) {
     return(NULL)
@@ -54,6 +72,11 @@ parse_successes_to_df <- function(data) {
     )
 }
 
+#' Parse results to data.frame
+#'
+#' @param data assertr object  (check \code{assertr} package for details)
+#'
+#' @return data.frame with successes and errors
 parse_results_to_df <- function(data) {
   dplyr::bind_rows(
     parse_errors_to_df(data),
@@ -61,6 +84,11 @@ parse_results_to_df <- function(data) {
   )
 }
 
+#' Get results number
+#'
+#' @param results assertion results
+#'
+#' @return table with results number
 get_results_number <- function(results) {
   results %>%
     dplyr::select(.data$assertion.id, .data$type) %>%
