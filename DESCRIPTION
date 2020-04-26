@@ -26,4 +26,5 @@ Imports:
     htmlwidgets,
     tibble
 Suggests:
-    testthat
+    testthat,
+    covr

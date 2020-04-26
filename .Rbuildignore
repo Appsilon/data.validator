@@ -11,3 +11,5 @@ environment
 package
 assets
 examples
+README\.md
+validation_report\.html
