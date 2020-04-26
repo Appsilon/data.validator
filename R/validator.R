@@ -1,14 +1,15 @@
 Validator <- R6::R6Class(
   classname = "Validator",
   public = list(
-    print = function(success, warning, error) {
+    print = function(success = TRUE, warning = TRUE, error = TRUE) {
       types <- c(success_id, warning_id, error_id)[c(success, warning, error)]
       cat("Validation summary: \n")
       if (success) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
       if (warning) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
       if (error) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
       if (nrow(private$validation_results) > 0) {
-        cat("\n Advanced view: \n")
+        cat("\n")
+        cat("Advanced view: \n")
         print(private$validation_results %>%
                 dplyr::filter(type %in% types) %>%
                 dplyr::select(table_name, description, type, num.violations) %>%
@@ -141,7 +142,7 @@ save_results <- function(validator, file_name = "results.csv", method = utils::w
 #' @param validator Validator object that stores validation results.
 #' @param output_file Html file name to write report to.
 #' @param output_dir Target report directory.
-#' @param output_options Chunk options used in Rmd report, see \link{rmarkdown::render}.
+#' @param output_options Chunk options used in Rmd report, see \code{\link[rmarkdown]{render}}.
 #' @param ui_constructor Function of \code{validation_results} and optional parameters that generates HTML
 #'   code or HTML widget that should be used to generate report content. See \code{custom_report} example.
 #' @param template Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
