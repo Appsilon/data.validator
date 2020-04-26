@@ -4,10 +4,10 @@ test_that("Validator is empty after initialization", {
   validator <- create_validator()
   results <- get_results(validator)
 
-  expect_equal(results$n_failed, 0)
-  expect_equal(results$n_warned, 0)
-  expect_equal(results$n_passed, 0)
-  expect_equal(results$validation_results, dplyr::tibble())
+  expect_equal(private(validator, "n_failed"), 0)
+  expect_equal(private(validator, "n_warned"), 0)
+  expect_equal(private(validator, "n_passed"), 0)
+  expect_equal(results, dplyr::tibble())
 })
 
 test_that("Validator adds validations correctly when there are warnings, errors and passed validations", {
@@ -16,11 +16,11 @@ test_that("Validator adds validations correctly when there are warnings, errors 
   add_results(validated_data, validator, "sample_data")
   results <- get_results(validator)
 
-  expect_equal(results$n_failed, 1)
-  expect_equal(results$n_warned, 1)
-  expect_equal(results$n_passed, 2)
-  expect_equal(nrow(results$validation_results), 4)
-  expect_equal(results$validation_results$type, c("error", "warning", "success", "success"))
+  expect_equal(private(validator, "n_failed"), 1)
+  expect_equal(private(validator, "n_warned"), 1)
+  expect_equal(private(validator, "n_passed"), 2)
+  expect_equal(nrow(results), 4)
+  expect_equal(results$type, c("error", "warning", "success", "success"))
 })
 
 test_that("Validator adds validations correctly when there are only warnings and passed validations", {
@@ -29,11 +29,11 @@ test_that("Validator adds validations correctly when there are only warnings and
   add_results(validated_data_no_errors, validator, "sample_data")
   results <- get_results(validator)
 
-  expect_equal(results$n_failed, 0)
-  expect_equal(results$n_warned, 1)
-  expect_equal(results$n_passed, 2)
-  expect_equal(nrow(results$validation_results), 3)
-  expect_equal(results$validation_results$type, c("warning", "success", "success"))
+  expect_equal(private(validator, "n_failed"), 0)
+  expect_equal(private(validator, "n_warned"), 1)
+  expect_equal(private(validator, "n_passed"), 2)
+  expect_equal(nrow(results), 3)
+  expect_equal(results$type, c("warning", "success", "success"))
 })
 
 test_that("Validator adds validations correctly when there are only warnings", {
@@ -42,11 +42,11 @@ test_that("Validator adds validations correctly when there are only warnings", {
   add_results(validated_data_only_warnings, validator, "sample_data")
   results <- get_results(validator)
 
-  expect_equal(results$n_failed, 0)
-  expect_equal(results$n_warned, 1)
-  expect_equal(results$n_passed, 0)
-  expect_equal(nrow(results$validation_results), 1)
-  expect_equal(results$validation_results$type, c("warning"))
+  expect_equal(private(validator, "n_failed"), 0)
+  expect_equal(private(validator, "n_warned"), 1)
+  expect_equal(private(validator, "n_passed"), 0)
+  expect_equal(nrow(results), 1)
+  expect_equal(results$type, c("warning"))
 })
 
 test_that("Validator adds validations correctly when there are only passed validations", {
@@ -55,11 +55,11 @@ test_that("Validator adds validations correctly when there are only passed valid
   add_results(validated_data_only_passed, validator, "sample_data")
   results <- get_results(validator)
 
-  expect_equal(results$n_failed, 0)
-  expect_equal(results$n_warned, 0)
-  expect_equal(results$n_passed, 2)
-  expect_equal(nrow(results$validation_results), 2)
-  expect_equal(results$validation_results$type, c("success", "success"))
+  expect_equal(private(validator, "n_failed"), 0)
+  expect_equal(private(validator, "n_warned"), 0)
+  expect_equal(private(validator, "n_passed"), 2)
+  expect_equal(nrow(results), 2)
+  expect_equal(results$type, c("success", "success"))
 })
 
 test_that("Validator adds validations correctly when there are no passed validations", {
@@ -68,9 +68,9 @@ test_that("Validator adds validations correctly when there are no passed validat
   add_results(validated_data_no_passed, validator, "sample_data")
   results <- get_results(validator)
 
-  expect_equal(results$n_failed, 1)
-  expect_equal(results$n_warned, 1)
-  expect_equal(results$n_passed, 0)
-  expect_equal(nrow(results$validation_results), 2)
-  expect_equal(results$validation_results$type, c("error", "warning"))
+  expect_equal(private(validator, "n_failed"), 1)
+  expect_equal(private(validator, "n_warned"), 1)
+  expect_equal(private(validator, "n_passed"), 0)
+  expect_equal(nrow(results), 2)
+  expect_equal(results$type, c("error", "warning"))
 })

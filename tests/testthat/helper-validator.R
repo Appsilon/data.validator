@@ -176,3 +176,7 @@ attr(validated_data_no_passed, "assertr_errors") <- list(
 attr(attr(validated_data_no_passed, "assertr_errors")[[1]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
 attr(attr(validated_data_no_passed, "assertr_errors")[[2]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
 attr(attr(validated_data_no_passed, "assertr_errors")[[2]], "warning") <- TRUE
+
+private <- function(r6_object, el) {
+  r6_object$.__enclos_env__$private[[el]]
+}
