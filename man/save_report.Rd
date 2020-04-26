@@ -8,7 +8,6 @@ save_report(
   validator,
   output_file = "validation_report.html",
   output_dir = getwd(),
-  output_options = list(warning = FALSE, message = FALSE),
   ui_constructor = render_semantic_report_ui,
   template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package
     = "data.validator"),
@@ -21,8 +20,6 @@ save_report(
 \item{output_file}{Html file name to write report to.}
 
 \item{output_dir}{Target report directory.}
-
-\item{output_options}{Chunk options used in Rmd report, see \code{\link[rmarkdown]{render}}.}
 
 \item{ui_constructor}{Function of \code{validation_results} and optional parameters that generates HTML
 code or HTML widget that should be used to generate report content. See \code{custom_report} example.}

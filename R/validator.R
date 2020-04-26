@@ -46,7 +46,7 @@ Validator <- R6::R6Class(
     save_html_report = function(
       template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"),
       output_file = "validation_report.html", output_dir = getwd(), report_ui_constructor = render_semantic_report_ui,
-      output_options = list(warning = FALSE, message = FALSE), ...) {
+      ...) {
 
       private$report_constructor <- report_ui_constructor
 
@@ -56,7 +56,6 @@ Validator <- R6::R6Class(
         output_file = output_file,
         output_dir = output_dir,
         knit_root_dir = getwd(),
-        output_options = output_options,
         params = list(
           generate_report_html = self$generate_html_report,
           extra_params = list(...)
@@ -142,7 +141,6 @@ save_results <- function(validator, file_name = "results.csv", method = utils::w
 #' @param validator Validator object that stores validation results.
 #' @param output_file Html file name to write report to.
 #' @param output_dir Target report directory.
-#' @param output_options Chunk options used in Rmd report, see \code{\link[rmarkdown]{render}}.
 #' @param ui_constructor Function of \code{validation_results} and optional parameters that generates HTML
 #'   code or HTML widget that should be used to generate report content. See \code{custom_report} example.
 #' @param template Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
@@ -150,10 +148,10 @@ save_results <- function(validator, file_name = "results.csv", method = utils::w
 #' @param ... Additional parameters passed to \code{ui_constructor}.
 #' @export
 save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
-  output_options = list(warning = FALSE, message = FALSE), ui_constructor = render_semantic_report_ui,
+  ui_constructor = render_semantic_report_ui,
   template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"), ...) {
 
-  validator$save_html_report(template, output_file, output_dir, ui_constructor, output_options, ...)
+  validator$save_html_report(template, output_file, output_dir, ui_constructor, ...)
 }
 
 #' Save simple validation summary in text file
