@@ -95,7 +95,7 @@ save_report(validator)
 ## Creating custom reports
 
 Define function of `validation_results` parameter that returns HTML object or HTML widget.
-The `validation_results` parameter is assumed to be passed as a results table extracted with `get_results(validator)$validation_results` table.
+The `validation_results` parameter is assumed to be passed as a results table extracted with `get_results(validator)`.
 
 *Note* The function can also store optinal parameters that should be passed to `save_report` function while generating a new report.
 
@@ -175,7 +175,7 @@ params:
 
 ````
 ```{r generate_report, echo = FALSE}
-params\$generate_report_html(params\$extra_params)
+params$generate_report_html(params$extra_params)
 ```
 ````
 
