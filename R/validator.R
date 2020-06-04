@@ -1,16 +1,17 @@
 Validator <- R6::R6Class(
   classname = "Validator",
   public = list(
-    print = function(summary = c("error", "warning", "success")) {
-      cat("\n")
+    print = function(success = TRUE, warning = TRUE, error = TRUE) {
+      types <- c(success_id, warning_id, error_id)[c(success, warning, error)]
       cat("Validation summary: \n")
-      if (success_id %in% summary) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
-      if (error_id %in% summary) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
-      if (warning_id %in% summary) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
+      if (success) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
+      if (warning) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
+      if (error) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
       if (nrow(private$validation_results) > 0) {
+        cat("\n")
         cat("Advanced view: \n")
         print(private$validation_results %>%
-                dplyr::filter(type %in% summary) %>%
+                dplyr::filter(type %in% types) %>%
                 dplyr::select(table_name, description, type, num.violations) %>%
                 dplyr::group_by(table_name, description, type) %>%
                 dplyr::summarise(total_violations = sum(num.violations)) %>%
@@ -31,56 +32,43 @@ Validator <- R6::R6Class(
       invisible(self)
     },
     get_validations = function(unnest = FALSE) {
-      results <- list(
-        n_failed = private$n_failed,
-        n_warned = private$n_warned,
-        n_passed = private$n_passed,
-        validation_results = private$validation_results
-      )
+      validation_results = private$validation_results
       if (unnest) {
-        results$validation_results <- results$validation_results %>%
+        validation_results <- validation_results %>%
           tidyr::unnest(error_df, keep_empty = TRUE)
       }
-      results
+      validation_results
     },
-    generate_html_report = function(summary, render_report_ui) {
-      n_passed <- NULL
-      n_warned <- NULL
-      n_failed <- NULL
-      if (success_id %in% summary) n_passed <- private$n_passed
-      if (warning_id %in% summary) n_warned <- private$n_warned
-      if (error_id %in% summary) n_failed <- private$n_failed
-      validation_results <- private$validation_results %>%
-        dplyr::filter(type %in% summary)
-      render_report_ui(n_passed, n_failed, n_warned, validation_results)
+    generate_html_report = function(extra_params) {
+      params_list <- modifyList(list(validation_results = private$validation_results), extra_params)
+      do.call(private$report_constructor, params_list)
     },
     save_html_report = function(
       template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"),
-      output_file = "validation_report.html", output_dir = getwd(), summary = c("error", "warning", "success"),
-      report_ui_constructor = render_semantic_report_ui, ...) {
+      output_file = "validation_report.html", output_dir = getwd(), report_ui_constructor = render_semantic_report_ui,
+      ...) {
+
+      private$report_constructor <- report_ui_constructor
 
       rmarkdown::render(
         input = template,
-        output_format = "html_document", output_file = output_file,
+        output_format = "html_document",
+        output_file = output_file,
         output_dir = output_dir,
         knit_root_dir = getwd(),
-        output_option = list(message = FALSE, warning = FALSE),
         params = list(
           generate_report_html = self$generate_html_report,
-          summary = summary,
-          report_ui_constructor = report_ui_constructor,
-          ...
+          extra_params = list(...)
         )
       )
     },
-    save_log = function(file_name = "validation_log.txt") {
+    save_log = function(file_name = "validation_log.txt", success, warning, error) {
         sink(file_name)
-        self$print()
+        self$print(success, warning, error)
         sink()
     },
     save_results = function(file_name, method = write.csv, ...) {
-      private$validation_results %>%
-        tidyr::unnest(error_df, keep_empty = TRUE) %>%
+      self$get_validations(unnest = TRUE) %>%
         write.csv(file = file_name)
     }
   ),
@@ -88,7 +76,8 @@ Validator <- R6::R6Class(
     n_failed = 0,
     n_passed = 0,
     n_warned = 0,
-    validation_results = dplyr::tibble()
+    validation_results = dplyr::tibble(),
+    report_constructor = NULL
   )
 )
 
@@ -151,24 +140,18 @@ save_results <- function(validator, file_name = "results.csv", method = utils::w
 #'
 #' @param validator Validator object that stores validation results.
 #' @param output_file Html file name to write report to.
-#' @param output_dir Report directory.
-#' @param summary Vector storing at least one of \code{"error"}, \code{"warning"}, \code{"success"}.
-#'   Results with using validation filtered out results table in report.
-#'   Moreover, skipping one of the options sets up \code{n_failed}, \code{n_warned} or \code{n_passed}
-#'   that is passed to \code{ui_contructor} function as NULL - helpful if you want to distinguish whether
-#'   to include related information in report or not (comparing to value 0 that means there were no results
-#'   of related type).
-#' @param ui_constructor Function of four arguments \code{n_failed}, \code{n_warned} or \code{n_passed} and
-#'   \code{validation_reults} that generates HTML code or HTML widget that should be used to generate report
-#'   content. See \code{custom_report} example.
+#' @param output_dir Target report directory.
+#' @param ui_constructor Function of \code{validation_results} and optional parameters that generates HTML
+#'   code or HTML widget that should be used to generate report content. See \code{custom_report} example.
 #' @param template Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
 #'   template to see basic construction - the one is used as a default template.
+#' @param ... Additional parameters passed to \code{ui_constructor}.
 #' @export
 save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
-  summary = c("error", "warning", "success"), ui_constructor = render_semantic_report_ui,
-  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator")) {
+  ui_constructor = render_semantic_report_ui,
+  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"), ...) {
 
-  validator$save_html_report(template, output_file, output_dir, summary, ui_constructor)
+  validator$save_html_report(template, output_file, output_dir, ui_constructor, ...)
 }
 
 #' Save simple validation summary in text file
@@ -176,7 +159,10 @@ save_report <- function(validator, output_file = "validation_report.html", outpu
 #' @description Saves \code{print(validator)} output inside text file.
 #' @param validator Validator object that stores validation results.
 #' @param file_name Name of the resulting file (including extension).
+#' @param success Should success results be presented?
+#' @param warning Should warning results be presented?
+#' @param error Should error results be presented?
 #' @export
-save_summary <- function(validator, file_name = "validation_log.txt") {
-  validator$save_log(file_name)
+save_summary <- function(validator, file_name = "validation_log.txt", success = TRUE, warning = TRUE, error = TRUE) {
+  validator$save_log(file_name, success, warning, error)
 }

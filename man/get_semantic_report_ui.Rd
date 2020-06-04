@@ -4,14 +4,14 @@
 \alias{get_semantic_report_ui}
 \title{Generate HTML report.}
 \usage{
-get_semantic_report_ui(n_passed, n_failed, n_warned, validation_results)
+get_semantic_report_ui(n_passes, n_fails, n_warns, validation_results)
 }
 \arguments{
-\item{n_passed}{Number of passed validations}
+\item{n_passes}{Number of passed validations}
 
-\item{n_failed}{Number of failed validations.}
+\item{n_fails}{Number of failed validations.}
 
-\item{n_warned}{Number of warnings.}
+\item{n_warns}{Number of warnings.}
 
 \item{validation_results}{Data frame with validation results.}
 }

@@ -154,11 +154,11 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
 #' Displays results of validations.
 #' @description Displays results of validations.
 #' @param data Report data.
-#' @param n_passed Number of successful assertions.
-#' @param n_failed Number of warning assertions.
-#' @param n_warned Number of violation assertions.
+#' @param n_passes Number of successful assertions.
+#' @param n_fails Number of warning assertions.
+#' @param n_warns Number of violation assertions.
 #' @return Validation report.
-display_results <- function(data, n_passed, n_failed, n_warned) {
+display_results <- function(data, n_passes, n_fails, n_warns) {
   data_name <- data$table_name[1]
   results_failed <- data %>%
     dplyr::filter(.data$type == error_id)
@@ -182,21 +182,21 @@ display_results <- function(data, n_passed, n_failed, n_warned) {
     segment_title,
     htmltools::p(),
     make_accordion_container(
-      if (!is.null(n_failed)) make_accordion_element(
+      if (!is.null(n_fails)) make_accordion_element(
         results = results_failed,
         color = label_color_negative,
         label = "Failed",
         mark = "red big remove",
         type = error_id,
         active = is_negative_active),
-      if (!is.null(n_warned)) make_accordion_element(
+      if (!is.null(n_warns)) make_accordion_element(
         results = results_warning,
         color = label_color_neutral,
         label = "Warnings",
         mark = "big blue exclamation circle",
         type = warning_id,
         active = is_neutral_active),
-      if (!is.null(n_passed)) make_accordion_element(
+      if (!is.null(n_passes)) make_accordion_element(
         results = results_passed,
         label = "Passed",
         type = success_id,
@@ -222,17 +222,17 @@ create_summary_row <- function(id, number, color, label) {
 
 #' Create summary table.
 #' @description Create summary table.
-#' @param n_passes Nr of passed validations.
-#' @param n_fails Nr of failed validations.
-#' @param n_warns Nr of warnings.
+#' @param n_passes Number of passed validations.
+#' @param n_fails Number of failed validations.
+#' @param n_warns Number of warnings.
 #' @return Summary table.
 make_summary_table <- function(n_passes, n_fails, n_warns) {
   fails_label_color <- "red"
-  if (n_fails == 0) {
+  if (identical(n_fails, 0)) {
     fails_label_color <- ""
   }
   warns_label_color <- "blue"
-  if (n_warns == 0) {
+  if (identical(n_warns, 0)) {
     warns_label_color <- ""
   }
   code <- htmltools::tags$table(id = "summary", class = "ui padded table",
@@ -249,17 +249,17 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 
 #' Generate HTML report.
 #' @description Generate HTML validation report.
-#' @param n_passed Number of passed validations
-#' @param n_failed Number of failed validations.
-#' @param n_warned Number of warnings.
+#' @param n_passes Number of passed validations
+#' @param n_fails Number of failed validations.
+#' @param n_warns Number of warnings.
 #' @param validation_results Data frame with validation results.
 #' @return HTML validation report.
-get_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
-  summary_table <- make_summary_table(n_passed, n_failed, n_warned)
+get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_results) {
+  summary_table <- make_summary_table(n_passes, n_fails, n_warns)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {
     validation_results %>% dplyr::filter(.data$table_name == .x) %>%
-      display_results(n_passed, n_failed, n_warned)
+      display_results(n_passes, n_fails, n_warns)
   }) %>% htmltools::div()
   htmltools::div(summary_table, html_report)
 }
@@ -277,13 +277,19 @@ post_render_js <- "
 #'
 #' @description Renders content of semantic report version.
 #'
-#' @param n_passed Number of successful assertions.
-#' @param n_failed Number of warning assertions.
-#' @param n_warned Number of violation assertions.
 #' @param validation_results Validation results table (see \link{get_results}).
+#' @param success Should success results be presented?
+#' @param warning Should warning results be presented?
+#' @param error Should error results be presented?
 #' @export
-render_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
-  get_semantic_report_ui(n_passed, n_failed, n_warned,
+render_semantic_report_ui <- function(validation_results, success = TRUE, warning = TRUE, error = TRUE) {
+  n_passes <- NULL
+  n_fails <- NULL
+  n_warns <- NULL
+  if (success) n_passes <- length(unique(validation_results[validation_results$type == success_id, ]$assertion.id))
+  if (warning) n_warns <- length(unique(validation_results[validation_results$type == warning_id, ]$assertion.id))
+  if (error) n_fails <- length(unique(validation_results[validation_results$type == error_id, ]$assertion.id))
+  get_semantic_report_ui(n_passes, n_fails, n_warns,
                        validation_results) %>%
     shiny.semantic::uirender(width = "100%", height = "100%") %>%
     htmltools::tagList(
@@ -295,21 +301,22 @@ render_semantic_report_ui <- function(n_passed, n_failed, n_warned, validation_r
 #'
 #' @description Renders content of simple report version that prints \code{validation_results} table.
 #'
-#' @param n_passed Number of successful assertions.
-#' @param n_failed Number of warning assertions.
-#' @param n_warned Number of violation assertions.
 #' @param validation_results Validation results table (see \link{get_results}).
+#' @param success Should success results be presented?
+#' @param warning Should warning results be presented?
+#' @param error Should error results be presented?
 #' @export
-render_raw_report_ui <- function(n_passed, n_failed, n_warned, validation_results) {
-  types <- c(
-    if(!is.null(n_passed)) success_id,
-    if(!is.null(n_warned)) warning_id,
-    if(!is.null(n_failed)) error_id
-  )
+render_raw_report_ui <- function(validation_results, success = TRUE, warning = TRUE, error = TRUE) {
+  types <- c(success_id, warning_id, error_id)[c(success, warning, error)]
+
+  n_passes <- length(unique(validation_results[validation_results$type == success_id, ]$assertion.id))
+  n_fails <- length(unique(validation_results[validation_results$type == error_id, ]$assertion.id))
+  n_warns <- length(unique(validation_results[validation_results$type == warning_id, ]$assertion.id))
+
   htmltools::tagList(
-    if(!is.null(n_passed)) htmltools::tags$div("Passed rules:", n_passed),
-    if(!is.null(n_failed)) htmltools::tags$div("Failed rules:", n_failed),
-    if(!is.null(n_warned)) htmltools::tags$div("Warning rules:", n_warned),
+    if(success) htmltools::tags$div("Passed rules:", n_passes),
+    if(error) htmltools::tags$div("Failed rules:", n_fails),
+    if(warning) htmltools::tags$div("Warning rules:", n_warns),
     htmltools::HTML(
       knitr::kable(
         tidyr::unnest(validation_results, .data$error_df, keep_empty = TRUE) %>%

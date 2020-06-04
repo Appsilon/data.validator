@@ -73,9 +73,9 @@ print(validator)
 #  Number of successful validations: 1
 #  Number of failed validations: 4
 #  Number of validations with warnings: 1
+#
 # Advanced view: 
-# 
-# 
+#  
 # |table_name |description                                       |type    | total_violations|
 # |:----------|:-------------------------------------------------|:-------|----------------:|
 # |mtcars     |Column drat has only positive values              |success |               NA|
@@ -94,12 +94,12 @@ save_report(validator)
 
 ## Creating custom reports
 
-Define function of four parameters `n_passed`, `n_failed`, `n_warned`, `validation_results` that returns HTML object or HTML widget.
+Define function of `validation_results` parameter that returns HTML object or HTML widget.
+The `validation_results` parameter is assumed to be passed as a results table extracted with `get_results(validator)`.
 
-*Note*
-data.validator automatically filters out `validation_results` passed to the function based on `save_report`'s `summary` parameter. Omitting result type inside `summary` results with passing `NULL` values of `n_passed`, `n_failed` or `n_warned` to created function.
+*Note* The function can also store optional parameters that should be passed to `save_report` function while generating a new report.
 
-In this example we create custom report that shows validation results of checking wheter population across polish counties fits within 3 standard deviations. The results are shown on leaflet map.
+In this example we create custom report that shows validation results of checking wheter population across Polish counties fits within 3 standard deviations. The results are shown on leaflet map.
 
 ```
 library(data.validator)
@@ -113,31 +113,28 @@ population %>%
   insist(within_n_sds(3), total, success_fun = success_append, error_fun = error_append) %>%
   add_results(validator)
 
-validator
+print(validator)
 
 # Validation summary: 
 #  Number of successful validations: 0
 #  Number of failed validations: 1
 #  Number of validations with warnings: 0
+#
 # Advanced view: 
-# 
 # 
 # |table_name |description |type  | total_violations|
 # |:----------|:-----------|:-----|----------------:|
 # |population |NA          |error |                6|
 
-render_leaflet_report <- function(n_passed, n_failed, n_warned, validation_results) {
-  if (is.null(n_failed)) {
-    return(htmltools::tags$div("Please add summary = c('error') to display violated rules."))
-  }
+render_leaflet_report <- function(validation_results, population_data, correct_col, violated_col) {
   states <- rgdal::readOGR("counties.shp", GDAL1_integer64_policy = TRUE, verbose = FALSE)
-  population <- read.csv("population.csv", colClasses = c("character", "character", "factor", "integer", "integer", "integer"))
+  population <- population_data
   violated <- validation_results %>%
     tidyr::unnest(error_df, keep_empty = TRUE) %>%
     dplyr::pull(index)
   states@data <- dplyr::left_join(states@data, population, by = c("JPT_KOD_JE" = "county_ID"))
-  states@data$color <- "#52cf0a"
-  states@data$color[violated] <- "#bf0b4d"
+  states@data$color <- correct_col
+  states@data$color[violated] <- violated_col
   htmltools::tagList(
     htmltools::h2("Counties not fitting within 3 standard deviations"),
     leaflet::leaflet(states) %>%
@@ -150,7 +147,10 @@ render_leaflet_report <- function(n_passed, n_failed, n_warned, validation_resul
   )
 }
 
-save_report(validator, ui_constructor = render_leaflet_report)
+save_report(
+  validator, ui_constructor = render_leaflet_report,
+  population_data = population, correct_col = "#52cf0a", violated_col = "#bf0b4d"
+)
 ```
 
 The resulting report
@@ -158,23 +158,24 @@ The resulting report
 
 # Using custom report templates
 
-In order to generate rmarkdown report data.validator uses predefined report template.
+In order to generate rmarkdown report `data.validator` uses predefined report template.
 You may find it [here](inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd).
 
 The report contains basic requirements for each report template used by `save_report` function:
+
 - defining params
 
 ```
 params:
   generate_report_html: !expr function(...) {}
-  summary: !expr c("success", "warning", "error")
-  report_ui_constructor: !expr render_raw_report_ui
+  extra_params: list()
 ```
+
 - calling content renderer chunk
 
 ````
 ```{r generate_report, echo = FALSE}
-params$generate_report_html(params$summary, params$report_ui_constructor)
+params$generate_report_html(params$extra_params)
 ```
 ````
 
