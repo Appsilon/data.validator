@@ -1,0 +1,381 @@
+voivoideship,county,county_ID,total,males,females
+dolnośląskie,Powiat m. Jelenia Góra,0261,79200,36782,42418
+dolnośląskie,Powiat m. Legnica,0262,99486,47129,52357
+dolnośląskie,Powiat m. Wrocław,0264,641607,299653,341954
+dolnośląskie,Powiat m. Wałbrzych,0265,111896,52691,59205
+dolnośląskie,Powiat bolesławiecki,0201,90108,43765,46343
+dolnośląskie,Powiat dzierżoniowski,0202,101118,48195,52923
+dolnośląskie,Powiat głogowski,0203,89319,43444,45875
+dolnośląskie,Powiat górowski,0204,35047,17367,17680
+dolnośląskie,Powiat jaworski,0205,50315,24664,25651
+dolnośląskie,Powiat jeleniogórski,0206,63639,30781,32858
+dolnośląskie,Powiat kamiennogórski,0207,43429,21225,22204
+dolnośląskie,Powiat kłodzki,0208,158600,76538,82062
+dolnośląskie,Powiat legnicki,0209,55318,27124,28194
+dolnośląskie,Powiat lubański,0210,54493,26550,27943
+dolnośląskie,Powiat lubiński,0211,106211,51297,54914
+dolnośląskie,Powiat lwówecki,0212,45975,22392,23583
+dolnośląskie,Powiat milicki,0213,37003,18304,18699
+dolnośląskie,Powiat oleśnicki,0214,107090,52274,54816
+dolnośląskie,Powiat oławski,0215,76723,37384,39339
+dolnośląskie,Powiat polkowicki,0216,62948,31136,31812
+dolnośląskie,Powiat strzeliński,0217,43713,21639,22074
+dolnośląskie,Powiat średzki,0218,54646,27057,27589
+dolnośląskie,Powiat świdnicki,0219,157178,75816,81362
+dolnośląskie,Powiat trzebnicki,0220,85092,41846,43246
+dolnośląskie,Powiat wałbrzyski,0221,55820,26891,28929
+dolnośląskie,Powiat wołowski,0222,46914,22965,23949
+dolnośląskie,Powiat wrocławski,0223,148663,72763,75900
+dolnośląskie,Powiat ząbkowicki,0224,65104,31681,33423
+dolnośląskie,Powiat zgorzelecki,0225,89612,43598,46014
+dolnośląskie,Powiat złotoryjski,0226,43719,21448,22271
+Kujawsko-pomorskie,Powiat m. Bydgoszcz,0461,349021,164078,184943
+Kujawsko-pomorskie,Powiat m. Grudziądz,0462,94732,45110,49622
+Kujawsko-pomorskie,Powiat m. Toruń,0463,201798,93883,107915
+Kujawsko-pomorskie,Powiat m. Włocławek,0464,110287,51869,58418
+Kujawsko-pomorskie,Powiat aleksandrowski,0401,55150,26802,28348
+Kujawsko-pomorskie,Powiat brodnicki,0402,78935,39064,39871
+Kujawsko-pomorskie,Powiat bydgoski,0403,118041,58480,59561
+Kujawsko-pomorskie,Powiat chełmiński,0404,52018,25496,26522
+Kujawsko-pomorskie,Powiat golubsko-dobrzyński,0405,45059,22347,22712
+Kujawsko-pomorskie,Powiat grudziądzki,0406,40181,20081,20100
+Kujawsko-pomorskie,Powiat inowrocławski,0407,160216,77636,82580
+Kujawsko-pomorskie,Powiat lipnowski,0408,65869,32776,33093
+Kujawsko-pomorskie,Powiat mogileński,0409,45756,22373,23383
+Kujawsko-pomorskie,Powiat nakielski,0410,86449,42870,43579
+Kujawsko-pomorskie,Powiat radziejowski,0411,40546,20076,20470
+Kujawsko-pomorskie,Powiat rypiński,0412,43618,21538,22080
+Kujawsko-pomorskie,Powiat sępoleński,0413,41055,20498,20557
+Kujawsko-pomorskie,Powiat świecki,0414,99154,48866,50288
+Kujawsko-pomorskie,Powiat toruński,0415,107641,53052,54589
+Kujawsko-pomorskie,Powiat tucholski,0416,48329,24153,24176
+Kujawsko-pomorskie,Powiat wąbrzeski,0417,34297,16890,17407
+Kujawsko-pomorskie,Powiat włocławski,0418,86131,42683,43448
+Kujawsko-pomorskie,Powiat żniński,0419,70234,34740,35494
+lubelskie,Powiat m. Biała Podlaska,0661,57264,27423,29841
+lubelskie,Powiat m. Chełm,0662,62331,29271,33060
+lubelskie,Powiat m. Lublin,0663,339770,156630,183140
+lubelskie,Powiat m. Zamość,0664,63511,29889,33622
+lubelskie,Powiat bialski,0601,111078,55208,55870
+lubelskie,Powiat biłgorajski,0602,101152,49870,51282
+lubelskie,Powiat chełmski,0603,78074,38562,39512
+lubelskie,Powiat hrubieszowski,0604,63320,31038,32282
+lubelskie,Powiat janowski,0605,45845,22724,23121
+lubelskie,Powiat krasnostawski,0606,63554,30953,32601
+lubelskie,Powiat kraśnicki,0607,95618,46445,49173
+lubelskie,Powiat lubartowski,0608,88591,43281,45310
+lubelskie,Powiat lubelski,0609,154760,75811,78949
+lubelskie,Powiat łęczyński,0610,57372,28151,29221
+lubelskie,Powiat łukowski,0611,107144,53272,53872
+lubelskie,Powiat opolski,0612,59511,29044,30467
+lubelskie,Powiat parczewski,0613,34809,17292,17517
+lubelskie,Powiat puławski,0614,113441,54357,59084
+lubelskie,Powiat radzyński,0615,59057,29484,29573
+lubelskie,Powiat rycki,0616,55919,27843,28076
+lubelskie,Powiat świdnicki,0617,71897,34601,37296
+lubelskie,Powiat tomaszowski,0618,83148,40970,42178
+lubelskie,Powiat włodawski,0619,38524,19011,19513
+lubelskie,Powiat zamojski,0620,106526,52496,54030
+lubuskie,Powiat m. Gorzów Wielkopolski,0861,123691,58781,64910
+lubuskie,Powiat m. Zielona Góra,0862,140874,66811,74063
+lubuskie,Powiat gorzowski,0801,71669,35553,36116
+lubuskie,Powiat krośnieński,0802,55018,27031,27987
+lubuskie,Powiat międzyrzecki,0803,57851,28566,29285
+lubuskie,Powiat nowosolski,0804,86384,42076,44308
+lubuskie,Powiat słubicki,0805,47018,23031,23987
+lubuskie,Powiat strzelecko-drezdenecki,0806,49156,24287,24869
+lubuskie,Powiat sulęciński,0807,35238,17505,17733
+lubuskie,Powiat świebodziński,0808,55753,27300,28453
+lubuskie,Powiat wschowski,0812,38960,19204,19756
+lubuskie,Powiat zielonogórski,0809,75626,37346,38280
+lubuskie,Powiat żagański,0810,79297,38645,40652
+lubuskie,Powiat żarski,0811,96496,46848,49648
+łódzkie,Powiat m. Łódź,1061,682679,311171,371508
+łódzkie,Powiat m. Piotrków Trybunalski,1062,73370,34350,39020
+łódzkie,Powiat m. Skierniewice,1063,48106,23012,25094
+łódzkie,Powiat bełchatowski,1001,112933,55285,57648
+łódzkie,Powiat brzeziński,1021,30818,14945,15873
+łódzkie,Powiat kutnowski,1002,96909,46576,50333
+łódzkie,Powiat łaski,1003,50037,24352,25685
+łódzkie,Powiat łęczycki,1004,49943,24277,25666
+łódzkie,Powiat łowicki,1005,78301,37907,40394
+łódzkie,Powiat łódzki wschodni,1006,71907,34499,37408
+łódzkie,Powiat opoczyński,1007,76324,37787,38537
+łódzkie,Powiat pabianicki,1008,119259,56031,63228
+łódzkie,Powiat pajęczański,1009,51357,25411,25946
+łódzkie,Powiat piotrkowski,1010,91278,44974,46304
+łódzkie,Powiat poddębicki,1011,41182,20370,20812
+łódzkie,Powiat radomszczański,1012,112966,55320,57646
+łódzkie,Powiat rawski,1013,48644,24000,24644
+łódzkie,Powiat sieradzki,1014,117942,57552,60390
+łódzkie,Powiat skierniewicki,1015,38203,19005,19198
+łódzkie,Powiat tomaszowski,1016,116841,56008,60833
+łódzkie,Powiat wieluński,1017,76476,37503,38973
+łódzkie,Powiat wieruszowski,1018,42164,20894,21270
+łódzkie,Powiat zduńskowolski,1019,66549,32197,34352
+łódzkie,Powiat zgierski,1020,165982,78802,87180
+małopolskie,Powiat m. Kraków,1261,774839,361651,413188
+małopolskie,Powiat m. Nowy Sącz,1262,83813,40122,43691
+małopolskie,Powiat m. Tarnów,1263,108580,51300,57280
+małopolskie,Powiat bocheński,1201,106626,52671,53955
+małopolskie,Powiat brzeski,1202,93139,46165,46974
+małopolskie,Powiat chrzanowski,1203,124937,60471,64466
+małopolskie,Powiat dąbrowski,1204,59227,29554,29673
+małopolskie,Powiat gorlicki,1205,108938,53981,54957
+małopolskie,Powiat krakowski,1206,278219,136167,142052
+małopolskie,Powiat limanowski,1207,131729,65905,65824
+małopolskie,Powiat miechowski,1208,48948,24106,24842
+małopolskie,Powiat myślenicki,1209,127262,63086,64176
+małopolskie,Powiat nowosądecki,1210,216429,107865,108564
+małopolskie,Powiat nowotarski,1211,191669,93761,97908
+małopolskie,Powiat olkuski,1212,111655,54263,57392
+małopolskie,Powiat oświęcimski,1213,153632,74702,78930
+małopolskie,Powiat proszowicki,1214,43367,21371,21996
+małopolskie,Powiat suski,1215,84160,41728,42432
+małopolskie,Powiat tarnowski,1216,201509,99945,101564
+małopolskie,Powiat tatrzański,1217,68135,32865,35270
+małopolskie,Powiat wadowicki,1218,160080,78527,81553
+małopolskie,Powiat wielicki,1219,127970,62457,65513
+mazowieckie,Powiat m. Ostrołęka,1461,52071,24853,27218
+mazowieckie,Powiat m. Płock,1462,119709,56413,63296
+mazowieckie,Powiat m. Radom,1463,212230,100671,111559
+mazowieckie,Powiat m. Siedlce,1464,77990,36890,41100
+mazowieckie,Powiat m. st. Warszawa,1465,1783321,820590,962731
+mazowieckie,Powiat białobrzeski,1401,33524,16929,16595
+mazowieckie,Powiat ciechanowski,1402,89460,43976,45484
+mazowieckie,Powiat garwoliński,1403,108909,54117,54792
+mazowieckie,Powiat gostyniński,1404,45060,21943,23117
+mazowieckie,Powiat grodziski,1405,94962,45517,49445
+mazowieckie,Powiat grójecki,1406,98334,48301,50033
+mazowieckie,Powiat kozienicki,1407,60253,29901,30352
+mazowieckie,Powiat legionowski,1408,117751,56804,60947
+mazowieckie,Powiat lipski,1409,34028,16893,17135
+mazowieckie,Powiat łosicki,1410,30895,15373,15522
+mazowieckie,Powiat makowski,1411,45076,22522,22554
+mazowieckie,Powiat miński,1412,154054,75130,78924
+mazowieckie,Powiat mławski,1413,72906,35748,37158
+mazowieckie,Powiat nowodworski,1414,79256,38699,40557
+mazowieckie,Powiat ostrołęcki,1415,88717,44928,43789
+mazowieckie,Powiat ostrowski,1416,72558,35912,36646
+mazowieckie,Powiat otwocki,1417,124241,59538,64703
+mazowieckie,Powiat piaseczyński,1418,186460,89419,97041
+mazowieckie,Powiat płocki,1419,110987,55056,55931
+mazowieckie,Powiat płoński,1420,87183,42887,44296
+mazowieckie,Powiat pruszkowski,1421,165039,78497,86542
+mazowieckie,Powiat przasnyski,1422,52676,26368,26308
+mazowieckie,Powiat przysuski,1423,41721,20735,20986
+mazowieckie,Powiat pułtuski,1424,51862,25655,26207
+mazowieckie,Powiat radomski,1425,152190,75803,76387
+mazowieckie,Powiat siedlecki,1426,81265,40878,40387
+mazowieckie,Powiat sierpecki,1427,52077,25663,26414
+mazowieckie,Powiat sochaczewski,1428,85024,41432,43592
+mazowieckie,Powiat sokołowski,1429,53992,26760,27232
+mazowieckie,Powiat szydłowiecki,1430,39766,19831,19935
+mazowieckie,Powiat warszawski zachodni,1432,117783,56654,61129
+mazowieckie,Powiat węgrowski,1433,66037,32988,33049
+mazowieckie,Powiat wołomiński,1434,247288,119161,128127
+mazowieckie,Powiat wyszkowski,1435,74094,36684,37410
+mazowieckie,Powiat zwoleński,1436,36222,18032,18190
+mazowieckie,Powiat żuromiński,1437,38688,19092,19596
+mazowieckie,Powiat żyrardowski,1438,75787,36226,39561
+opolskie,Powiat m. Opole,1661,128208,60375,67833
+opolskie,Powiat brzeski,1601,90054,43894,46160
+opolskie,Powiat głubczycki,1602,45679,22314,23365
+opolskie,Powiat kędzierzyńsko-kozielski,1603,94135,45458,48677
+opolskie,Powiat kluczborski,1604,65644,32032,33612
+opolskie,Powiat krapkowicki,1605,63857,30862,32995
+opolskie,Powiat namysłowski,1606,42692,20829,21863
+opolskie,Powiat nyski,1607,136393,66268,70125
+opolskie,Powiat oleski,1608,64411,31424,32987
+opolskie,Powiat opolski,1609,123487,59730,63757
+opolskie,Powiat prudnicki,1610,55325,26588,28737
+opolskie,Powiat strzelecki,1611,74460,36243,38217
+podkarpackie,Powiat m. Krosno,1861,46369,21922,24447
+podkarpackie,Powiat m. Przemyśl,1862,60999,28615,32384
+podkarpackie,Powiat m. Rzeszów,1863,194886,92457,102429
+podkarpackie,Powiat m. Tarnobrzeg,1864,46907,22436,24471
+podkarpackie,Powiat bieszczadzki,1801,21799,10719,11080
+podkarpackie,Powiat brzozowski,1802,65652,32478,33174
+podkarpackie,Powiat dębicki,1803,135348,66891,68457
+podkarpackie,Powiat jarosławski,1804,120462,58836,61626
+podkarpackie,Powiat jasielski,1805,113730,55925,57805
+podkarpackie,Powiat kolbuszowski,1806,62389,31126,31263
+podkarpackie,Powiat krośnieński,1807,112301,55240,57061
+podkarpackie,Powiat leski,1821,26532,13102,13430
+podkarpackie,Powiat leżajski,1808,69479,34338,35141
+podkarpackie,Powiat lubaczowski,1809,55438,27501,27937
+podkarpackie,Powiat łańcucki,1810,80898,39740,41158
+podkarpackie,Powiat mielecki,1811,136591,67338,69253
+podkarpackie,Powiat niżański,1812,66699,32948,33751
+podkarpackie,Powiat przemyski,1813,74234,37221,37013
+podkarpackie,Powiat przeworski,1814,78354,38602,39752
+podkarpackie,Powiat ropczycko-sędziszowski,1815,74416,36753,37663
+podkarpackie,Powiat rzeszowski,1816,168614,83268,85346
+podkarpackie,Powiat sanocki,1817,94473,46271,48202
+podkarpackie,Powiat stalowowolski,1818,106272,51541,54731
+podkarpackie,Powiat strzyżowski,1819,61505,30520,30985
+podkarpackie,Powiat tarnobrzeski,1820,53115,26102,27013
+podlaskie,Powiat m. Białystok,2061,297356,139537,157819
+podlaskie,Powiat m. Łomża,2062,62965,29997,32968
+podlaskie,Powiat m. Suwałki,2063,69858,33369,36489
+podlaskie,Powiat augustowski,2001,58205,28503,29702
+podlaskie,Powiat białostocki,2002,148745,73399,75346
+podlaskie,Powiat bielski,2003,54590,27060,27530
+podlaskie,Powiat grajewski,2004,47353,23495,23858
+podlaskie,Powiat hajnowski,2005,42851,20777,22074
+podlaskie,Powiat kolneński,2006,38249,19160,19089
+podlaskie,Powiat łomżyński,2007,50914,25752,25162
+podlaskie,Powiat moniecki,2008,40518,20122,20396
+podlaskie,Powiat sejneński,2009,20002,9971,10031
+podlaskie,Powiat siemiatycki,2010,44366,21767,22599
+podlaskie,Powiat sokólski,2011,67055,33178,33877
+podlaskie,Powiat suwalski,2012,35689,18248,17441
+podlaskie,Powiat wysokomazowiecki,2013,57051,28789,28262
+podlaskie,Powiat zambrowski,2014,43663,21662,22001
+pomorskie,Powiat m. Gdańsk,2261,468158,221922,246236
+pomorskie,Powiat m. Gdynia,2262,246244,116266,129978
+pomorskie,Powiat m. Słupsk,2263,90769,42740,48029
+pomorskie,Powiat m. Sopot,2264,35827,16631,19196
+pomorskie,Powiat bytowski,2201,79260,39489,39771
+pomorskie,Powiat chojnicki,2202,97616,48192,49424
+pomorskie,Powiat człuchowski,2203,56225,27767,28458
+pomorskie,Powiat gdański,2204,117452,57655,59797
+pomorskie,Powiat kartuski,2205,137942,68892,69050
+pomorskie,Powiat kościerski,2206,72589,36303,36286
+pomorskie,Powiat kwidzyński,2207,83231,41243,41988
+pomorskie,Powiat lęborski,2208,66196,32598,33598
+pomorskie,Powiat malborski,2209,63575,31001,32574
+pomorskie,Powiat nowodworski,2210,35656,17730,17926
+pomorskie,Powiat pucki,2211,86203,42716,43487
+pomorskie,Powiat słupski,2212,98793,49364,49429
+pomorskie,Powiat starogardzki,2213,128055,63133,64922
+pomorskie,Powiat sztumski,2216,41476,20618,20858
+pomorskie,Powiat tczewski,2214,115738,56913,58825
+pomorskie,Powiat wejherowski,2215,216764,107178,109586
+śląskie,Powiat m. Bielsko-Biała,2461,170953,80782,90171
+śląskie,Powiat m. Bytom,2462,165975,79245,86730
+śląskie,Powiat m. Chorzów,2463,107963,51366,56597
+śląskie,Powiat m. Częstochowa,2464,221252,103812,117440
+śląskie,Powiat m. Dąbrowa Górnicza,2465,119800,57336,62464
+śląskie,Powiat m. Gliwice,2466,179154,86144,93010
+śląskie,Powiat m. Jastrzębie-Zdrój,2467,88808,43327,45481
+śląskie,Powiat m. Jaworzno,2468,91263,44229,47034
+śląskie,Powiat m. Katowice,2469,293636,139626,154010
+śląskie,Powiat m. Mysłowice,2470,74515,35984,38531
+śląskie,Powiat m. Piekary Śląskie,2471,55088,26412,28676
+śląskie,Powiat m. Ruda Śląska,2472,137624,66453,71171
+śląskie,Powiat m. Rybnik,2473,138319,67463,70856
+śląskie,Powiat m. Siemianowice Śląskie,2474,66963,31919,35044
+śląskie,Powiat m. Sosnowiec,2475,201121,95165,105956
+śląskie,Powiat m. Świętochłowice,2476,49762,23883,25879
+śląskie,Powiat m. Tychy,2477,127664,61437,66227
+śląskie,Powiat m. Zabrze,2478,172806,83337,89469
+śląskie,Powiat m. Żory,2479,62462,30513,31949
+śląskie,Powiat będziński,2401,148516,70697,77819
+śląskie,Powiat bielski,2402,165374,80705,84669
+śląskie,Powiat bieruńsko-lędziński,2414,59715,29428,30287
+śląskie,Powiat cieszyński,2403,178145,86526,91619
+śląskie,Powiat częstochowski,2404,134637,65977,68660
+śląskie,Powiat gliwicki,2405,115571,56069,59502
+śląskie,Powiat kłobucki,2406,84762,41825,42937
+śląskie,Powiat lubliniecki,2407,76470,37580,38890
+śląskie,Powiat mikołowski,2408,98689,47987,50702
+śląskie,Powiat myszkowski,2409,70959,34251,36708
+śląskie,Powiat pszczyński,2410,111324,54382,56942
+śląskie,Powiat raciborski,2411,108388,52006,56382
+śląskie,Powiat rybnicki,2412,78148,38488,39660
+śląskie,Powiat tarnogórski,2413,140022,68062,71960
+śląskie,Powiat wodzisławski,2415,157346,76498,80848
+śląskie,Powiat zawierciański,2416,118020,57051,60969
+śląskie,Powiat żywiecki,2417,152877,74697,78180
+świętokrzyskie,Powiat m. Kielce,2661,195266,91481,103785
+świętokrzyskie,Powiat buski,2601,71807,35035,36772
+świętokrzyskie,Powiat jędrzejowski,2602,85757,42438,43319
+świętokrzyskie,Powiat kazimierski,2603,33740,16596,17144
+świętokrzyskie,Powiat kielecki,2604,210940,105141,105799
+świętokrzyskie,Powiat konecki,2605,80154,39489,40665
+świętokrzyskie,Powiat opatowski,2606,52336,26036,26300
+świętokrzyskie,Powiat ostrowiecki,2607,109512,52497,57015
+świętokrzyskie,Powiat pińczowski,2608,39100,19308,19792
+świętokrzyskie,Powiat sandomierski,2609,77352,37680,39672
+świętokrzyskie,Powiat skarżyski,2610,74343,35824,38519
+świętokrzyskie,Powiat starachowicki,2611,89925,43562,46363
+świętokrzyskie,Powiat staszowski,2612,72000,35634,36366
+świętokrzyskie,Powiat włoszczowski,2613,45137,22583,22554
+Warmińsko-mazurskie,Powiat m. Elbląg,2861,119760,57316,62444
+Warmińsko-mazurskie,Powiat m. Olsztyn,2862,172194,80035,92159
+Warmińsko-mazurskie,Powiat bartoszycki,2801,57642,28133,29509
+Warmińsko-mazurskie,Powiat braniewski,2802,41223,20590,20633
+Warmińsko-mazurskie,Powiat działdowski,2803,65288,32159,33129
+Warmińsko-mazurskie,Powiat elbląski,2804,57395,28739,28656
+Warmińsko-mazurskie,Powiat ełcki,2805,91446,44908,46538
+Warmińsko-mazurskie,Powiat giżycki,2806,56661,27722,28939
+Warmińsko-mazurskie,Powiat gołdapski,2818,26825,13322,13503
+Warmińsko-mazurskie,Powiat iławski,2807,92933,46024,46909
+Warmińsko-mazurskie,Powiat kętrzyński,2808,62536,30635,31901
+Warmińsko-mazurskie,Powiat lidzbarski,2809,41311,20337,20974
+Warmińsko-mazurskie,Powiat mrągowski,2810,49970,24480,25490
+Warmińsko-mazurskie,Powiat nidzicki,2811,32940,16369,16571
+Warmińsko-mazurskie,Powiat nowomiejski,2812,43900,21867,22033
+Warmińsko-mazurskie,Powiat olecki,2813,34281,17134,17147
+Warmińsko-mazurskie,Powiat olsztyński,2814,126334,62368,63966
+Warmińsko-mazurskie,Powiat ostródzki,2815,104526,51497,53029
+Warmińsko-mazurskie,Powiat piski,2816,56328,28057,28271
+Warmińsko-mazurskie,Powiat szczycieński,2817,69678,34460,35218
+Warmińsko-mazurskie,Powiat węgorzewski,2819,22796,11352,11444
+wielkopolskie,Powiat m. Kalisz,3061,100482,46759,53723
+wielkopolskie,Powiat m. Konin,3062,73742,34874,38868
+wielkopolskie,Powiat m. Leszno,3063,63774,30543,33231
+wielkopolskie,Powiat m. Poznań,3064,535802,249991,285811
+wielkopolskie,Powiat chodzieski,3001,47168,23167,24001
+wielkopolskie,Powiat czarnkowsko-trzcianecki,3002,87231,43212,44019
+wielkopolskie,Powiat gnieźnieński,3003,145198,71056,74142
+wielkopolskie,Powiat gostyński,3004,75917,37629,38288
+wielkopolskie,Powiat grodziski,3005,51988,25854,26134
+wielkopolskie,Powiat jarociński,3006,71595,34917,36678
+wielkopolskie,Powiat kaliski,3007,83008,40815,42193
+wielkopolskie,Powiat kępiński,3008,56494,28061,28433
+wielkopolskie,Powiat kolski,3009,86925,42593,44332
+wielkopolskie,Powiat koniński,3010,130026,64708,65318
+wielkopolskie,Powiat kościański,3011,79171,38858,40313
+wielkopolskie,Powiat krotoszyński,3012,77304,37989,39315
+wielkopolskie,Powiat leszczyński,3013,56799,28332,28467
+wielkopolskie,Powiat międzychodzki,3014,36883,18327,18556
+wielkopolskie,Powiat nowotomyski,3015,75457,37056,38401
+wielkopolskie,Powiat obornicki,3016,59819,29640,30179
+wielkopolskie,Powiat ostrowski,3017,161526,78987,82539
+wielkopolskie,Powiat ostrzeszowski,3018,55404,27342,28062
+wielkopolskie,Powiat pilski,3019,136261,66671,69590
+wielkopolskie,Powiat pleszewski,3020,63121,31276,31845
+wielkopolskie,Powiat poznański,3021,394541,192149,202392
+wielkopolskie,Powiat rawicki,3022,60344,29804,30540
+wielkopolskie,Powiat słupecki,3023,59246,29502,29744
+wielkopolskie,Powiat szamotulski,3024,91303,44758,46545
+wielkopolskie,Powiat średzki,3025,58664,28899,29765
+wielkopolskie,Powiat śremski,3026,61303,30123,31180
+wielkopolskie,Powiat turecki,3027,83998,41129,42869
+wielkopolskie,Powiat wągrowiecki,3028,70301,34926,35375
+wielkopolskie,Powiat wolsztyński,3029,57350,28256,29094
+wielkopolskie,Powiat wrzesiński,3030,77820,38011,39809
+wielkopolskie,Powiat złotowski,3031,69505,34433,35072
+zachodniopomorskie,Powiat m. Koszalin,3261,107225,50469,56756
+zachodniopomorskie,Powiat m. Szczecin,3262,402067,191020,211047
+zachodniopomorskie,Powiat m. Świnoujście,3263,40883,19668,21215
+zachodniopomorskie,Powiat białogardzki,3201,47697,23390,24307
+zachodniopomorskie,Powiat choszczeński,3202,48419,24123,24296
+zachodniopomorskie,Powiat drawski,3203,57171,27985,29186
+zachodniopomorskie,Powiat goleniowski,3204,82418,40697,41721
+zachodniopomorskie,Powiat gryficki,3205,60474,29955,30519
+zachodniopomorskie,Powiat gryfiński,3206,82258,40728,41530
+zachodniopomorskie,Powiat kamieński,3207,47115,23086,24029
+zachodniopomorskie,Powiat kołobrzeski,3208,79470,38154,41316
+zachodniopomorskie,Powiat koszaliński,3209,66373,33071,33302
+zachodniopomorskie,Powiat łobeski,3218,36954,18458,18496
+zachodniopomorskie,Powiat myśliborski,3210,65999,32434,33565
+zachodniopomorskie,Powiat policki,3211,79967,39208,40759
+zachodniopomorskie,Powiat pyrzycki,3212,39482,19745,19737
+zachodniopomorskie,Powiat sławieński,3213,56231,27607,28624
+zachodniopomorskie,Powiat stargardzki,3214,120088,58830,61258
+zachodniopomorskie,Powiat szczecinecki,3215,77731,37814,39917
+zachodniopomorskie,Powiat świdwiński,3216,46997,23220,23777
+zachodniopomorskie,Powiat wałecki,3217,53325,25997,27328

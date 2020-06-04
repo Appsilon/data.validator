@@ -1,0 +1,13 @@
+---
+title: Data validation report
+output: html_document
+params:
+  generate_report_html: !expr function(...) {}
+  extra_params: !expr list()
+---
+
+#### `r format(Sys.time(), "%Y-%m-%d %H:%M:%S")`
+
+```{r generate_report, echo = FALSE}
+params$generate_report_html(params$extra_params)
+```

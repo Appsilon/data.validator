@@ -1,128 +1,168 @@
-#' Creates data frame from validation attribute.
-#' @description Creates data frame from validation attribute.
-#' @param data Validated data frame.
-#' @param attribute Attribute name.
-#' @return Data frame with validation results.
-get_validations_attribute <- function(data, attribute) {
-  attr(data, attribute) %>% purrr::map_df(~ dplyr::tibble(
-    validation_id = .$validation_id,
-    message = .$message,
-    num.violations = .$num.violations)
-  )
-}
-
-#' Creates data frame from validation results.
-#' @description Creates data frame from validation results.
-#' @param data Validated data frame.
-#' @param errors Data frame with validation errors. See \code{get_validations_attribute} function.
-#' @param warnings Data frame with validation warnings. See \code{get_validations_attribute} function.
-#' @param file_path Github repo file path to redirect.
-#' @param object_name Title to display in the report.
-#' @return Data frame with validation results.
-create_validation_results <- function(data, errors, warnings, file_path, object_name) {
-  results <- attr(data, "assertr_results") %>% dplyr::bind_rows() %>%
-    dplyr::mutate(object = object_name,
-                  file_path = ifelse(is.null(file_path), NA, file_path),
-                  result = dplyr::case_when(
-                    result == TRUE ~ "Passed",
-                    TRUE ~ as.character(result)))
-  if (nrow(errors) > 0) {
-    results <- results %>% dplyr::mutate(result = dplyr::case_when(
-      validation_id %in% errors$validation_id ~ "Failed",
-      TRUE ~ as.character(result)))
-  }
-  if (nrow(warnings) > 0) {
-    results <- results %>% dplyr::mutate(result = dplyr::case_when(
-      validation_id %in% warnings$validation_id ~ "Warning",
-      TRUE ~ as.character(result)))
-  }
-  errors_and_warnings <- dplyr::bind_rows(errors, warnings)
-  if (nrow(errors_and_warnings) > 0) {
-    dplyr::left_join(results, errors_and_warnings, by = "validation_id")
-  } else {
-    results
-  }
-}
-
-#' Class providing object with methods for simple data validation reports.
-#' @docType class
-#' @return Object of \code{\link{R6Class}} with methods for simple data validation reports.
-#' @export
-#' @keywords data
-#' @format \code{\link{R6Class}} object.
-#' @examples
-#' validator <- Validator$new()
-#' @field repo_path Github repository url of a project.
-#' @section Methods:
-#' \describe{
-#' \item{\code{add_validations(data, file_path = NULL)}}{This method adds \code{assertr} validation results to the report.}
-#' \item{\code{get_validations()}}{This method returns list of current validations.}
-#' \item{\code{generate_html_report()}}{This method generates \code{HTML} validation report.}
-#' \item{\code{save_log(output_path = "validation_log")}}{This method saves report log into \code{output_path}}}
 Validator <- R6::R6Class(
   classname = "Validator",
   public = list(
-    repo_path = NULL,
-    print = function(...) {
-      cat("Github repo path: ", ifelse(is.null(self$repo_path), "NOT DEFINED", self$repo_path), "\n")
-      cat("\n")
+    print = function(success = TRUE, warning = TRUE, error = TRUE) {
+      types <- c(success_id, warning_id, error_id)[c(success, warning, error)]
       cat("Validation summary: \n")
-      cat(" Number of passed validations: ", private$n_passed, "\n", sep = "")
-      cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
-      cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
-      cat("\n")
+      if (success) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
+      if (warning) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
+      if (error) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
       if (nrow(private$validation_results) > 0) {
+        cat("\n")
         cat("Advanced view: \n")
         print(private$validation_results %>%
-                dplyr::select(object, title, result, validation_id) %>%
+                dplyr::filter(type %in% types) %>%
+                dplyr::select(table_name, description, type, num.violations) %>%
+                dplyr::group_by(table_name, description, type) %>%
+                dplyr::summarise(total_violations = sum(num.violations)) %>%
                 knitr::kable())
       }
       invisible(self)
     },
-    add_validations = function(data, file_path = NULL) {
-      errors <- get_validations_attribute(data, "assertr_errors")
-      warnings <- get_validations_attribute(data, "assertr_warnings")
-      object_name <- ifelse(is.null(attr(data, "ribbon-title")), deparse(substitute(data)), attr(data, "ribbon-title"))
-      results <- create_validation_results(data, errors, warnings, file_path, object_name)
-      private$n_failed <- private$n_failed + nrow(errors)
-      private$n_warned <- private$n_warned + nrow(warnings)
-      private$n_passed <- private$n_passed + nrow(results) - nrow(errors) - nrow(warnings)
+    add_validations = function(data, name = NULL) {
+      object_name <- ifelse(!is.null(name), name, get_first_name(data))
+      results <- parse_results_to_df(data) %>%
+        dplyr::mutate(table_name = object_name) %>%
+        dplyr::select(table_name, everything())
+      n_results <- get_results_number(results)
+      private$n_failed <- sum(private$n_failed, n_results[error_id], na.rm = TRUE)
+      private$n_warned <- sum(private$n_warned, n_results[warning_id], na.rm = TRUE)
+      private$n_passed <- sum(private$n_passed, n_results[success_id], na.rm = TRUE)
       private$validation_results <- dplyr::bind_rows(private$validation_results, results)
       invisible(self)
     },
-    get_validations = function() {
-      list(n_failed = private$n_failed, n_warned = private$n_warned,
-           n_passed = private$n_passed, validation_results = private$validation_results)
+    get_validations = function(unnest = FALSE) {
+      validation_results = private$validation_results
+      if (unnest) {
+        validation_results <- validation_results %>%
+          tidyr::unnest(error_df, keep_empty = TRUE)
+      }
+      validation_results
     },
-    generate_html_report = function() {
-      generate_html_report(private$n_passed, private$n_failed, private$n_warned,
-                           private$validation_results, self$repo_path) %>%
-        shiny.semantic::uirender(., width = "100%", height = "100%")
+    generate_html_report = function(extra_params) {
+      params_list <- modifyList(list(validation_results = private$validation_results), extra_params)
+      do.call(private$report_constructor, params_list)
     },
-    save_log = function(output_path = "validation_log") {
-      sink(output_path)
-      self$print()
-      sink()
+    save_html_report = function(
+      template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"),
+      output_file = "validation_report.html", output_dir = getwd(), report_ui_constructor = render_semantic_report_ui,
+      ...) {
+
+      private$report_constructor <- report_ui_constructor
+
+      rmarkdown::render(
+        input = template,
+        output_format = "html_document",
+        output_file = output_file,
+        output_dir = output_dir,
+        knit_root_dir = getwd(),
+        params = list(
+          generate_report_html = self$generate_html_report,
+          extra_params = list(...)
+        )
+      )
+    },
+    save_log = function(file_name = "validation_log.txt", success, warning, error) {
+        sink(file_name)
+        self$print(success, warning, error)
+        sink()
+    },
+    save_results = function(file_name, method = write.csv, ...) {
+      self$get_validations(unnest = TRUE) %>%
+        write.csv(file = file_name)
     }
   ),
   private = list(
     n_failed = 0,
     n_passed = 0,
     n_warned = 0,
-    validation_results = dplyr::tibble()
-  ))
+    validation_results = dplyr::tibble(),
+    report_constructor = NULL
+  )
+)
 
-#' Renders validation report.
-#' @description Renders validation report.
-#' @param template Report Rmd template.
-#' @param output_dir Output directory for HTML report.
-#' @param output_file Output name for HTML report.
-#' @param scripts Vector containing paths for the scripts to run inside the template (e.g. data reading, validations). Note that the paths should be relative to the location of the template.
-#' @param repo_path Github repo path.
-#' @return Validation report.
+#' Create new validator object
+#'
+#' @description  The object returns R6 class environment resposible for storing validation results.
 #' @export
-render_validation_report <- function(template, output_dir, output_file = "validation_report.html", scripts, repo_path = NULL) {
-  params = list(repo_path = repo_path, scripts = scripts)
-  rmarkdown::render(input = template, output_format = "html_document", output_file = output_file,
-                    output_dir = output_dir, params = params)
+create_validator <- function() {
+  Validator$new()
+}
+
+#' Add validation results to validator object
+#'
+#' @description This function adds results to validator object with aggregating summary of
+#'   success, error and warning checks. Moreover it parses assertr results attributes and stores
+#'   them inside usable table.
+#'
+#' @param data Data that was validated.
+#' @param validator Validator object to store results to created with \link{create_validator}.
+#' @param name Optional name for data that was validated.
+#'   By default the name of first object used in validation chain.
+#' @export
+add_results <- function(data, validator, name = NULL) {
+  validator$add_validations(data, name)
+}
+
+#' Get validation results
+#'
+#' @description The response is a list containing information about successful, failed, warning assertions and
+#'   the table stores important information about validation results. Those are:
+#'   \itemize{
+#'     \item table_name - name of validated table
+#'     \item assertion.id - id used for each assertion
+#'     \item description - assertion description
+#'     \item num.violations - number of violations (assertion and column specific)
+#'     \item call - assertion call
+#'     \item message - assertion result message for specific column
+#'     \item type - error, warning or success
+#'     \item error_df - nested table storing details about error or warning result (like vilated indexes and valies)
+#'   }
+#' @param validator Validator object that stores validation results. See \link{add_results}.
+#' @param unnest If TRUE, error_df table is unnested. Results with remaining columns duplicated in table.
+#' @export
+get_results <- function(validator, unnest = FALSE) {
+  validator$get_validations(unnest)
+}
+
+#' Saving results table to external file
+#'
+#' @param validator Validator object that stores validation results. See \link{get_results}.
+#' @param file_name Name of the resulting file (including extension).
+#' @param method Function that should be used to save results table (write.csv default).
+#' @param ... Remaining parameters passed to \code{method}.
+#' @export
+save_results <- function(validator, file_name = "results.csv", method = utils::write.csv, ...) {
+  validator$save_results(file_name, method, ...)
+}
+
+#' Saving results as a HTML report
+#'
+#' @param validator Validator object that stores validation results.
+#' @param output_file Html file name to write report to.
+#' @param output_dir Target report directory.
+#' @param ui_constructor Function of \code{validation_results} and optional parameters that generates HTML
+#'   code or HTML widget that should be used to generate report content. See \code{custom_report} example.
+#' @param template Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
+#'   template to see basic construction - the one is used as a default template.
+#' @param ... Additional parameters passed to \code{ui_constructor}.
+#' @export
+save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
+  ui_constructor = render_semantic_report_ui,
+  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"), ...) {
+
+  validator$save_html_report(template, output_file, output_dir, ui_constructor, ...)
+}
+
+#' Save simple validation summary in text file
+#'
+#' @description Saves \code{print(validator)} output inside text file.
+#' @param validator Validator object that stores validation results.
+#' @param file_name Name of the resulting file (including extension).
+#' @param success Should success results be presented?
+#' @param warning Should warning results be presented?
+#' @param error Should error results be presented?
+#' @export
+save_summary <- function(validator, file_name = "validation_log.txt", success = TRUE, warning = TRUE, error = TRUE) {
+  validator$save_log(file_name, success, warning, error)
 }

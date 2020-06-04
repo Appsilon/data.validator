@@ -9,4 +9,7 @@ environment
 .git
 .github
 package
+assets
 examples
+README\.md
+validation_report\.html

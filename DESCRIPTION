@@ -1,7 +1,7 @@
-Package: datavalidator
+Package: data.validator
 Type: Package
 Title: Tools for automatic validation report
-Version: 0.1.0
+Version: 0.1.1
 Organization: Appsilon Data Science
 Author: Michal Maj <michal@appsilon.com>
 Maintainer: Dominik Krzeminski <filip@appsilondatascience.com>
@@ -9,16 +9,22 @@ Description: Tools for automatic validation report. User can create two types of
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Imports:
     shiny,
     shiny.semantic,
     knitr,
     purrr,
     dplyr,
+    tidyr,
     utils,
     R6,
     rlang,
-    rmarkdown
+    rmarkdown,
+    assertr (>= 2.6.9000),
+    htmltools,
+    htmlwidgets,
+    tibble
 Suggests:
-    testthat
+    testthat,
+    covr
