@@ -22,7 +22,7 @@ prepare_modal_content <- function(error) {
       htmltools::div(style = "padding-left: 1em;",
                  htmltools::div(class = "ui header", "Violated data (sample)"),
                  htmltools::HTML(knitr::kable(utils::head(error$error_df[[1]][[.x]]), "html", align = NULL, table.attr = "class=\"ui cellable table\"")),
-                 htmltools::div(class = "ui horizontal divider", shiny.semantic::uiicon("flag"))
+                 htmltools::div(class = "ui horizontal divider", shiny.semantic::icon("flag"))
       )
     htmltools::tagList(
       htmltools::tags$table(class = "ui definition table",
@@ -81,7 +81,7 @@ make_table_row <- function(results, type, mark) {
                    htmltools::tags$h6(description)
     ),
     htmltools::tags$td(class = "center aligned",
-                   shiny.semantic::uiicon(mark)
+                   shiny.semantic::icon(mark)
     ),
     htmltools::tags$td(class = "center aligned",
                    htmltools::tagList(
@@ -145,8 +145,8 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
     state <- "active"
   }
   htmltools::tagList(
-    htmltools::div(class = paste("title", state), shiny.semantic::uiicon("dropdown"),
-               htmltools::tagList(shiny.semantic::uilabel(length(unique(results$assertion.id)), type = paste(color, "circular tiny")), label)),
+    htmltools::div(class = paste("title", state), shiny.semantic::icon("dropdown"),
+               htmltools::tagList(shiny.semantic::label(length(unique(results$assertion.id)), type = paste(color, "circular tiny")), label)),
     htmltools::div(class = paste("content", state), result_table(results, type, mark))
   )
 }
@@ -216,7 +216,7 @@ display_results <- function(data, n_passes, n_fails, n_warns) {
 create_summary_row <- function(id, number, color, label) {
   list(htmltools::tags$td(id = id,
                  class = "two wide right aligned",
-                 shiny.semantic::uilabel(number, type = paste(color, "circular huge"))),
+                 shiny.semantic::label(number, type = paste(color, "circular huge"))),
   htmltools::tags$td(class = "three wide left aligned", htmltools::tags$h2(label)))
 }
 
