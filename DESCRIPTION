@@ -12,7 +12,7 @@ LazyData: TRUE
 RoxygenNote: 7.1.0
 Imports:
     shiny,
-    shiny.semantic,
+    shiny.semantic (>= 0.3.3),
     knitr,
     purrr,
     dplyr,
