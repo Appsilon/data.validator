@@ -145,8 +145,13 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
     state <- "active"
   }
   htmltools::tagList(
-    htmltools::div(class = paste("title", state), shiny.semantic::icon("dropdown"),
-               htmltools::tagList(shiny.semantic::label(length(unique(results$assertion.id)), type = paste(color, "circular tiny")), label)),
+    htmltools::div(
+      class = paste("title", state), shiny.semantic::icon("dropdown"),
+      htmltools::tagList(
+        shiny.semantic::label(length(unique(results$assertion.id)), class = paste(color, "circular tiny"), is_link = FALSE),
+        label
+      )
+    ),
     htmltools::div(class = paste("content", state), result_table(results, type, mark))
   )
 }
@@ -216,7 +221,7 @@ display_results <- function(data, n_passes, n_fails, n_warns) {
 create_summary_row <- function(id, number, color, label) {
   list(htmltools::tags$td(id = id,
                  class = "two wide right aligned",
-                 shiny.semantic::label(number, type = paste(color, "circular huge"))),
+                 shiny.semantic::label(number, class = paste(color, "circular huge"), is_link = FALSE)),
   htmltools::tags$td(class = "three wide left aligned", htmltools::tags$h2(label)))
 }
 
