@@ -59,7 +59,8 @@ Validator <- R6::R6Class(
         params = list(
           generate_report_html = self$generate_html_report,
           extra_params = list(...)
-        )
+        ),
+        quiet = TRUE
       )
     },
     save_log = function(file_name = "validation_log.txt", success, warning, error) {
