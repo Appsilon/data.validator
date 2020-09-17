@@ -34,6 +34,10 @@ Validator <- R6::R6Class(
     get_validations = function(unnest = FALSE) {
       validation_results = private$validation_results
       if (unnest) {
+        if (all(purrr::map_lgl(validation_results$error_df, is.null))) {
+          validation_results$error_df <- NULL
+          return(validation_results)
+        }
         validation_results <- validation_results %>%
           tidyr::unnest(error_df, keep_empty = TRUE)
       }
