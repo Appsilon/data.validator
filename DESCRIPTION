@@ -1,7 +1,7 @@
 Package: data.validator
 Type: Package
 Title: Tools for automatic validation report
-Version: 0.1.1
+Version: 0.1.2
 Organization: Appsilon Data Science
 Author: Michal Maj <michal@appsilon.com>
 Maintainer: Dominik Krzeminski <filip@appsilondatascience.com>
