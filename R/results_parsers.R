@@ -28,11 +28,6 @@ convert_error_df <- function(error_df) {
   dplyr::mutate_at(error_df, dplyr::vars(c("verb", "redux_fn", "predicate", "column", "value")), as.character)
 }
 
-#' Negation of is.null function
-not_null <- function(x) {
-  !is.null(x)
-}
-
 #' Parse errors to data.frame
 #'
 #' @param data object of assertr error class  (check \code{assertr} package
