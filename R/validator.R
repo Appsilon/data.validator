@@ -23,7 +23,7 @@ Validator <- R6::R6Class(
       object_name <- ifelse(!is.null(name), name, get_first_name(data))
       results <- parse_results_to_df(data) %>%
         dplyr::mutate(table_name = object_name) %>%
-        dplyr::select(table_name, everything())
+        dplyr::select(table_name, dplyr::everything())
       n_results <- get_results_number(results)
       private$n_failed <- sum(private$n_failed, n_results[error_id], na.rm = TRUE)
       private$n_warned <- sum(private$n_warned, n_results[warning_id], na.rm = TRUE)

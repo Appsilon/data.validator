@@ -4,7 +4,7 @@ attr(validated_data, "assertr_errors") <- list(
     error_df = data.frame(
       verb = factor("assert"),
       redux_fn = NA,
-      predictate = "validation_call()",
+      predicate = "validation_call()",
       column = factor("variable"),
       index = 1L,
       value = 0
@@ -19,7 +19,7 @@ attr(validated_data, "assertr_errors") <- list(
     error_df = data.frame(
       verb = factor("assert"),
       redux_fn = NA,
-      predictate = "validation_call()",
+      predicate = "validation_call()",
       column = factor("variable2"),
       index = 1L,
       value = 0
@@ -61,7 +61,7 @@ attr(validated_data_no_errors, "assertr_errors") <- list(
     error_df = data.frame(
       verb = factor("assert"),
       redux_fn = NA,
-      predictate = "validation_call()",
+      predicate = "validation_call()",
       column = factor("variable"),
       index = 1L,
       value = 0
@@ -103,7 +103,7 @@ attr(validated_data_only_warnings, "assertr_errors") <- list(
     error_df = data.frame(
       verb = factor("assert"),
       redux_fn = NA,
-      predictate = "validation_call()",
+      predicate = "validation_call()",
       column = factor("variable"),
       index = 1L,
       value = 0
@@ -146,7 +146,7 @@ attr(validated_data_no_passed, "assertr_errors") <- list(
     error_df = data.frame(
       verb = factor("assert"),
       redux_fn = NA,
-      predictate = "validation_call()",
+      predicate = "validation_call()",
       column = factor("variable"),
       index = 1L,
       value = 0
@@ -161,7 +161,7 @@ attr(validated_data_no_passed, "assertr_errors") <- list(
     error_df = data.frame(
       verb = factor("assert"),
       redux_fn = NA,
-      predictate = "validation_call()",
+      predicate = "validation_call()",
       column = factor("variable2"),
       index = 1L,
       value = 0

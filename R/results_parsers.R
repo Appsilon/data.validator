@@ -21,6 +21,13 @@ get_assertion_type <- function(assertion) {
   )
 }
 
+#' Convert error table column types
+#'
+#' @param error_df Table consisting assertr error details
+convert_error_df <- function(error_df) {
+  dplyr::mutate_at(error_df, dplyr::vars(c("verb", "redux_fn", "predicate", "column", "value")), as.character)
+}
+
 #' Parse errors to data.frame
 #'
 #' @param data object of assertr error class  (check \code{assertr} package
@@ -40,7 +47,7 @@ parse_errors_to_df <- function(data) {
         call = .$call,
         message = .$message,
         type = get_assertion_type(.),
-        error_df = list(.$error_df)
+        error_df = list(convert_error_df(.$error_df))
       )
     ) %>%
     dplyr::group_by(.data$assertion.id, .data$description) %>%
