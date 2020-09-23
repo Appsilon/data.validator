@@ -9,7 +9,7 @@ Description: Tools for automatic validation report. User can create two types of
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Imports:
     shiny,
     shiny.semantic (>= 0.3.3),
