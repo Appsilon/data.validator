@@ -105,7 +105,7 @@ create_validator <- function() {
 #' @param name Optional name for data that was validated.
 #'   By default the name of first object used in validation chain.
 #' @export
-add_results <- function(data, validator, name = NULL) {
+add_results <- function(data, validator = getDefaultValidator(), name = NULL) {
   validator$add_validations(data, name)
 }
 
@@ -126,7 +126,7 @@ add_results <- function(data, validator, name = NULL) {
 #' @param validator Validator object that stores validation results. See \link{add_results}.
 #' @param unnest If TRUE, error_df table is unnested. Results with remaining columns duplicated in table.
 #' @export
-get_results <- function(validator, unnest = FALSE) {
+get_results <- function(unnest = FALSE, validator = getDefaultValidator()) {
   validator$get_validations(unnest)
 }
 
@@ -137,7 +137,7 @@ get_results <- function(validator, unnest = FALSE) {
 #' @param method Function that should be used to save results table (write.csv default).
 #' @param ... Remaining parameters passed to \code{method}.
 #' @export
-save_results <- function(validator, file_name = "results.csv", method = utils::write.csv, ...) {
+save_results <- function(file_name = "results.csv", method = utils::write.csv, validator = getDefaultValidator(), ...) {
   validator$save_results(file_name, method, ...)
 }
 
@@ -152,9 +152,10 @@ save_results <- function(validator, file_name = "results.csv", method = utils::w
 #'   template to see basic construction - the one is used as a default template.
 #' @param ... Additional parameters passed to \code{ui_constructor}.
 #' @export
-save_report <- function(validator, output_file = "validation_report.html", output_dir = getwd(),
-  ui_constructor = render_semantic_report_ui,
-  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"), ...) {
+save_report <- function(output_file = "validation_report.html", output_dir = getwd(),
+                        ui_constructor = render_semantic_report_ui,
+                        template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"),
+                        validator = getDefaultValidator(), ...) {
 
   validator$save_html_report(template, output_file, output_dir, ui_constructor, ...)
 }
@@ -168,6 +169,7 @@ save_report <- function(validator, output_file = "validation_report.html", outpu
 #' @param warning Should warning results be presented?
 #' @param error Should error results be presented?
 #' @export
-save_summary <- function(validator, file_name = "validation_log.txt", success = TRUE, warning = TRUE, error = TRUE) {
+save_summary <- function(file_name = "validation_log.txt", success = TRUE, warning = TRUE, error = TRUE,
+                         validator = getDefaultValidator()) {
   validator$save_log(file_name, success, warning, error)
 }

@@ -4,7 +4,7 @@
 \alias{add_results}
 \title{Add validation results to validator object}
 \usage{
-add_results(data, validator, name = NULL)
+add_results(data, validator = getDefaultValidator(), name = NULL)
 }
 \arguments{
 \item{data}{Data that was validated.}

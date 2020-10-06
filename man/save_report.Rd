@@ -5,18 +5,16 @@
 \title{Saving results as a HTML report}
 \usage{
 save_report(
-  validator,
   output_file = "validation_report.html",
   output_dir = getwd(),
   ui_constructor = render_semantic_report_ui,
   template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package
     = "data.validator"),
+  validator = getDefaultValidator(),
   ...
 )
 }
 \arguments{
-\item{validator}{Validator object that stores validation results.}
-
 \item{output_file}{Html file name to write report to.}
 
 \item{output_dir}{Target report directory.}
@@ -26,6 +24,8 @@ code or HTML widget that should be used to generate report content. See \code{cu
 
 \item{template}{Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
 template to see basic construction - the one is used as a default template.}
+
+\item{validator}{Validator object that stores validation results.}
 
 \item{...}{Additional parameters passed to \code{ui_constructor}.}
 }

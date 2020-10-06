@@ -5,18 +5,18 @@
 \title{Saving results table to external file}
 \usage{
 save_results(
-  validator,
   file_name = "results.csv",
   method = utils::write.csv,
+  validator = getDefaultValidator(),
   ...
 )
 }
 \arguments{
-\item{validator}{Validator object that stores validation results. See \link{get_results}.}
-
 \item{file_name}{Name of the resulting file (including extension).}
 
 \item{method}{Function that should be used to save results table (write.csv default).}
+
+\item{validator}{Validator object that stores validation results. See \link{get_results}.}
 
 \item{...}{Remaining parameters passed to \code{method}.}
 }

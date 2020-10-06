@@ -4,12 +4,12 @@
 \alias{get_results}
 \title{Get validation results}
 \usage{
-get_results(validator, unnest = FALSE)
+get_results(unnest = FALSE, validator = getDefaultValidator())
 }
 \arguments{
-\item{validator}{Validator object that stores validation results. See \link{add_results}.}
-
 \item{unnest}{If TRUE, error_df table is unnested. Results with remaining columns duplicated in table.}
+
+\item{validator}{Validator object that stores validation results. See \link{add_results}.}
 }
 \description{
 The response is a list containing information about successful, failed, warning assertions and
