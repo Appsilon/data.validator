@@ -3,8 +3,9 @@ Type: Package
 Title: Set of functions for automatic data validation report.
 Version: 0.2.0
 Organization: Appsilon
-Authors@R: c(person("Paweł", "Przytuła", email = "pawel@appsilon.com", role = "aut"),
-             person("Krystian", "Igras", email = "krystian@appsilon.com", role = "aut"))
+Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("aut", "cre")),
+             person("Paweł", "Przytuła", email = "pawel@appsilon.com", role = c("aut")),
+             person(family = "Appsilon Sp. z o.o.", role = c("cph")))
 Description: Validate dataset by columns and rows using convenient predicates inspired by assertr package. 
              Generate good looking HTML report or print console output to display in logs of your data processing pipeline.
 BugReports: https://github.com/Appsilon/data.validator/issues
