@@ -21,3 +21,10 @@ generate_id <- function () {
   paste0(paste0(sample(c(LETTERS, letters, 0:9), 5, TRUE),
                 collapse = ""), round(as.numeric(Sys.time()) * 1000))
 }
+
+#' Return description with datetime prefix.
+#' @param description character
+#' @return character
+format_description <- function(description) {
+  paste0("[", Sys.time(), "] ", description)
+}

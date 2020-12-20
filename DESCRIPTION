@@ -21,7 +21,7 @@ Imports:
     R6,
     rlang,
     rmarkdown,
-    assertr (>= 2.6.9000),
+    assertr (>= 2.6),
     htmltools,
     htmlwidgets,
     tibble

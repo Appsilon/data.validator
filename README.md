@@ -16,6 +16,11 @@ store in logs folder, or generate automatically with RStudio Connect.
 
 # How to validate data with assertr
 
+TODO: instalacja wersji ropensci z mastera! (trzeba uporządkować nasz fork i jego rekomendować)
+```
+devtools::install_github("ropensci/assertr")
+```
+
 ## Basic example
 
 ```
