@@ -3,8 +3,10 @@ Type: Package
 Title: Tools for automatic validation report
 Version: 0.1.3
 Organization: Appsilon Data Science
-Author: Michal Maj <michal@appsilon.com>
-Maintainer: Dominik Krzeminski <filip@appsilondatascience.com>
+Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("cre", "aut")),
+  person("Dominik", "Krzeminski", email = "dominik@appsilon.com", role = "ctb"),
+  person("Michał", "Maj", role = "ctb"),
+  person(family = "Appsilon Sp. z o.o.", role = "cph"))
 Description: Tools for automatic validation report. User can create two types of report: HTML and console log.
 License: MIT + file LICENSE
 Encoding: UTF-8
