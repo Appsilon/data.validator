@@ -12,7 +12,8 @@ population %>%
 validator
 
 render_leaflet_report <- function(validation_results, population_data, correct_col, violated_col) {
-  states <- rgdal::readOGR("counties.shp", GDAL1_integer64_policy = TRUE, verbose = FALSE)
+  file <- system.file("extdata", "counties.json", package = "data.validator")
+  states <- rgdal::readOGR(file, GDAL1_integer64_policy = TRUE, verbose = FALSE)
   population <- population_data
   violated <- validation_results %>%
     tidyr::unnest(error_df, keep_empty = TRUE) %>%
