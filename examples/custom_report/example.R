@@ -4,7 +4,8 @@ library(assertr)
 
 validator <- create_validator()
 
-population <- read.csv("population.csv", colClasses = c("character", "character", "character", "integer", "integer", "integer"))
+file <- system.file("extdata", "population.csv", package = "data.validator")
+population <- read.csv(file, colClasses = c("character", "character", "character", "integer", "integer", "integer"))
 population %>%
   insist(within_n_sds(3), total, success_fun = success_append, error_fun = error_append) %>%
   add_results(validator)
