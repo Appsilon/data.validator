@@ -74,3 +74,14 @@ test_that("Validator adds validations correctly when there are no passed validat
   expect_equal(nrow(results), 2)
   expect_equal(results$type, c("error", "warning"))
 })
+
+test_that("Column 'table_name' in validation results does not contain 'NULL'", {
+  validator <- data.validator::create_validator()
+  mtcars %>%
+    assertr::chain_start(store_success = TRUE) %>%
+    assertr::verify(description = "Column drat has only values larger than 3", drat > 3) %>%
+    assertr::chain_end(error_fun = assertr::error_append) %>%
+    data.validator::add_results(validator)
+  expect_false(validator$get_validations()$table_name == "NULL")
+  expect_false(is.null(validator$get_validations()$table_name))
+})
