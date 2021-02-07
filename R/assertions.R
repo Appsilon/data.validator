@@ -26,57 +26,38 @@ assert_if <- function(data, expr, description = NA, obligatory = FALSE) {
 }
 
 #' @export
-assert_cols <- function(data, predicate, ..., predicate_calculated_from_column = FALSE, obligatory = FALSE, description = NA) {
-  if (predicate_calculated_from_column) {
-    data <- assertr::insist(
-      data = data, predicate_generator = predicate, ...,
-      skip_chain_opts = FALSE,
-      obligatory = obligatory,
-      description = format_description(description),
-      success_fun = assertr::success_append,
-      error_fun = assertr::error_append,
-      defect_fun = assertr::defect_append
-    )
-  } else {
-    data <- assertr::assert(
-      data = data, predicate = predicate, ...,
-      skip_chain_opts = FALSE,
-      obligatory = obligatory,
-      description = format_description(description),
-      success_fun = assertr::success_append,
-      error_fun = assertr::error_append,
-      defect_fun = assertr::defect_append
-    )
-  }
+assert_cols <- function(data, cols, predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA) {
+  assertr_function <- if (!is.null(predicate_generator)) assertr::insist else assertr::assert
+  predicate_arg <- if (!is.null(predicate_generator)) predicate_generator else predicate
+
+  assertr_function(
+    data,
+    predicate_arg,
+    cols,
+    skip_chain_opts = FALSE,
+    obligatory = obligatory,
+    description = format_description(description),
+    success_fun = assertr::success_append,
+    error_fun = assertr::error_append,
+    defect_fun = assertr::defect_append
+  )
 }
 
 #' @export
-assert_rows <- function(data, row_reduction_fn, predicate, ..., predicate_calculated_from_reduced_row = FALSE, obligatory = FALSE, description = NA) {
-  if (predicate_calculated_from_reduced_row) {
-    data <- assertr::insist_rows(
-      data = data,
-      row_reduction_fn = row_reduction_fn,
-      predicate_generator = predicate,
-      ...,
+assert_rows <- function(data, cols, row_reduction_fn, predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA) {
+  assertr_function <- if (!is.null(predicate_generator)) assertr::insist_rows else assertr::assert_rows
+  predicate_arg <- if (!is.null(predicate_generator)) predicate_generator else predicate
+
+  assertr_function(
+      data,
+      row_reduction_fn,
+      predicate_arg,
+      cols,
       skip_chain_opts = FALSE,
       obligatory = obligatory,
       description = format_description(description),
       success_fun = assertr::success_append,
       error_fun = assertr::error_append,
       defect_fun = assertr::defect_append
-    )
-  } else {
-    data <- assertr::assert_rows(
-      data = data,
-      row_reduction_fn = row_reduction_fn,
-      predicate = predicate,
-      ...,
-      skip_chain_opts = FALSE,
-      obligatory = obligatory,
-      description = format_description(description),
-      success_fun = assertr::success_append,
-      error_fun = assertr::error_append,
-      defect_fun = assertr::defect_append
-    )
-  }
+  )
 }
