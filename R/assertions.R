@@ -14,19 +14,23 @@ validate <- function(data, name, description = NULL) {
 }
 
 #' @export
-assert_if <- function(data, expr, description = NA, obligatory = FALSE) {
+assert_if <- function(data, expr, description = NA, obligatory = FALSE, skip_chain_opts = FALSE,
+                      success_fun = assertr::success_append, error_fun = assertr::error_append, defect_fun = assertr::defect_append) {
   assertr::verify(data = data,
                   expr = !!rlang::enexpr(expr),
-                  description = format_description(description),
-                  skip_chain_opts = FALSE,
+                  description = description,
+                  skip_chain_opts = skip_chain_opts,
                   obligatory = obligatory,
-                  success_fun = assertr::success_append,
-                  error_fun = assertr::error_append,
-                  defect_fun = assertr::defect_append)
+                  success_fun = success_fun,
+                  error_fun = error_fun,
+                  defect_fun = defect_fun)
 }
 
 #' @export
-assert_cols <- function(data, cols, predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA) {
+assert_cols <- function(data, cols, predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA,
+                        skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
+                        defect_fun = assertr::defect_append) {
+
   assertr_function <- if (!is.null(predicate_generator)) assertr::insist else assertr::assert
   predicate_arg <- if (!is.null(predicate_generator)) predicate_generator else predicate
 
@@ -37,14 +41,17 @@ assert_cols <- function(data, cols, predicate = NULL, predicate_generator = NULL
     skip_chain_opts = FALSE,
     obligatory = obligatory,
     description = description,
-    success_fun = assertr::success_append,
-    error_fun = assertr::error_append,
-    defect_fun = assertr::defect_append
+    success_fun = success_fun,
+    error_fun = error_fun,
+    defect_fun = defect_fun
   )
 }
 
 #' @export
-assert_rows <- function(data, cols, row_reduction_fn, predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA) {
+assert_rows <- function(data, cols, row_reduction_fn, predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA,
+                        skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
+                        defect_fun = assertr::defect_append) {
+
   assertr_function <- if (!is.null(predicate_generator)) assertr::insist_rows else assertr::assert_rows
   predicate_arg <- if (!is.null(predicate_generator)) predicate_generator else predicate
 
@@ -53,11 +60,11 @@ assert_rows <- function(data, cols, row_reduction_fn, predicate = NULL, predicat
       row_reduction_fn,
       predicate_arg,
       cols,
-      skip_chain_opts = FALSE,
+      skip_chain_opts = skip_chain_opts,
       obligatory = obligatory,
       description = description,
-      success_fun = assertr::success_append,
-      error_fun = assertr::error_append,
-      defect_fun = assertr::defect_append
+      success_fun = success_fun,
+      error_fun = error_fun,
+      defect_fun = defect_fun
   )
 }
