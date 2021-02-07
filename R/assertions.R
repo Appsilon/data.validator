@@ -36,7 +36,7 @@ assert_cols <- function(data, cols, predicate = NULL, predicate_generator = NULL
     cols,
     skip_chain_opts = FALSE,
     obligatory = obligatory,
-    description = format_description(description),
+    description = description,
     success_fun = assertr::success_append,
     error_fun = assertr::error_append,
     defect_fun = assertr::defect_append
@@ -55,7 +55,7 @@ assert_rows <- function(data, cols, row_reduction_fn, predicate = NULL, predicat
       cols,
       skip_chain_opts = FALSE,
       obligatory = obligatory,
-      description = format_description(description),
+      description = description,
       success_fun = assertr::success_append,
       error_fun = assertr::error_append,
       defect_fun = assertr::defect_append
