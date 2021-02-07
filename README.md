@@ -20,15 +20,11 @@ data.validator
 
 # Installation
 
-For now we use Appsilon `assertr` fork, with custom functionalities we needed for `data.validator`. 
-This dependency will be merged with `data.validator` soon.
-
 ```
-devtools::install_github("Appsilon/assertr")
 devtools::install_github("Appsilon/data.validator")
 ```
 
-
+Please make sure you use `assertr` from version 2.8.
 
 ## Data validation
 
