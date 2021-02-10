@@ -41,7 +41,7 @@ parse_errors_to_df <- function(data) {
   attr(data, error_class) %>%
     purrr::map_df(
       ~ tibble::tibble(
-        assertion.id = generate_id(),
+        assertion.id = .$assertion.id,
         description = .$description,
         num.violations = .$num.violations,
         call = .$call,

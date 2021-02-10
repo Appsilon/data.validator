@@ -1,13 +1,12 @@
-library(data.validator)
 library(magrittr)
-library(assertr)
+library(data.validator)
 
-validator <- create_validator()
+validator <- data_validation_report()
 
 file <- system.file("extdata", "population.csv", package = "data.validator")
 population <- read.csv(file, colClasses = c("character", "character", "character", "integer", "integer", "integer"))
-population %>%
-  insist(within_n_sds(3), total, success_fun = success_append, error_fun = error_append) %>%
+validate(population) %>%
+  assert_cols(total, predicate_generator = assertr::within_n_sds(3)) %>%
   add_results(validator)
 validator
 
@@ -46,3 +45,4 @@ save_report(
   correct_col = "#52cf0a",
   violated_col = "#bf0b4d"
 )
+browseURL("validation_report.html")
