@@ -1,7 +1,7 @@
 context("validator")
 
 test_that("Validator is empty after initialization", {
-  validator <- create_validator()
+  validator <- data_validation_report()
   results <- get_results(validator)
 
   expect_equal(private(validator, "n_failed"), 0)
@@ -11,9 +11,9 @@ test_that("Validator is empty after initialization", {
 })
 
 test_that("Validator adds validations correctly when there are warnings, errors and passed validations", {
-  validator <- create_validator()
+  validator <- data_validation_report()
 
-  add_results(validated_data, validator, "sample_data")
+  add_results(validated_data, validator)
   results <- get_results(validator)
 
   expect_equal(private(validator, "n_failed"), 1)
@@ -24,9 +24,9 @@ test_that("Validator adds validations correctly when there are warnings, errors 
 })
 
 test_that("Validator adds validations correctly when there are only warnings and passed validations", {
-  validator <- create_validator()
+  validator <- data_validation_report()
 
-  add_results(validated_data_no_errors, validator, "sample_data")
+  add_results(validated_data_no_errors, validator)
   results <- get_results(validator)
 
   expect_equal(private(validator, "n_failed"), 0)
@@ -37,9 +37,9 @@ test_that("Validator adds validations correctly when there are only warnings and
 })
 
 test_that("Validator adds validations correctly when there are only warnings", {
-  validator <- create_validator()
+  validator <- data_validation_report()
 
-  add_results(validated_data_only_warnings, validator, "sample_data")
+  add_results(validated_data_only_warnings, validator)
   results <- get_results(validator)
 
   expect_equal(private(validator, "n_failed"), 0)
@@ -50,9 +50,9 @@ test_that("Validator adds validations correctly when there are only warnings", {
 })
 
 test_that("Validator adds validations correctly when there are only passed validations", {
-  validator <- create_validator()
+  validator <- data_validation_report()
 
-  add_results(validated_data_only_passed, validator, "sample_data")
+  add_results(validated_data_only_passed, validator)
   results <- get_results(validator)
 
   expect_equal(private(validator, "n_failed"), 0)
@@ -63,9 +63,9 @@ test_that("Validator adds validations correctly when there are only passed valid
 })
 
 test_that("Validator adds validations correctly when there are no passed validations", {
-  validator <- create_validator()
+  validator <- data_validation_report()
 
-  add_results(validated_data_no_passed, validator, "sample_data")
+  add_results(validated_data_no_passed, validator)
   results <- get_results(validator)
 
   expect_equal(private(validator, "n_failed"), 1)
@@ -76,11 +76,9 @@ test_that("Validator adds validations correctly when there are no passed validat
 })
 
 test_that("Column 'table_name' in validation results does not contain 'NULL'", {
-  validator <- data.validator::create_validator()
-  mtcars %>%
-    assertr::chain_start(store_success = TRUE) %>%
-    assertr::verify(description = "Column drat has only values larger than 3", drat > 3) %>%
-    assertr::chain_end(error_fun = assertr::error_append) %>%
+  validator <- data.validator::data_validation_report()
+  validate(mtcars) %>%
+    assert_if(description = "Column drat has only values larger than 3", drat > 3) %>%
     data.validator::add_results(validator)
   expect_false(validator$get_validations()$table_name == "NULL")
   expect_false(is.null(validator$get_validations()$table_name))
