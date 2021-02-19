@@ -1,19 +1,23 @@
 Package: data.validator
 Type: Package
-Title: Tools for automatic validation report
-Version: 0.1.3
-Organization: Appsilon Data Science
-Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("cre", "aut")),
-  person("Dominik", "Krzeminski", email = "dominik@appsilon.com", role = "ctb"),
-  person("Michał", "Maj", role = "ctb"),
-  person(family = "Appsilon Sp. z o.o.", role = "cph"))
-Description: Tools for automatic validation report. User can create two types of report: HTML and console log.
+Title: Set of functions for automatic data validation report.
+Version: 0.1.3.9000
+Organization: Appsilon
+Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("aut", "cre")),
+             person("Marcin", "Dubel", email = "marcin@appsilon.com", role = c("aut")),
+             person("Paweł", "Przytuła", email = "pawel@appsilon.com", role = c("aut")),
+             person("Dominik", "Krzeminski", email = "dominik@appsilon.com", role = ("ctb")),
+             person(family = "Appsilon Sp. z o.o.", role = c("cph")))
+Description: Validate dataset by columns and rows using convenient predicates inspired by assertr package. 
+             Generate good looking HTML report or print console output to display in logs of your data processing pipeline.
+BugReports: https://github.com/Appsilon/data.validator/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.1.1
 Imports:
     shiny,
+    assertr (>= 2.8),
     shiny.semantic (>= 0.3.3),
     knitr,
     purrr,
@@ -23,10 +27,15 @@ Imports:
     R6,
     rlang,
     rmarkdown,
-    assertr (>= 2.6.9000),
     htmltools,
     htmlwidgets,
     tibble
 Suggests:
     testthat,
     covr
+Collate:
+    'results_parsers.R'
+    'semantic_report_constructors.R'
+    'utils.R'
+    'report.R'
+    'assertions.R'

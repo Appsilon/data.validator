@@ -7,67 +7,72 @@ data.validator
 
 # Description
 
-`data.validator` is a set of tools for creating reports based on [assertr's](https://github.com/ropensci/assertr) validation results.
+`data.validator` is a package for scalable and reproducible data validation. It provides:
 
-It provides tools for creating user-friendly reports that you can send to email,
-store in logs folder, or generate automatically with RStudio Connect.
+* Functions for validating datasets in `%>%` pipelines: `assert_if`, `assert_cols` and `assert_rows`
+* Predicate functions from [assertr](https://github.com/ropensci/assertr) package, like `in_set`, `within_bounds`, etc.
+* Functions for creating user-friendly reports that you can send to email, store in logs folder, 
+  or generate automatically with RStudio Connect.
 
 ![](assets/semantic_report_example.gif)
 
-# How to validate data with assertr
 
-## Basic example
+
+# Installation
+
+```
+devtools::install_github("Appsilon/data.validator")
+```
+
+Please make sure you use `assertr` from version 2.8.
+
+## Data validation
+
+Validaton cycle is simple:
+
+1. Create report object.
+2. Prepare your dataset. You can load it, preprocess and then run `validate()` pipeline.
+2. Validate your datasets.
+    * Start validation block with `validate()` function. It adds new section to the report.
+    * Use `assert_*` functions and predicates to validate the data. You can create your custom predicates. See `between()` example.
+    * Add assertion results to the report with `add_results()`
+3. Print the results or generate HTML report.
+
+TODO: list and examples of available predicate functions needed.
 
 ```
 library(assertr)
-library(dplyr)
-mtcars %>%
-  chain_start(store_success = TRUE) %>%
-  assert(description = "vs and am values equal 0 or 2 only", in_set(c(0, 2)), vs, am) %>%
-  assert(description = "vs and am values should equal 3 or 4", skip_chain_opts = TRUE,
-         error_fun = warning_append, in_set(c(3, 4)), gear, carb) %>%
-  assert_rows(description = "Each row sum for am:vs columns is less or equal 1", rowSums, within_bounds(0, 1), vs:am) %>%
-  insist(description = "For wt and qsec we have: abs(col) < 2 * sd(col)", within_n_sds(2), wt, qsec) %>%
-  verify(description = "Column drat has only positive values", drat > 0) %>%
-  verify(description = "Column drat has only values larger than 3", drat > 3) %>%
-  chain_end(error_fun = error_append)
-```
-
-For full specification see [assertr vignette](https://docs.ropensci.org/assertr/).
-
-# How to use data.validator for presenting the results
-
-1. Create new validator
-
-```
 library(data.validator)
-validator <- create_validator()
+
+report <- data_validation_report()
+
+validate(mtcars, name = "Verifying cars dataset") %>%
+  assert_if(drat < 0, description = "Column drat has only positive values") %>%
+  assert_cols(in_set(c(0, 2)), vs, am, description = "vs and am values equal 0 or 2 only") %>%
+  assert_cols(within_n_sds(1), mpg, predicate_calculated_from_column = T, description = "mpg within 1 sds") %>%
+  assert_rows(num_row_NAs, within_bounds(0, 2), vs, am, mpg, description = "not too many NAs in rows") %>%
+  assert_rows(maha_dist, within_n_mads(10), everything(), predicate_calculated_from_reduced_row = T, description = "maha dist within 10 mads") %>%
+  add_results(report)
+
+between <- function(a, b) {
+  function(x) { a <= x && x <= b }
+}
+
+validate(iris, name = "Verifying flower dataset") %>%
+  assert_if(Sepal.Length > 0, description = "Sepal length is greater than 0") %>%
+  assert_cols(between(0, 4), Sepal.Width, description = "Sepal width is between 0 and 4") %>%
+  add_results(report)
+
+print(report)
 ```
 
-2. Add results to created object
+
+# Reporting
+
+Print results to the console:
 
 ```
-library(assertr)
-library(dplyr)
-mtcars %>%
-  chain_start(store_success = TRUE) %>%
-  assert(description = "vs and am values equal 0 or 2 only", in_set(c(0, 2)), vs, am) %>%
-  assert(description = "vs and am values should equal 3 or 4", skip_chain_opts = TRUE,
-         error_fun = warning_append, in_set(c(3, 4)), gear, carb) %>%
-  assert_rows(description = "Each row sum for am:vs columns is less or equal 1", rowSums, within_bounds(0, 1), vs:am) %>%
-  insist(description = "For wt and qsec we have: abs(col) < 2 * sd(col)", within_n_sds(2), wt, qsec) %>%
-  verify(description = "Column drat has only positive values", drat > 0) %>%
-  verify(description = "Column drat has only values larger than 3", drat > 3) %>%
-  chain_end(error_fun = error_append) %>%
-  add_results(validator)
-```
-
-3. Use one of available methods to present results
-
-- print summary
-
-```
-print(validator)
+print(report)
 
 # Validation summary: 
 #  Number of successful validations: 1
@@ -85,14 +90,16 @@ print(validator)
 # |mtcars     |vs and am values equal 0 or 2 only                |error   |               27|
 # |mtcars     |vs and am values should equal 3 or 4              |warning |               24|
 ```
-- save as HTML report
+
+
+Save as HTML report
 
 ```
-save_report(validator)
+save_report(report)
 ```
 
 
-## Creating custom reports
+## Creating custom reports // TODO: this section needs to be updated
 
 Define function of `validation_results` parameter that returns HTML object or HTML widget.
 The `validation_results` parameter is assumed to be passed as a results table extracted with `get_results(validator)`.
