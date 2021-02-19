@@ -49,9 +49,9 @@ report <- data_validation_report()
 validate(mtcars, name = "Verifying cars dataset") %>%
   assert_if(drat < 0, description = "Column drat has only positive values") %>%
   assert_cols(in_set(c(0, 2)), vs, am, description = "vs and am values equal 0 or 2 only") %>%
-  assert_cols(within_n_sds(1), mpg, predicate_calculated_from_column = T, description = "mpg within 1 sds") %>%
+  assert_cols(within_n_sds(1), mpg, description = "mpg within 1 sds") %>%
   assert_rows(num_row_NAs, within_bounds(0, 2), vs, am, mpg, description = "not too many NAs in rows") %>%
-  assert_rows(maha_dist, within_n_mads(10), everything(), predicate_calculated_from_reduced_row = T, description = "maha dist within 10 mads") %>%
+  assert_rows(maha_dist, within_n_mads(10), everything(), description = "maha dist within 10 mads") %>%
   add_results(report)
 
 between <- function(a, b) {
@@ -113,14 +113,14 @@ library(data.validator)
 library(magrittr)
 library(assertr)
 
-validator <- create_validator()
+report <- data_validation_report()
 
 population <- read.csv("population.csv", colClasses = c("character", "character", "character", "integer", "integer", "integer"))
 population %>%
   insist(within_n_sds(3), total, success_fun = success_append, error_fun = error_append) %>%
-  add_results(validator)
+  add_results(report)
 
-print(validator)
+print(report)
 
 # Validation summary: 
 #  Number of successful validations: 0

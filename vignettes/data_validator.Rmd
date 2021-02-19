@@ -31,22 +31,21 @@ This is a basic example of how to validate data with `assertr`:
 library(assertr)
 library(dplyr)
 
-mtcars %>%
-  chain_start(store_success = TRUE) %>%
-  assert(description = "vs and am values equal 0 or 2 only", 
+validate(mtcars) %>%
+  assert_cols(description = "vs and am values equal 0 or 2 only", 
          in_set(c(0, 2)), vs, am) %>%
-  assert(description = "vs and am values should equal 3 or 4", 
+  assert_cols(description = "vs and am values should equal 3 or 4", 
          skip_chain_opts = TRUE,
          error_fun = warning_append, in_set(c(3, 4)), gear, carb) %>%
   assert_rows(description = "Each row sum for am:vs columns is less or equal 1",
               rowSums, within_bounds(0, 1), vs:am) %>%
-  insist(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
+  assert_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
          within_n_sds(2), wt, qsec) %>%
-  verify(description = "Column drat has only positive values", 
+  assert_if(description = "Column drat has only positive values", 
          drat > 0) %>%
-  verify(description = "Column drat has only values larger than 3", 
+  assert_if(description = "Column drat has only values larger than 3", 
          drat > 3) %>%
-  chain_end(error_fun = error_append)
+  add_results(report)
 ```
 
 See the [`assertr` vignette](https://docs.ropensci.org/assertr/) for the full specification.
@@ -57,7 +56,7 @@ The first step is to create a validator.
 
 ```{r}
 library(data.validator)
-validator <- create_validator()
+report <- data_validation_report()
 ```
 
 Next we have to add validation results to the validator.
@@ -66,23 +65,21 @@ Next we have to add validation results to the validator.
 library(assertr)
 library(dplyr)
 
-mtcars %>%
-  chain_start(store_success = TRUE) %>%
-  assert(description = "vs and am values equal 0 or 2 only", 
+validate(mtcars) %>%
+  assert_cols(description = "vs and am values equal 0 or 2 only", 
          in_set(c(0, 2)), vs, am) %>%
-  assert(description = "vs and am values should equal 3 or 4", 
+  assert_cols(description = "vs and am values should equal 3 or 4", 
          skip_chain_opts = TRUE, error_fun = warning_append, 
          in_set(c(3, 4)), gear, carb) %>%
   assert_rows(description = "Each row sum for am:vs columns is less or equal 1",
               rowSums, within_bounds(0, 1), vs:am) %>%
-  insist(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
+  assert_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
          within_n_sds(2), wt, qsec) %>%
-  verify(description = "Column drat has only positive values", 
+  assert_if(description = "Column drat has only positive values", 
          drat > 0) %>%
-  verify(description = "Column drat has only values larger than 3", 
+  assert_if(description = "Column drat has only values larger than 3", 
          drat > 3) %>%
-  chain_end(error_fun = error_append) %>%
-  add_results(validator)
+  add_results(report)
 ```
 
 Finally, we use one of the available methods to present the results.
@@ -90,13 +87,13 @@ Finally, we use one of the available methods to present the results.
 Either print the summary,
 
 ```{r}
-print(validator)
+print(report)
 ```
 
 or save it as an HTML report.
 
 ```{r, eval=FALSE}
-save_report(validator)
+save_report(report)
 ```
 
 ### Creating custom reports
@@ -117,18 +114,17 @@ library(data.validator)
 library(magrittr)
 library(assertr)
 
-validator <- create_validator()
+report <- data_validation_report()
 
 file <- system.file("extdata", "population.csv", package = "data.validator")
 population <- read.csv(file, colClasses = c("character", "character", "character",
                                             "integer", "integer", "integer"))
 
-population %>%
-  insist(within_n_sds(3), total, success_fun = success_append, 
-         error_fun = error_append) %>%
-  add_results(validator)
+validate(population) %>%
+  assert_if(within_n_sds(3), total) %>%
+  add_results(report)
 
-print(validator)
+print(report)
 ```
 
 We can also present the results on a Leaflet map.
@@ -163,7 +159,7 @@ render_leaflet_report <- function(validation_results, population_data, correct_c
 }
 
 save_report(
-  validator,
+  report,
   ui_constructor = render_leaflet_report,
   population_data = population,
   correct_col = "#52cf0a",
