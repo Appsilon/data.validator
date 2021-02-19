@@ -1,7 +1,7 @@
 Package: data.validator
 Type: Package
 Title: Set of functions for automatic data validation report.
-Version: 0.2.0
+Version: 0.1.3.9000
 Organization: Appsilon
 Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("aut", "cre")),
              person("Marcin", "Dubel", email = "marcin@appsilon.com", role = c("aut")),
