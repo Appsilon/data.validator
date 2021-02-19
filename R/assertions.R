@@ -13,6 +13,14 @@ validate <- function(data, name, description = NULL) {
   data
 }
 
+get_assert_method <- function(predicate, methods) {
+  predicate_type <- get_predicate_type(predicate)
+  if (is.na(predicate_type)) {
+    stop("Predicate should be a function returning logical vector or function")
+  }
+  methods[[predicate_type]]
+}
+
 #' @export
 assert_if <- function(data, expr, description = NA, obligatory = FALSE, skip_chain_opts = FALSE,
                       success_fun = assertr::success_append, error_fun = assertr::error_append, defect_fun = assertr::defect_append) {
@@ -27,16 +35,15 @@ assert_if <- function(data, expr, description = NA, obligatory = FALSE, skip_cha
 }
 
 #' @export
-assert_cols <- function(data, ..., predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA,
+assert_cols <- function(data, predicate, ..., obligatory = FALSE, description = NA,
                         skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
                         defect_fun = assertr::defect_append) {
 
-  assertr_function <- if (!is.null(predicate_generator)) assertr::insist else assertr::assert
-  predicate_arg <- if (!is.null(predicate_generator)) predicate_generator else predicate
+  assertr_function <- get_assert_method(predicate, list(direct = assertr::assert, generator = assertr::insist))
 
   assertr_function(
     data,
-    predicate_arg,
+    predicate,
     ...,
     skip_chain_opts = skip_chain_opts,
     obligatory = obligatory,
@@ -48,17 +55,16 @@ assert_cols <- function(data, ..., predicate = NULL, predicate_generator = NULL,
 }
 
 #' @export
-assert_rows <- function(data, ..., row_reduction_fn, predicate = NULL, predicate_generator = NULL, obligatory = FALSE, description = NA,
+assert_rows <- function(data, row_reduction_fn, predicate, ..., predicate_generator = NULL, obligatory = FALSE, description = NA,
                         skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
                         defect_fun = assertr::defect_append) {
 
-  assertr_function <- if (!is.null(predicate_generator)) assertr::insist_rows else assertr::assert_rows
-  predicate_arg <- if (!is.null(predicate_generator)) predicate_generator else predicate
+  assertr_function <- get_assert_method(predicate, list(direct = assertr::assert_rows, generator = assertr::insist_rows))
 
   assertr_function(
       data,
       row_reduction_fn,
-      predicate_arg,
+      predicate,
       ...,
       skip_chain_opts = skip_chain_opts,
       obligatory = obligatory,
