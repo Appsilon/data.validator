@@ -7,7 +7,7 @@ beer_states <- readr::read_csv('https://raw.githubusercontent.com/rfordatascienc
 
 report <- data_validation_report()
 validate(beer_states) %>%
-  assert_cols(description = "No NA's inside barrels column", predicate = assertr::not_na, cols = barrels) %>%
+  assert_cols(description = "No NA's inside barrels column", assertr::not_na, cols = barrels) %>%
   assert_if(description = "Check if year is in correct range (2008, 2018)", year >= 2008 && year <= 2018) %>%
   add_results(report)
 
