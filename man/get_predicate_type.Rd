@@ -6,6 +6,9 @@
 \usage{
 get_predicate_type(predicate)
 }
+\arguments{
+\item{predicate}{Predicate or predicate generator function.}
+}
 \value{
 String informing about predicate type.
   When "direct" the predicate is directly applied to the column.

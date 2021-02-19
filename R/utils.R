@@ -16,6 +16,7 @@ get_first_name <- function(df){
 }
 
 #' Generate a random ID.
+#'
 #' @return A characters corresponding to random ID.
 generate_id <- function () {
   paste0(paste0(sample(c(LETTERS, letters, 0:9), 5, TRUE),
@@ -23,6 +24,8 @@ generate_id <- function () {
 }
 
 #' Detect type of predicate
+#'
+#' @param predicate Predicate or predicate generator function.
 #' @return String informing about predicate type.
 #'   When "direct" the predicate is directly applied to the column.
 #'   When "generator" the predicate returns predicate computed based on a column.

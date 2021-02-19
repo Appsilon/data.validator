@@ -13,6 +13,10 @@ validate <- function(data, name, description = NULL) {
   data
 }
 
+#' Match proper method depending on predicate type
+#'
+#' @param predicate Predicate or predicate generator function.
+#' @param methods List of two elements named 'direct' and 'generator' that will be returned depending on predicate type.
 get_assert_method <- function(predicate, methods) {
   predicate_type <- get_predicate_type(predicate)
   if (is.na(predicate_type)) {
