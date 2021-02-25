@@ -1,9 +1,9 @@
 ---
-title: "data.validator"
+title: "All you need to know about data.validator"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{data.validator}
+  %\VignetteIndexEntry{All you need to know about data.validator}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
