@@ -25,6 +25,19 @@ get_assert_method <- function(predicate, methods) {
   methods[[predicate_type]]
 }
 
+get_assert_method <- function(predicate, method = list(direct = assertr::assert, generator = assertr::insist)) {
+  predicate_output <- predicate(0:1)
+  if (is.logical(predicate_output)) {
+    return(method$direct)
+  }
+  if (is.function(predicate_output)) {
+    if (is.logical(predicate_output(0:1))) {
+      return(method$generator)
+    }
+  }
+  stop("Predicate should be a function returning logical vector or function")
+}
+
 #' @export
 assert_if <- function(data, expr, description = NA, obligatory = FALSE, skip_chain_opts = FALSE,
                       success_fun = assertr::success_append, error_fun = assertr::error_append, defect_fun = assertr::defect_append) {
@@ -43,7 +56,7 @@ assert_cols <- function(data, predicate, ..., obligatory = FALSE, description = 
                         skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
                         defect_fun = assertr::defect_append) {
 
-  assertr_function <- get_assert_method(predicate, list(direct = assertr::assert, generator = assertr::insist))
+  assertr_function <- get_assert_method(predicate)
 
   assertr_function(
     data,

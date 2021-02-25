@@ -4,7 +4,10 @@
 \alias{get_assert_method}
 \title{Match proper method depending on predicate type}
 \usage{
-get_assert_method(predicate, methods)
+get_assert_method(
+  predicate,
+  method = list(direct = assertr::assert, generator = assertr::insist)
+)
 }
 \arguments{
 \item{predicate}{Predicate or predicate generator function.}
