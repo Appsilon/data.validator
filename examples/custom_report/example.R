@@ -6,7 +6,7 @@ validator <- data_validation_report()
 file <- system.file("extdata", "population.csv", package = "data.validator")
 population <- read.csv(file, colClasses = c("character", "character", "character", "integer", "integer", "integer"))
 validate(population) %>%
-  assert_cols(total, predicate_generator = assertr::within_n_sds(3)) %>%
+  assert_cols(assertr::within_n_sds(3), total) %>%
   add_results(validator)
 validator
 
