@@ -17,13 +17,6 @@ validate <- function(data, name, description = NULL) {
 #'
 #' @param predicate Predicate or predicate generator function.
 #' @param methods List of two elements named 'direct' and 'generator' that will be returned depending on predicate type.
-get_assert_method <- function(predicate, methods) {
-  predicate_type <- get_predicate_type(predicate)
-  if (is.na(predicate_type)) {
-    stop("Predicate should be a function returning logical vector or function")
-  }
-  methods[[predicate_type]]
-}
 
 get_assert_method <- function(predicate, method = list(direct = assertr::assert, generator = assertr::insist)) {
   predicate_output <- predicate(0:1)
