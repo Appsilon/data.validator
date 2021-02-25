@@ -121,7 +121,7 @@ population <- read.csv(file, colClasses = c("character", "character", "character
                                             "integer", "integer", "integer"))
 
 validate(population) %>%
-  assert_if(within_n_sds(3), total) %>%
+  assert_cols(within_n_sds(3), total) %>%
   add_results(report)
 
 print(report)
