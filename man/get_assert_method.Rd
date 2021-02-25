@@ -12,7 +12,7 @@ get_assert_method(
 \arguments{
 \item{predicate}{Predicate or predicate generator function.}
 
-\item{methods}{List of two elements named 'direct' and 'generator' that will be returned depending on predicate type.}
+\item{method}{optional list with fields direct and generator of assertions}
 }
 \description{
 Match proper method depending on predicate type
