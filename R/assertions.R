@@ -30,10 +30,8 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
   if (is.logical(predicate_output)) {
     return(method$direct)
   }
-  if (is.function(predicate_output)) {
-    if (is.logical(predicate_output(0:1))) {
-      return(method$generator)
-    }
+  if (is.function(predicate_output) && is.logical(predicate_output(0:1))) {
+    return(method$generator)
   }
   stop("Predicate should be a function returning logical vector or function")
 }
