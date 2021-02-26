@@ -5,7 +5,7 @@
 data.validator
 ==============
 
-# Description
+## Description
 
 `data.validator` is a package for scalable and reproducible data validation. It provides:
 
@@ -16,15 +16,13 @@ data.validator
 
 ![](assets/semantic_report_example.gif)
 
+## Installation
 
+Latest development version:
 
-# Installation
-
+```r
+remotes::install_github("Appsilon/data.validator")
 ```
-devtools::install_github("Appsilon/data.validator")
-```
-
-Please make sure you use `assertr` from version 2.8.
 
 ## Data validation
 
@@ -38,10 +36,9 @@ Validaton cycle is simple:
     * Add assertion results to the report with `add_results()`
 3. Print the results or generate HTML report.
 
-TODO: list and examples of available predicate functions needed.
-
-```
+```r
 library(assertr)
+library(magrittr)
 library(data.validator)
 
 report <- data_validation_report()
@@ -67,11 +64,11 @@ print(report)
 ```
 
 
-# Reporting
+## Reporting
 
 Print results to the console:
 
-```
+```r
 print(report)
 
 # Validation summary: 
@@ -94,79 +91,27 @@ print(report)
 
 Save as HTML report
 
-```
+```r
 save_report(report)
 ```
 
+## Full examples
 
-## Creating custom reports // TODO: this section needs to be updated
+- [Custom reporting on leaflet map](https://github.com/Appsilon/data.validator/blob/master/examples/custom_report/example.R)
 
-Define function of `validation_results` parameter that returns HTML object or HTML widget.
-The `validation_results` parameter is assumed to be passed as a results table extracted with `get_results(validator)`.
-
-*Note* The function can also store optional parameters that should be passed to `save_report` function while generating a new report.
-
-In this example we create custom report that shows validation results of checking wheter population across Polish counties fits within 3 standard deviations. The results are shown on leaflet map.
-
-```
-library(data.validator)
-library(magrittr)
-library(assertr)
-
-report <- data_validation_report()
-
-population <- read.csv("population.csv", colClasses = c("character", "character", "character", "integer", "integer", "integer"))
-population %>%
-  insist(within_n_sds(3), total, success_fun = success_append, error_fun = error_append) %>%
-  add_results(report)
-
-print(report)
-
-# Validation summary: 
-#  Number of successful validations: 0
-#  Number of failed validations: 1
-#  Number of validations with warnings: 0
-#
-# Advanced view: 
-# 
-# |table_name |description |type  | total_violations|
-# |:----------|:-----------|:-----|----------------:|
-# |population |NA          |error |                6|
-
-render_leaflet_report <- function(validation_results, population_data, correct_col, violated_col) {
-  states <- rgdal::readOGR("counties.shp", GDAL1_integer64_policy = TRUE, verbose = FALSE)
-  population <- population_data
-  violated <- validation_results %>%
-    tidyr::unnest(error_df, keep_empty = TRUE) %>%
-    dplyr::pull(index)
-  states@data <- dplyr::left_join(states@data, population, by = c("JPT_KOD_JE" = "county_ID"))
-  states@data$color <- correct_col
-  states@data$color[violated] <- violated_col
-  htmltools::tagList(
-    htmltools::h2("Counties not fitting within 3 standard deviations"),
-    leaflet::leaflet(states) %>%
-      leaflet::addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
-                  opacity = 0.5, fillOpacity = 0.5,
-                  fillColor = states@data$color,
-                  label = glue::glue("County: {states@data$county} <br> Population: {states@data$total}") %>% lapply(htmltools::HTML),
-                  highlightOptions = leaflet::highlightOptions(color = "white", weight = 2,
-                                                      bringToFront = TRUE))
-  )
-}
-
-save_report(
-  validator, ui_constructor = render_leaflet_report,
-  population_data = population, correct_col = "#52cf0a", violated_col = "#bf0b4d"
-)
-```
-
-The resulting report
 ![](assets/custom_report_example.gif)
 
-# Using custom report templates
+- [Minimal example to get you started](https://github.com/Appsilon/data.validator/blob/master/examples/minimal_example/example.R)
+
+- [Convenient API](https://github.com/Appsilon/data.validator/blob/master/examples/new_api/example.R)
+
+- [Various way of saving reports](https://github.com/Appsilon/data.validator/blob/master/examples/sample_validations/example.R)
+
+
+## Using custom report templates
 
 In order to generate rmarkdown report `data.validator` uses predefined report template.
-You may find it [here](inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd).
+You may find it in `inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd`.
 
 The report contains basic requirements for each report template used by `save_report` function:
 
@@ -195,30 +140,40 @@ Then modify the template adding custom title, or graphics with leaving the below
 The package was successfuly used by Appsilon in production enviroment for protecting Shiny Apps against beeing run on incorrect data.
 
 The workflow was based on the below steps:
+
 1. Running [RStudio Connect Scheduler](https://rstudio.com/products/connect/) daily.
+
 2. Scheduler sources the data from PostgreSQL table and validates it based on predefined rules.
-3. Based on validation results a new `data.validator` report is created.  
+
+3. Based on validation results a new `data.validator` report is created.
+
 4a. When data is violated:
+
 - data provider and person responsible for data quality receives report via email
+
 - thanks to `assertr` functionality, the report is easily understandable both for technical, and non-technical person
+
 - data provider makes required data fixes  
+
 4b. When data is correct:
+
 - a specific trigger is sent in order to reload Shiny data 
 
 The workflow is presented on below graphics
 ![](assets/workflow.png)
 
-# Contributing
+## Contributing
 
-**Changes in documentation**
+We welcome contributions of all types!
+
+We encourage typo corrections, bug reports, bug fixes and feature requests. Feedback on the clarity of the documentation and examples is especially valuable.
+
+If you want to contribute to this project please submit a regular PR, once you’re done with new feature or bug fix.
+
+### Changes in documentation
 
 Both repository **README.md** file and an official documentation page
-are generated with Rmarkdown, so if there is a need to update them,
-please modify accordingly a **README.Rmd** file and use “Knit”.
+are generated with markdown.
 
 Documentation is rendered with `pkgdown`. Just run
 `pkgdown::build_site()` after rendering new **README.md**.
-
-# More examples
-
-For more options check package documentation or [examples](examples).

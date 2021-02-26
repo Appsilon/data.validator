@@ -1,5 +1,22 @@
 library(magrittr)
 library(data.validator)
+library(rgdal)
+library(dplyr)
+library(tidyr)
+library(glue)
+library(leaflet)
+library(htmltools)
+
+#' Define function of `validation_results` parameter that returns HTML object or HTML widget.
+#' The `validation_results` parameter is assumed to be passed as a results table
+#' extracted with `get_results(validator)`.
+
+#' *Note* The function can also store optional parameters that should be passed to
+#' `save_report` function while generating a new report.
+
+#' In this example we create custom report that shows validation results of
+#' checking wheter population across Polish counties fits within 3 standard deviations.
+#' The results are shown on leaflet map.
 
 validator <- data_validation_report()
 

@@ -87,7 +87,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>All you need to know about data.validator</h1>
             
-            <h4 class="date">2021-02-25</h4>
+            <h4 class="date">2021-02-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Appsilon/data.validator/blob/master/vignettes/data_validator.Rmd"><code>vignettes/data_validator.Rmd</code></a></small>
       <div class="hidden name"><code>data_validator.Rmd</code></div>
@@ -210,7 +210,7 @@
 <p>We can also present the results on a Leaflet map.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">render_leaflet_report</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">validation_results</span>, <span class="no">population_data</span>, <span class="no">correct_col</span>, <span class="no">violated_col</span>) {
   <span class="no">file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"counties.json"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"data.validator"</span>)
-  <span class="no">states</span> <span class="kw">&lt;-</span> <span class="kw pkg">rgdal</span><span class="kw ns">::</span><span class="fu">readOGR</span>(<span class="no">file</span>, <span class="kw">GDAL1_integer64_policy</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+  <span class="no">states</span> <span class="kw">&lt;-</span> <span class="kw pkg">rgdal</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rgdal/man/readOGR.html">readOGR</a></span>(<span class="no">file</span>, <span class="kw">GDAL1_integer64_policy</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
   <span class="no">violated</span> <span class="kw">&lt;-</span> <span class="no">validation_results</span> <span class="kw">%&gt;%</span>
     <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="no">error_df</span>, <span class="kw">keep_empty</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>

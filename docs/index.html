@@ -91,24 +91,24 @@
 <div id="datavalidator" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#datavalidator" class="anchor"></a>data.validator</h1></div>
-</div>
-<div id="description" class="section level1">
-<h1 class="hasAnchor">
-<a href="#description" class="anchor"></a>Description</h1>
+<div id="description" class="section level2">
+<h2 class="hasAnchor">
+<a href="#description" class="anchor"></a>Description</h2>
 <p><code>data.validator</code> is a package for scalable and reproducible data validation. It provides:</p>
 <ul>
-<li>Functions for validating datasets in <code>%&gt;%</code> pipelines: <code>assert_if</code>, <code>assert_cols</code> and <code>assert_rows</code>
+<li>Functions for validating datasets in <code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code> pipelines: <code>assert_if</code>, <code>assert_cols</code> and <code>assert_rows</code>
 </li>
 <li>Predicate functions from <a href="https://github.com/ropensci/assertr">assertr</a> package, like <code>in_set</code>, <code>within_bounds</code>, etc.</li>
 <li>Functions for creating user-friendly reports that you can send to email, store in logs folder, or generate automatically with RStudio Connect.</li>
 </ul>
 <p><img src="assets/semantic_report_example.gif"></p>
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
-<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("Appsilon/data.validator")</a></code></pre>
-<p>Please make sure you use <code>assertr</code> from version 2.8.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>Latest development version:</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"Appsilon/data.validator"</span>)</pre></div>
+</div>
 <div id="data-validation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-validation" class="anchor"></a>Data validation</h2>
@@ -126,117 +126,72 @@
 </li>
 <li>Print the results or generate HTML report.</li>
 </ol>
-<p>TODO: list and examples of available predicate functions needed.</p>
-<pre><code><a href="https://docs.ropensci.org/assertr/reference">library(assertr)
-library(data.validator)
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">assertr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.validator</span>)
 
-report &lt;- data_validation_report()
+<span class="no">report</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/data_validation_report.html">data_validation_report</a></span>()
 
-validate(mtcars, name = "Verifying cars dataset") %&gt;%
-  assert_if(drat &lt; 0, description = "Column drat has only positive values") %&gt;%
-  assert_cols(in_set(c(0, 2)), vs, am, description = "vs and am values equal 0 or 2 only") %&gt;%
-  assert_cols(within_n_sds(1), mpg, description = "mpg within 1 sds") %&gt;%
-  assert_rows(num_row_NAs, within_bounds(0, 2), vs, am, mpg, description = "not too many NAs in rows") %&gt;%
-  assert_rows(maha_dist, within_n_mads(10), everything(), description = "maha dist within 10 mads") %&gt;%
-  add_results(report)
+<span class="fu">validate</span>(<span class="no">mtcars</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying cars dataset"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">assert_if</span>(<span class="no">drat</span> <span class="kw">&lt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">assert_cols</span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">assert_cols</span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">1</span>), <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"mpg within 1 sds"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/assert_rows.html">assert_rows</a></span>(<span class="no">num_row_NAs</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">2</span>), <span class="no">vs</span>, <span class="no">am</span>, <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"not too many NAs in rows"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/assert_rows.html">assert_rows</a></span>(<span class="no">maha_dist</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_mads.html">within_n_mads</a></span>(<span class="fl">10</span>), <span class="fu">everything</span>(), <span class="kw">description</span> <span class="kw">=</span> <span class="st">"maha dist within 10 mads"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
 
-between &lt;- function(a, b) {
-  function(x) { a &lt;= x &amp;&amp; x &lt;= b }
+<span class="no">between</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">a</span>, <span class="no">b</span>) {
+  <span class="kw">function</span>(<span class="no">x</span>) { <span class="no">a</span> <span class="kw">&lt;=</span> <span class="no">x</span> <span class="kw">&amp;&amp;</span> <span class="no">x</span> <span class="kw">&lt;=</span> <span class="no">b</span> }
 }
 
-validate(iris, name = "Verifying flower dataset") %&gt;%
-  assert_if(Sepal.Length &gt; 0, description = "Sepal length is greater than 0") %&gt;%
-  assert_cols(between(0, 4), Sepal.Width, description = "Sepal width is between 0 and 4") %&gt;%
-  add_results(report)
+<span class="fu">validate</span>(<span class="no">iris</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying flower dataset"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">assert_if</span>(<span class="no">Sepal.Length</span> <span class="kw">&gt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal length is greater than 0"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">assert_cols</span>(<span class="fu">between</span>(<span class="fl">0</span>, <span class="fl">4</span>), <span class="no">Sepal.Width</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal width is between 0 and 4"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
 
-print(report)</a></code></pre>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">report</span>)</pre></div>
 </div>
-</div>
-<div id="reporting" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reporting" class="anchor"></a>Reporting</h1>
-<p>Print results to the console:</p>
-<pre><code><a href="https://rdrr.io/r/base/print.html">print(report)
-
-# Validation summary: 
-#  Number of successful validations: 1
-#  Number of failed validations: 4
-#  Number of validations with warnings: 1
-#
-# Advanced view: 
-#  
-# |table_name |description                                       |type    | total_violations|
-# |:----------|:-------------------------------------------------|:-------|----------------:|
-# |mtcars     |Column drat has only positive values              |success |               NA|
-# |mtcars     |Column drat has only values larger than 3         |error   |                4|
-# |mtcars     |Each row sum for am:vs columns is less or equal 1 |error   |                7|
-# |mtcars     |For wt and qsec we have: abs(col) &lt; 2 * sd(col)   |error   |                4|
-# |mtcars     |vs and am values equal 0 or 2 only                |error   |               27|
-# |mtcars     |vs and am values should equal 3 or 4              |warning |               24|</a></code></pre>
-<p>Save as HTML report</p>
-<pre><code><a href="reference/save_report.html">save_report(report)</a></code></pre>
-<div id="creating-custom-reports--todo-this-section-needs-to-be-updated" class="section level2">
+<div id="reporting" class="section level2">
 <h2 class="hasAnchor">
-<a href="#creating-custom-reports--todo-this-section-needs-to-be-updated" class="anchor"></a>Creating custom reports // TODO: this section needs to be updated</h2>
-<p>Define function of <code>validation_results</code> parameter that returns HTML object or HTML widget. The <code>validation_results</code> parameter is assumed to be passed as a results table extracted with <code><a href="reference/get_results.html">get_results(validator)</a></code>.</p>
-<p><em>Note</em> The function can also store optional parameters that should be passed to <code>save_report</code> function while generating a new report.</p>
-<p>In this example we create custom report that shows validation results of checking wheter population across Polish counties fits within 3 standard deviations. The results are shown on leaflet map.</p>
-<pre><code><a href="https://rdrr.io/pkg/data.validator/man">library(data.validator)
-library(magrittr)
-library(assertr)
+<a href="#reporting" class="anchor"></a>Reporting</h2>
+<p>Print results to the console:</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">report</span>)
 
-report &lt;- data_validation_report()
-
-population &lt;- read.csv("population.csv", colClasses = c("character", "character", "character", "integer", "integer", "integer"))
-population %&gt;%
-  insist(within_n_sds(3), total, success_fun = success_append, error_fun = error_append) %&gt;%
-  add_results(report)
-
-print(report)
-
-# Validation summary: 
-#  Number of successful validations: 0
-#  Number of failed validations: 1
-#  Number of validations with warnings: 0
-#
-# Advanced view: 
-# 
-# |table_name |description |type  | total_violations|
-# |:----------|:-----------|:-----|----------------:|
-# |population |NA          |error |                6|
-
-render_leaflet_report &lt;- function(validation_results, population_data, correct_col, violated_col) {
-  states &lt;- rgdal::readOGR("counties.shp", GDAL1_integer64_policy = TRUE, verbose = FALSE)
-  population &lt;- population_data
-  violated &lt;- validation_results %&gt;%
-    tidyr::unnest(error_df, keep_empty = TRUE) %&gt;%
-    dplyr::pull(index)
-  states@data &lt;- dplyr::left_join(states@data, population, by = c("JPT_KOD_JE" = "county_ID"))
-  states@data$color &lt;- correct_col
-  states@data$color[violated] &lt;- violated_col
-  htmltools::tagList(
-    htmltools::h2("Counties not fitting within 3 standard deviations"),
-    leaflet::leaflet(states) %&gt;%
-      leaflet::addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
-                  opacity = 0.5, fillOpacity = 0.5,
-                  fillColor = states@data$color,
-                  label = glue::glue("County: {states@data$county} &lt;br&gt; Population: {states@data$total}") %&gt;% lapply(htmltools::HTML),
-                  highlightOptions = leaflet::highlightOptions(color = "white", weight = 2,
-                                                      bringToFront = TRUE))
-  )
-}
-
-save_report(
-  validator, ui_constructor = render_leaflet_report,
-  population_data = population, correct_col = "#52cf0a", violated_col = "#bf0b4d"
-)</a></code></pre>
-<p>The resulting report <img src="assets/custom_report_example.gif"></p>
+<span class="co"># Validation summary: </span>
+<span class="co">#  Number of successful validations: 1</span>
+<span class="co">#  Number of failed validations: 4</span>
+<span class="co">#  Number of validations with warnings: 1</span>
+<span class="co">#</span>
+<span class="co"># Advanced view: </span>
+<span class="co">#  </span>
+<span class="co"># |table_name |description                                       |type    | total_violations|</span>
+<span class="co"># |:----------|:-------------------------------------------------|:-------|----------------:|</span>
+<span class="co"># |mtcars     |Column drat has only positive values              |success |               NA|</span>
+<span class="co"># |mtcars     |Column drat has only values larger than 3         |error   |                4|</span>
+<span class="co"># |mtcars     |Each row sum for am:vs columns is less or equal 1 |error   |                7|</span>
+<span class="co"># |mtcars     |For wt and qsec we have: abs(col) &lt; 2 * sd(col)   |error   |                4|</span>
+<span class="co"># |mtcars     |vs and am values equal 0 or 2 only                |error   |               27|</span>
+<span class="co"># |mtcars     |vs and am values should equal 3 or 4              |warning |               24|</span></pre></div>
+<p>Save as HTML report</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/save_report.html">save_report</a></span>(<span class="no">report</span>)</pre></div>
 </div>
+<div id="full-examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#full-examples" class="anchor"></a>Full examples</h2>
+<ul>
+<li><a href="https://github.com/Appsilon/data.validator/blob/master/examples/custom_report/example.R">Custom reporting on leaflet map</a></li>
+</ul>
+<p><img src="assets/custom_report_example.gif"></p>
+<ul>
+<li><p><a href="https://github.com/Appsilon/data.validator/blob/master/examples/minimal_example/example.R">Minimal example to get you started</a></p></li>
+<li><p><a href="https://github.com/Appsilon/data.validator/blob/master/examples/new_api/example.R">Convenient API</a></p></li>
+<li><p><a href="https://github.com/Appsilon/data.validator/blob/master/examples/sample_validations/example.R">Various way of saving reports</a></p></li>
+</ul>
 </div>
-<div id="using-custom-report-templates" class="section level1">
-<h1 class="hasAnchor">
-<a href="#using-custom-report-templates" class="anchor"></a>Using custom report templates</h1>
-<p>In order to generate rmarkdown report <code>data.validator</code> uses predefined report template. You may find it <a href="inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd">here</a>.</p>
+<div id="using-custom-report-templates" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-custom-report-templates" class="anchor"></a>Using custom report templates</h2>
+<p>In order to generate rmarkdown report <code>data.validator</code> uses predefined report template. You may find it in <code>inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd</code>.</p>
 <p>The report contains basic requirements for each report template used by <code>save_report</code> function:</p>
 <ul>
 <li>defining params</li>
@@ -252,37 +207,41 @@ params$generate_report_html(params$extra_params)
 ```</code></pre>
 <p>If you want to use the template as a base you can use RStudio. Load the package and use <code>File -&gt; New File -&gt; R Markdown -&gt; From template -&gt; Simple structure for HTML report summary</code>. Then modify the template adding custom title, or graphics with leaving the below points unchanged and specify the path inside <code>save_report</code>’s <code>template</code> parameter.</p>
 </div>
+</div>
 <div id="how-the-package-can-be-used-in-production" class="section level1">
 <h1 class="hasAnchor">
 <a href="#how-the-package-can-be-used-in-production" class="anchor"></a>How the package can be used in production?</h1>
 <p>The package was successfuly used by Appsilon in production enviroment for protecting Shiny Apps against beeing run on incorrect data.</p>
 <p>The workflow was based on the below steps:</p>
 <ol>
-<li>Running <a href="https://rstudio.com/products/connect/">RStudio Connect Scheduler</a> daily.</li>
-<li>Scheduler sources the data from PostgreSQL table and validates it based on predefined rules.</li>
-<li>Based on validation results a new <code>data.validator</code> report is created.<br>
-4a. When data is violated:</li>
+<li><p>Running <a href="https://rstudio.com/products/connect/">RStudio Connect Scheduler</a> daily.</p></li>
+<li><p>Scheduler sources the data from PostgreSQL table and validates it based on predefined rules.</p></li>
+<li><p>Based on validation results a new <code>data.validator</code> report is created.</p></li>
 </ol>
+<p>4a. When data is violated:</p>
 <ul>
-<li>data provider and person responsible for data quality receives report via email</li>
-<li>thanks to <code>assertr</code> functionality, the report is easily understandable both for technical, and non-technical person</li>
-<li>data provider makes required data fixes<br>
-4b. When data is correct:</li>
+<li><p>data provider and person responsible for data quality receives report via email</p></li>
+<li><p>thanks to <code>assertr</code> functionality, the report is easily understandable both for technical, and non-technical person</p></li>
+<li><p>data provider makes required data fixes</p></li>
+</ul>
+<p>4b. When data is correct:</p>
+<ul>
 <li>a specific trigger is sent in order to reload Shiny data</li>
 </ul>
 <p>The workflow is presented on below graphics <img src="assets/workflow.png"></p>
-</div>
-<div id="contributing" class="section level1">
-<h1 class="hasAnchor">
-<a href="#contributing" class="anchor"></a>Contributing</h1>
-<p><strong>Changes in documentation</strong></p>
-<p>Both repository <strong>README.md</strong> file and an official documentation page are generated with Rmarkdown, so if there is a need to update them, please modify accordingly a <strong>README.Rmd</strong> file and use “Knit”.</p>
+<div id="contributing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing" class="anchor"></a>Contributing</h2>
+<p>We welcome contributions of all types!</p>
+<p>We encourage typo corrections, bug reports, bug fixes and feature requests. Feedback on the clarity of the documentation and examples is especially valuable.</p>
+<p>If you want to contribute to this project please submit a regular PR, once you’re done with new feature or bug fix.</p>
+<div id="changes-in-documentation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#changes-in-documentation" class="anchor"></a>Changes in documentation</h3>
+<p>Both repository <strong>README.md</strong> file and an official documentation page are generated with markdown.</p>
 <p>Documentation is rendered with <code>pkgdown</code>. Just run <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> after rendering new <strong>README.md</strong>.</p>
 </div>
-<div id="more-examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#more-examples" class="anchor"></a>More examples</h1>
-<p>For more options check package documentation or <a href="examples">examples</a>.</p>
+</div>
 </div>
 
   </div>
