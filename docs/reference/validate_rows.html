@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assertion on columns — assert_cols • DATA.VALIDATOR</title>
+<title>Validation on rows — validate_rows • DATA.VALIDATOR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Assertion on columns — assert_cols" />
-<meta property="og:description" content="Assertion on columns" />
+<meta property="og:title" content="Validation on rows — validate_rows" />
+<meta property="og:description" content="Validation on rows" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DATA.VALIDATOR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
       </span>
     </div>
 
@@ -126,19 +126,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Assertion on columns</h1>
+    <h1>Validation on rows</h1>
     <small class="dont-index">Source: <a href='https://github.com/Appsilon/data.validator/blob/master/R/assertions.R'><code>R/assertions.R</code></a></small>
-    <div class="hidden name"><code>assert_cols.Rd</code></div>
+    <div class="hidden name"><code>validate_rows.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Assertion on columns</p>
+    <p>Validation on rows</p>
     </div>
 
-    <pre class="usage"><span class='fu'>assert_cols</span>(
+    <pre class="usage"><span class='fu'>validate_rows</span>(
   <span class='no'>data</span>,
+  <span class='no'>row_reduction_fn</span>,
   <span class='no'>predicate</span>,
   <span class='no'>...</span>,
+  <span class='kw'>predicate_generator</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>obligatory</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>description</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>skip_chain_opts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -155,6 +157,10 @@
       <td><p>data.frame or tibble to test</p></td>
     </tr>
     <tr>
+      <th>row_reduction_fn</th>
+      <td><p>function for row reduction</p></td>
+    </tr>
+    <tr>
       <th>predicate</th>
       <td><p>Predicate functions from asserts package, e.g. <code>in_set</code>,
 <code>within_bounds</code>, etc.</p></td>
@@ -162,6 +168,10 @@
     <tr>
       <th>...</th>
       <td><p>other arguments to predicate function</p></td>
+    </tr>
+    <tr>
+      <th>predicate_generator</th>
+      <td><p>predicate generator function.</p></td>
     </tr>
     <tr>
       <th>obligatory</th>
@@ -189,6 +199,9 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>validate_cols validate_if</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

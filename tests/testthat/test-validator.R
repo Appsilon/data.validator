@@ -78,7 +78,7 @@ test_that("Validator adds validations correctly when there are no passed validat
 test_that("Column 'table_name' in validation results does not contain 'NULL'", {
   validator <- data.validator::data_validation_report()
   validate(mtcars) %>%
-    assert_if(description = "Column drat has only values larger than 3", drat > 3) %>%
+    validate_if(description = "Column drat has only values larger than 3", drat > 3) %>%
     data.validator::add_results(validator)
   expect_false(validator$get_validations()$table_name == "NULL")
   expect_false(is.null(validator$get_validations()$table_name))

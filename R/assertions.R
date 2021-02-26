@@ -37,12 +37,11 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
   stop("Predicate should be a function returning logical vector or function")
 }
 
-#' "If" Assertion
+#' "If" Validation
 #'
 #' Check if an assertion is met.
 #'
 #' @param data data.frame or tibble to test
-#'
 #' @param expr expression to test for, e.g. \code{within_n_sds(3)}
 #' @param description character with description of assertion
 #' @param obligatory flag setting assertion to mandatory
@@ -52,7 +51,8 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
 #' @param defect_fun function that is called after defect
 #'
 #' @export
-assert_if <- function(data, expr, description = NA, obligatory = FALSE, skip_chain_opts = FALSE,
+#' @seealso validate_cols validate_rows
+validate_if <- function(data, expr, description = NA, obligatory = FALSE, skip_chain_opts = FALSE,
                       success_fun = assertr::success_append,
                       error_fun = assertr::error_append, defect_fun = assertr::defect_append) {
   assertr::verify(data = data,
@@ -65,10 +65,9 @@ assert_if <- function(data, expr, description = NA, obligatory = FALSE, skip_cha
                   defect_fun = defect_fun)
 }
 
-#' Assertion on columns
+#' Validation on columns
 #'
 #' @param data data.frame or tibble to test
-#'
 #' @param predicate  Predicate functions from asserts package, e.g. \code{in_set},
 #' \code{within_bounds}, etc.
 #' @param ... other arguments to predicate function
@@ -80,7 +79,8 @@ assert_if <- function(data, expr, description = NA, obligatory = FALSE, skip_cha
 #' @param defect_fun function that is called after defect
 #'
 #' @export
-assert_cols <- function(data, predicate, ..., obligatory = FALSE, description = NA,
+#' @seealso validate_if validate_rows
+validate_cols <- function(data, predicate, ..., obligatory = FALSE, description = NA,
                         skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
                         defect_fun = assertr::defect_append) {
 
@@ -99,10 +99,9 @@ assert_cols <- function(data, predicate, ..., obligatory = FALSE, description = 
   )
 }
 
-#' Assertion on rows
+#' Validation on rows
 #'
 #' @param data data.frame or tibble to test
-#'
 #' @param row_reduction_fn function for row reduction
 #' @param predicate  Predicate functions from asserts package, e.g. \code{in_set},
 #' \code{within_bounds}, etc.
@@ -115,7 +114,8 @@ assert_cols <- function(data, predicate, ..., obligatory = FALSE, description = 
 #' @param error_fun function that is called after error
 #' @param defect_fun function that is called after defect
 #' @export
-assert_rows <- function(data, row_reduction_fn, predicate, ..., predicate_generator = NULL, obligatory = FALSE, description = NA,
+#' @seealso validate_cols validate_if
+validate_rows <- function(data, row_reduction_fn, predicate, ..., predicate_generator = NULL, obligatory = FALSE, description = NA,
                         skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
                         defect_fun = assertr::defect_append) {
 

@@ -43,9 +43,9 @@ reference:
   desc: Functions for making assertions.
   contents:
   - '`add_results`'
-  - '`assert_cols`'
-  - '`assert_if`'
-  - '`assert_rows`'
+  - '`validate_cols`'
+  - '`validate_if`'
+  - '`validate_rows`'
 
 - title: Rendering reports
   desc: All functions that generate reports.
