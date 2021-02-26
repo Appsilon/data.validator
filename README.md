@@ -208,6 +208,17 @@ The workflow was based on the below steps:
 The workflow is presented on below graphics
 ![](assets/workflow.png)
 
+# Contributing
+
+**Changes in documentation**
+
+Both repository **README.md** file and an official documentation page
+are generated with Rmarkdown, so if there is a need to update them,
+please modify accordingly a **README.Rmd** file and use “Knit”.
+
+Documentation is rendered with `pkgdown`. Just run
+`pkgdown::build_site()` after rendering new **README.md**.
+
 # More examples
 
 For more options check package documentation or [examples](examples).

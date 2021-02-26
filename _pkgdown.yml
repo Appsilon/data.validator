@@ -1,0 +1,54 @@
+title: DATA.VALIDATOR
+template:
+  params:
+    bootswatch: yeti
+
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home
+      href: index.html
+      text: "Start"
+    - icon: fa-university
+      text: "Tutorials"
+      href: articles/index.html
+  right:
+    - icon: fa-file-code-o
+      text: "Reference"
+      href: reference/index.html
+    - icon: fa-github fa-lg
+      href: https://github.com/Appsilon/data.validator
+    - icon: fa-twitter fa-lg
+      href: https://twitter.com/Appsilon
+
+articles:
+- title: All tutorials
+  desc: ~
+  contents:
+  - '`data_validator`'
+
+reference:
+- title: Validation functions
+  desc: All functions for validations.
+  contents:
+  - '`add_results`'
+  - '`data_validation_report`'
+  - '`get_results`'
+  - '`save_report`'
+  - '`save_results`'
+  - '`save_summary`'
+  - '`validate`'
+
+- title: Assert functions
+  desc: Functions for making assertions.
+  contents:
+  - '`add_results`'
+  - '`assert_cols`'
+  - '`assert_if`'
+  - '`assert_rows`'
+
+- title: Rendering reports
+  desc: All functions that generate reports.
+  contents:
+  - '`render_raw_report_ui`'
+  - '`render_semantic_report_ui`'
