@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Displays results of validations. — display_results • DATA.VALIDATOR</title>
+<title>"If" Assertion — assert_if • DATA.VALIDATOR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Displays results of validations. — display_results" />
-<meta property="og:description" content="Displays results of validations." />
+<meta property="og:title" content=""If" Assertion — assert_if" />
+<meta property="og:description" content="Check if an assertion is met." />
 
 
 
@@ -126,41 +126,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Displays results of validations.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Appsilon/data.validator/blob/master/R/semantic_report_constructors.R'><code>R/semantic_report_constructors.R</code></a></small>
-    <div class="hidden name"><code>display_results.Rd</code></div>
+    <h1>"If" Assertion</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Appsilon/data.validator/blob/master/R/assertions.R'><code>R/assertions.R</code></a></small>
+    <div class="hidden name"><code>assert_if.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Displays results of validations.</p>
+    <p>Check if an assertion is met.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>display_results</span>(<span class='no'>data</span>, <span class='no'>n_passes</span>, <span class='no'>n_fails</span>, <span class='no'>n_warns</span>)</pre>
+    <pre class="usage"><span class='fu'>assert_if</span>(
+  <span class='no'>data</span>,
+  <span class='no'>expr</span>,
+  <span class='kw'>description</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>obligatory</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>skip_chain_opts</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>success_fun</span> <span class='kw'>=</span> <span class='kw pkg'>assertr</span><span class='kw ns'>::</span><span class='no'><a href='https://docs.ropensci.org/assertr/reference/success_and_error_functions.html'>success_append</a></span>,
+  <span class='kw'>error_fun</span> <span class='kw'>=</span> <span class='kw pkg'>assertr</span><span class='kw ns'>::</span><span class='no'><a href='https://docs.ropensci.org/assertr/reference/success_and_error_functions.html'>error_append</a></span>,
+  <span class='kw'>defect_fun</span> <span class='kw'>=</span> <span class='kw pkg'>assertr</span><span class='kw ns'>::</span><span class='no'><a href='https://docs.ropensci.org/assertr/reference/success_and_error_functions.html'>defect_append</a></span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Report data.</p></td>
+      <td><p>data.frame or tibble to test</p></td>
     </tr>
     <tr>
-      <th>n_passes</th>
-      <td><p>Number of successful assertions.</p></td>
+      <th>expr</th>
+      <td><p>expression to test for, e.g. <code>within_n_sds(3)</code></p></td>
     </tr>
     <tr>
-      <th>n_fails</th>
-      <td><p>Number of warning assertions.</p></td>
+      <th>description</th>
+      <td><p>character with description of assertion</p></td>
     </tr>
     <tr>
-      <th>n_warns</th>
-      <td><p>Number of violation assertions.</p></td>
+      <th>obligatory</th>
+      <td><p>flag setting assertion to mandatory</p></td>
+    </tr>
+    <tr>
+      <th>skip_chain_opts</th>
+      <td><p>flag to skip chain options</p></td>
+    </tr>
+    <tr>
+      <th>success_fun</th>
+      <td><p>function that is called after success</p></td>
+    </tr>
+    <tr>
+      <th>error_fun</th>
+      <td><p>function that is called after error</p></td>
+    </tr>
+    <tr>
+      <th>defect_fun</th>
+      <td><p>function that is called after defect</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Validation report.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -23,9 +23,9 @@ results from [`assertr`](https://github.com/ropensci/assertr).
 It provides tools for creating user-friendly reports that you can send by email,
 store in a logs folder, or generate automatically with RStudio Connect.
 
-### Validate data with `assertr`
+### Validate data
 
-This is a basic example of how to validate data with `assertr`:
+This is a basic example of how to validate data:
 
 ```{r, eval=FALSE}
 library(assertr)
@@ -84,7 +84,7 @@ validate(mtcars) %>%
 
 Finally, we use one of the available methods to present the results.
 
-Either print the summary,
+Either print the summary:
 
 ```{r}
 print(report)
