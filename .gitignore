@@ -21,7 +21,6 @@ package/*.tar.gz
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
-assets/
 
 # testing files
 validation_report.html
