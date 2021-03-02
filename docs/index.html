@@ -40,14 +40,14 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Start
   </a>
 </li>
 <li>
   <a href="articles/index.html">
-    <span class="fa fa-university"></span>
+    <span class="fas fa-university"></span>
      
     Tutorials
   </a>
@@ -56,20 +56,20 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="reference/index.html">
-    <span class="fa fa-file-code-o"></span>
+    <span class="fas fa-file-code-o"></span>
      
     Reference
   </a>
 </li>
 <li>
   <a href="https://github.com/Appsilon/data.validator">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/Appsilon">
-    <span class="fa fa-twitter fa-lg"></span>
+    <span class="fas fa-twitter fa-lg"></span>
      
   </a>
 </li>
@@ -96,7 +96,7 @@
 <a href="#description" class="anchor"></a>Description</h2>
 <p><code>data.validator</code> is a package for scalable and reproducible data validation. It provides:</p>
 <ul>
-<li>Functions for validating datasets in <code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code> pipelines: <code>validate_if</code>, <code>validate_cols</code> and <code>validate_rows</code>
+<li>Functions for validating datasets in <code><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></code> pipelines: <code>validate_if</code>, <code>validate_cols</code> and <code>validate_rows</code>
 </li>
 <li>Predicate functions from <a href="https://github.com/ropensci/assertr">assertr</a> package, like <code>in_set</code>, <code>within_bounds</code>, etc.</li>
 <li>Functions for creating user-friendly reports that you can send to email, store in logs folder, or generate automatically with RStudio Connect.</li>
@@ -115,10 +115,10 @@
 <p>Validaton cycle is simple:</p>
 <ol>
 <li>Create report object.</li>
-<li>Prepare your dataset. You can load it, preprocess and then run <code><a href="https://rdrr.io/pkg/data.validator/man/validate.html">validate()</a></code> pipeline.</li>
+<li>Prepare your dataset. You can load it, preprocess and then run <code><a href="reference/validate.html">validate()</a></code> pipeline.</li>
 <li>Validate your datasets.
 <ul>
-<li>Start validation block with <code><a href="https://rdrr.io/pkg/data.validator/man/validate.html">validate()</a></code> function. It adds new section to the report.</li>
+<li>Start validation block with <code><a href="reference/validate.html">validate()</a></code> function. It adds new section to the report.</li>
 <li>Use <code>validate_*</code> functions and predicates to validate the data. You can create your custom predicates. See <code>between()</code> example.</li>
 <li>Add assertion results to the report with <code><a href="reference/add_results.html">add_results()</a></code>
 </li>
@@ -132,21 +132,21 @@
 
 <span class="no">report</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/data_validation_report.html">data_validation_report</a></span>()
 
-<span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate.html">validate</a></span>(<span class="no">mtcars</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying cars dataset"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_if.html">validate_if</a></span>(<span class="no">drat</span> <span class="kw">&lt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">1</span>), <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"mpg within 1 sds"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_rows.html">validate_rows</a></span>(<span class="no">num_row_NAs</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">2</span>), <span class="no">vs</span>, <span class="no">am</span>, <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"not too many NAs in rows"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_rows.html">validate_rows</a></span>(<span class="no">maha_dist</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_mads.html">within_n_mads</a></span>(<span class="fl">10</span>), <span class="fu">everything</span>(), <span class="kw">description</span> <span class="kw">=</span> <span class="st">"maha dist within 10 mads"</span>) <span class="kw">%&gt;%</span>
+<span class="fu"><a href="reference/validate.html">validate</a></span>(<span class="no">mtcars</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying cars dataset"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_if.html">validate_if</a></span>(<span class="no">drat</span> <span class="kw">&lt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">1</span>), <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"mpg within 1 sds"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_rows.html">validate_rows</a></span>(<span class="no">num_row_NAs</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">2</span>), <span class="no">vs</span>, <span class="no">am</span>, <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"not too many NAs in rows"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_rows.html">validate_rows</a></span>(<span class="no">maha_dist</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_mads.html">within_n_mads</a></span>(<span class="fl">10</span>), <span class="fu">everything</span>(), <span class="kw">description</span> <span class="kw">=</span> <span class="st">"maha dist within 10 mads"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
 
 <span class="no">between</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">a</span>, <span class="no">b</span>) {
   <span class="kw">function</span>(<span class="no">x</span>) { <span class="no">a</span> <span class="kw">&lt;=</span> <span class="no">x</span> <span class="kw">&amp;&amp;</span> <span class="no">x</span> <span class="kw">&lt;=</span> <span class="no">b</span> }
 }
 
-<span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate.html">validate</a></span>(<span class="no">iris</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying flower dataset"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_if.html">validate_if</a></span>(<span class="no">Sepal.Length</span> <span class="kw">&gt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal length is greater than 0"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_cols.html">validate_cols</a></span>(<span class="fu">between</span>(<span class="fl">0</span>, <span class="fl">4</span>), <span class="no">Sepal.Width</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal width is between 0 and 4"</span>) <span class="kw">%&gt;%</span>
+<span class="fu"><a href="reference/validate.html">validate</a></span>(<span class="no">iris</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying flower dataset"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_if.html">validate_if</a></span>(<span class="no">Sepal.Length</span> <span class="kw">&gt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal length is greater than 0"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_cols.html">validate_cols</a></span>(<span class="fu">between</span>(<span class="fl">0</span>, <span class="fl">4</span>), <span class="no">Sepal.Width</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal width is between 0 and 4"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">report</span>)</pre></div>
@@ -257,6 +257,8 @@ params$generate_report_html(params$extra_params)
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=data.validator">https://​cloud.r-project.org/​package=data.validator</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/Appsilon/data.validator/">https://​github.com/​Appsilon/​data.validator/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/Appsilon/data.validator/issues">https://​github.com/​Appsilon/​data.validator/​issues</a>

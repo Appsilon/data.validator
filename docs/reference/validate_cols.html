@@ -80,14 +80,14 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Start
   </a>
 </li>
 <li>
   <a href="../articles/index.html">
-    <span class="fa fa-university"></span>
+    <span class="fas fa-university"></span>
      
     Tutorials
   </a>
@@ -96,20 +96,20 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">
-    <span class="fa fa-file-code-o"></span>
+    <span class="fas fa-file-code-o"></span>
      
     Reference
   </a>
 </li>
 <li>
   <a href="https://github.com/Appsilon/data.validator">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/Appsilon">
-    <span class="fa fa-twitter fa-lg"></span>
+    <span class="fas fa-twitter fa-lg"></span>
      
   </a>
 </li>
@@ -152,40 +152,45 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>data.frame or tibble to test</p></td>
+      <td><p>A data.frame or tibble to test</p></td>
     </tr>
     <tr>
       <th>predicate</th>
-      <td><p>Predicate functions from asserts package, e.g. <code>in_set</code>,
-<code>within_bounds</code>, etc.</p></td>
+      <td><p>Predicate function or predicate generator such as <code><a href='https://docs.ropensci.org/assertr/reference/in_set.html'>in_set</a></code> or
+<code><a href='https://docs.ropensci.org/assertr/reference/within_n_sds.html'>within_n_sds</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments to predicate function</p></td>
+      <td><p>Columns selection that <code>predicate</code> should be called on.
+All tidyselect <code><a href='https://tidyselect.r-lib.org/reference/language.html'>language</a></code> methods are supported</p></td>
     </tr>
     <tr>
       <th>obligatory</th>
-      <td><p>flag setting assertion to mandatory</p></td>
+      <td><p>If TRUE and assertion failed the data is marked as defective.
+For defective data, all the following rules are handled by defect_fun function</p></td>
     </tr>
     <tr>
       <th>description</th>
-      <td><p>character with description of assertion</p></td>
+      <td><p>A character string with description of assertion.
+The description is then displayed in the validation report</p></td>
     </tr>
     <tr>
       <th>skip_chain_opts</th>
-      <td><p>flag to skip chain options</p></td>
+      <td><p>While wrapping data with <a href='validate.html'>validate</a> function, <code>success_fun</code> and
+<code>error_fun</code> parameters are rewritten with <code>success_append</code> and <code>error_append</code> respectively.
+In order to use parameters assigned to the function directly set skip_chain_opts to TRUE</p></td>
     </tr>
     <tr>
       <th>success_fun</th>
-      <td><p>function that is called after success</p></td>
+      <td><p>Function that is called when the validation pass</p></td>
     </tr>
     <tr>
       <th>error_fun</th>
-      <td><p>function that is called after error</p></td>
+      <td><p>Function that is called when the validation fails</p></td>
     </tr>
     <tr>
       <th>defect_fun</th>
-      <td><p>function that is called after defect</p></td>
+      <td><p>Function that is called when the data is marked as defective</p></td>
     </tr>
     </table>
 

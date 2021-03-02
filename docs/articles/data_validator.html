@@ -39,14 +39,14 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Start
   </a>
 </li>
 <li>
   <a href="../articles/index.html">
-    <span class="fa fa-university"></span>
+    <span class="fas fa-university"></span>
      
     Tutorials
   </a>
@@ -55,20 +55,20 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../reference/index.html">
-    <span class="fa fa-file-code-o"></span>
+    <span class="fas fa-file-code-o"></span>
      
     Reference
   </a>
 </li>
 <li>
   <a href="https://github.com/Appsilon/data.validator">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/Appsilon">
-    <span class="fa fa-twitter fa-lg"></span>
+    <span class="fas fa-twitter fa-lg"></span>
      
   </a>
 </li>
@@ -87,7 +87,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>All you need to know about data.validator</h1>
             
-            <h4 class="date">2021-02-26</h4>
+            <h4 class="date">2021-03-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Appsilon/data.validator/blob/master/vignettes/data_validator.Rmd"><code>vignettes/data_validator.Rmd</code></a></small>
       <div class="hidden name"><code>data_validator.Rmd</code></div>
@@ -109,19 +109,19 @@
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">assertr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 
-<span class="fu">validate</span>(<span class="no">mtcars</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">validate_cols</span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
+<span class="fu"><a href="../reference/validate.html">validate</a></span>(<span class="no">mtcars</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
          <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">validate_cols</span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
          <span class="kw">skip_chain_opts</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
          <span class="kw">error_fun</span> <span class="kw">=</span> <span class="no">warning_append</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">4</span>)), <span class="no">gear</span>, <span class="no">carb</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">validate_rows</span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
+  <span class="fu"><a href="../reference/validate_rows.html">validate_rows</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
               <span class="no">rowSums</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">1</span>), <span class="no">vs</span>:<span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">validate_cols</span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
          <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">2</span>), <span class="no">wt</span>, <span class="no">qsec</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">validate_if</span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>,
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>,
          <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">validate_if</span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
          <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/add_results.html">add_results</a></span>(<span class="no">report</span>)</pre></body></html></div>
 <p>See the <a href="https://docs.ropensci.org/assertr/"><code>assertr</code> vignette</a> for the full specification.</p>
@@ -137,19 +137,19 @@
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">assertr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 
-<span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate.html">validate</a></span>(<span class="no">mtcars</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
+<span class="fu"><a href="../reference/validate.html">validate</a></span>(<span class="no">mtcars</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
          <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
          <span class="kw">skip_chain_opts</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">error_fun</span> <span class="kw">=</span> <span class="no">warning_append</span>,
          <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">4</span>)), <span class="no">gear</span>, <span class="no">carb</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_rows.html">validate_rows</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
+  <span class="fu"><a href="../reference/validate_rows.html">validate_rows</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
               <span class="no">rowSums</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">1</span>), <span class="no">vs</span>:<span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
          <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">2</span>), <span class="no">wt</span>, <span class="no">qsec</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>,
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>,
          <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
          <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/add_results.html">add_results</a></span>(<span class="no">report</span>)</pre></body></html></div>
 <p>Finally, we use one of the available methods to present the results.</p>
@@ -190,8 +190,8 @@
 <span class="no">population</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="no">file</span>, <span class="kw">colClasses</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"character"</span>, <span class="st">"character"</span>, <span class="st">"character"</span>,
                                             <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>))
 
-<span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate.html">validate</a></span>(<span class="no">population</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/data.validator/man/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">3</span>), <span class="no">total</span>) <span class="kw">%&gt;%</span>
+<span class="fu"><a href="../reference/validate.html">validate</a></span>(<span class="no">population</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">3</span>), <span class="no">total</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">report</span>)
