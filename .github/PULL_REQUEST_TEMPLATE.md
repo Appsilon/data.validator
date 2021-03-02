@@ -1,4 +1,4 @@
-### Link to backlog task in asana (if there is no task pls create it!)
+### Link to the issue
 
 Before submitting a PR please answer:
 * Was it necessary to update README? Is README updated?

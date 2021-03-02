@@ -3,7 +3,7 @@
 [![cranlogs](https://cranlogs.r-pkg.org/badges/data.validator)](https://CRAN.R-project.org/package=data.validator)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/data.validator)](https://CRAN.R-project.org/package=data.validator)
 
-<img src="assets/hexsticker.png" width="200px" align="right"/>
+<img src="assets/hexsticker.png" width="160px" align="right"/>
 
 data.validator
 ==============
@@ -12,7 +12,7 @@ data.validator
 
 `data.validator` is a package for scalable and reproducible data validation. It provides:
 
-* Functions for validating datasets in `%>%` pipelines: `assert_if`, `assert_cols` and `assert_rows`
+* Functions for validating datasets in `%>%` pipelines: `validate_if`, `validate_cols` and `validate_rows`
 * Predicate functions from [assertr](https://github.com/ropensci/assertr) package, like `in_set`, `within_bounds`, etc.
 * Functions for creating user-friendly reports that you can send to email, store in logs folder, 
   or generate automatically with RStudio Connect.
@@ -35,7 +35,7 @@ Validaton cycle is simple:
 2. Prepare your dataset. You can load it, preprocess and then run `validate()` pipeline.
 2. Validate your datasets.
     * Start validation block with `validate()` function. It adds new section to the report.
-    * Use `assert_*` functions and predicates to validate the data. You can create your custom predicates. See `between()` example.
+    * Use `validate_*` functions and predicates to validate the data. You can create your custom predicates. See `between()` example.
     * Add assertion results to the report with `add_results()`
 3. Print the results or generate HTML report.
 
@@ -47,11 +47,11 @@ library(data.validator)
 report <- data_validation_report()
 
 validate(mtcars, name = "Verifying cars dataset") %>%
-  assert_if(drat < 0, description = "Column drat has only positive values") %>%
-  assert_cols(in_set(c(0, 2)), vs, am, description = "vs and am values equal 0 or 2 only") %>%
-  assert_cols(within_n_sds(1), mpg, description = "mpg within 1 sds") %>%
-  assert_rows(num_row_NAs, within_bounds(0, 2), vs, am, mpg, description = "not too many NAs in rows") %>%
-  assert_rows(maha_dist, within_n_mads(10), everything(), description = "maha dist within 10 mads") %>%
+  validate_if(drat < 0, description = "Column drat has only positive values") %>%
+  validate_cols(in_set(c(0, 2)), vs, am, description = "vs and am values equal 0 or 2 only") %>%
+  validate_cols(within_n_sds(1), mpg, description = "mpg within 1 sds") %>%
+  validate_rows(num_row_NAs, within_bounds(0, 2), vs, am, mpg, description = "not too many NAs in rows") %>%
+  validate_rows(maha_dist, within_n_mads(10), everything(), description = "maha dist within 10 mads") %>%
   add_results(report)
 
 between <- function(a, b) {
@@ -59,8 +59,8 @@ between <- function(a, b) {
 }
 
 validate(iris, name = "Verifying flower dataset") %>%
-  assert_if(Sepal.Length > 0, description = "Sepal length is greater than 0") %>%
-  assert_cols(between(0, 4), Sepal.Width, description = "Sepal width is between 0 and 4") %>%
+  validate_if(Sepal.Length > 0, description = "Sepal length is greater than 0") %>%
+  validate_cols(between(0, 4), Sepal.Width, description = "Sepal width is between 0 and 4") %>%
   add_results(report)
 
 print(report)
@@ -180,3 +180,12 @@ are generated with markdown.
 
 Documentation is rendered with `pkgdown`. Just run
 `pkgdown::build_site()` after rendering new **README.md**.
+
+## Appsilon
+
+<img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />
+
+Appsilon is the **Full Service Certified RStudio Partner**. Learn more
+at [appsilon.com](https://appsilon.com).
+
+Get in touch [dev@appsilon.com](dev@appsilon.com)

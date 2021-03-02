@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Set of functions for automatic data validation report. • DATA.VALIDATOR</title>
+<title>Automatic Data Validation and Reporting • DATA.VALIDATOR</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Set of functions for automatic data validation report.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Automatic Data Validation and Reporting">
 <meta property="og:description" content="Validate dataset by columns and rows using convenient predicates inspired by assertr package. 
              Generate good looking HTML report or print console output to display in logs of your data processing pipeline.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">DATA.VALIDATOR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
       </span>
     </div>
 
@@ -40,14 +40,14 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Start
   </a>
 </li>
 <li>
   <a href="articles/index.html">
-    <span class="fa fa-university"></span>
+    <span class="fas fa-university"></span>
      
     Tutorials
   </a>
@@ -56,20 +56,20 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="reference/index.html">
-    <span class="fa fa-file-code-o"></span>
+    <span class="fas fa-file-code-o"></span>
      
     Reference
   </a>
 </li>
 <li>
   <a href="https://github.com/Appsilon/data.validator">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/Appsilon">
-    <span class="fa fa-twitter fa-lg"></span>
+    <span class="fas fa-twitter fa-lg"></span>
      
   </a>
 </li>
@@ -87,7 +87,7 @@
   <div class="contents col-md-9">
 
 
-<p><img src="assets/hexsticker.png" width="200px" align="right"></p>
+<p><img src="assets/hexsticker.png" width="160px" align="right"></p>
 <div id="datavalidator" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#datavalidator" class="anchor"></a>data.validator</h1></div>
@@ -96,7 +96,7 @@
 <a href="#description" class="anchor"></a>Description</h2>
 <p><code>data.validator</code> is a package for scalable and reproducible data validation. It provides:</p>
 <ul>
-<li>Functions for validating datasets in <code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code> pipelines: <code>assert_if</code>, <code>assert_cols</code> and <code>assert_rows</code>
+<li>Functions for validating datasets in <code><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></code> pipelines: <code>validate_if</code>, <code>validate_cols</code> and <code>validate_rows</code>
 </li>
 <li>Predicate functions from <a href="https://github.com/ropensci/assertr">assertr</a> package, like <code>in_set</code>, <code>within_bounds</code>, etc.</li>
 <li>Functions for creating user-friendly reports that you can send to email, store in logs folder, or generate automatically with RStudio Connect.</li>
@@ -115,11 +115,11 @@
 <p>Validaton cycle is simple:</p>
 <ol>
 <li>Create report object.</li>
-<li>Prepare your dataset. You can load it, preprocess and then run <code>validate()</code> pipeline.</li>
+<li>Prepare your dataset. You can load it, preprocess and then run <code><a href="reference/validate.html">validate()</a></code> pipeline.</li>
 <li>Validate your datasets.
 <ul>
-<li>Start validation block with <code>validate()</code> function. It adds new section to the report.</li>
-<li>Use <code>assert_*</code> functions and predicates to validate the data. You can create your custom predicates. See <code>between()</code> example.</li>
+<li>Start validation block with <code><a href="reference/validate.html">validate()</a></code> function. It adds new section to the report.</li>
+<li>Use <code>validate_*</code> functions and predicates to validate the data. You can create your custom predicates. See <code>between()</code> example.</li>
 <li>Add assertion results to the report with <code><a href="reference/add_results.html">add_results()</a></code>
 </li>
 </ul>
@@ -132,21 +132,21 @@
 
 <span class="no">report</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/data_validation_report.html">data_validation_report</a></span>()
 
-<span class="fu">validate</span>(<span class="no">mtcars</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying cars dataset"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">assert_if</span>(<span class="no">drat</span> <span class="kw">&lt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">assert_cols</span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">assert_cols</span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">1</span>), <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"mpg within 1 sds"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/assert_rows.html">assert_rows</a></span>(<span class="no">num_row_NAs</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">2</span>), <span class="no">vs</span>, <span class="no">am</span>, <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"not too many NAs in rows"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/assert_rows.html">assert_rows</a></span>(<span class="no">maha_dist</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_mads.html">within_n_mads</a></span>(<span class="fl">10</span>), <span class="fu">everything</span>(), <span class="kw">description</span> <span class="kw">=</span> <span class="st">"maha dist within 10 mads"</span>) <span class="kw">%&gt;%</span>
+<span class="fu"><a href="reference/validate.html">validate</a></span>(<span class="no">mtcars</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying cars dataset"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_if.html">validate_if</a></span>(<span class="no">drat</span> <span class="kw">&lt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">1</span>), <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"mpg within 1 sds"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_rows.html">validate_rows</a></span>(<span class="no">num_row_NAs</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">2</span>), <span class="no">vs</span>, <span class="no">am</span>, <span class="no">mpg</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"not too many NAs in rows"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_rows.html">validate_rows</a></span>(<span class="no">maha_dist</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_mads.html">within_n_mads</a></span>(<span class="fl">10</span>), <span class="fu">everything</span>(), <span class="kw">description</span> <span class="kw">=</span> <span class="st">"maha dist within 10 mads"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
 
 <span class="no">between</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">a</span>, <span class="no">b</span>) {
   <span class="kw">function</span>(<span class="no">x</span>) { <span class="no">a</span> <span class="kw">&lt;=</span> <span class="no">x</span> <span class="kw">&amp;&amp;</span> <span class="no">x</span> <span class="kw">&lt;=</span> <span class="no">b</span> }
 }
 
-<span class="fu">validate</span>(<span class="no">iris</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying flower dataset"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">assert_if</span>(<span class="no">Sepal.Length</span> <span class="kw">&gt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal length is greater than 0"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">assert_cols</span>(<span class="fu">between</span>(<span class="fl">0</span>, <span class="fl">4</span>), <span class="no">Sepal.Width</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal width is between 0 and 4"</span>) <span class="kw">%&gt;%</span>
+<span class="fu"><a href="reference/validate.html">validate</a></span>(<span class="no">iris</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"Verifying flower dataset"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_if.html">validate_if</a></span>(<span class="no">Sepal.Length</span> <span class="kw">&gt;</span> <span class="fl">0</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal length is greater than 0"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/validate_cols.html">validate_cols</a></span>(<span class="fu">between</span>(<span class="fl">0</span>, <span class="fl">4</span>), <span class="no">Sepal.Width</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Sepal width is between 0 and 4"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">report</span>)</pre></div>
@@ -242,6 +242,13 @@ params$generate_report_html(params$extra_params)
 <p>Documentation is rendered with <code>pkgdown</code>. Just run <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> after rendering new <strong>README.md</strong>.</p>
 </div>
 </div>
+<div id="appsilon" class="section level2">
+<h2 class="hasAnchor">
+<a href="#appsilon" class="anchor"></a>Appsilon</h2>
+<p><img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%"></p>
+<p>Appsilon is the <strong>Full Service Certified RStudio Partner</strong>. Learn more at <a href="https://appsilon.com">appsilon.com</a>.</p>
+<p>Get in touch <a href="dev@appsilon.com">dev@appsilon.com</a></p>
+</div>
 </div>
 
   </div>
@@ -250,6 +257,8 @@ params$generate_report_html(params$extra_params)
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=data.validator">https://​cloud.r-project.org/​package=data.validator</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/Appsilon/data.validator/">https://​github.com/​Appsilon/​data.validator/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/Appsilon/data.validator/issues">https://​github.com/​Appsilon/​data.validator/​issues</a>
@@ -267,9 +276,10 @@ params$generate_report_html(params$extra_params)
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Krystian Igras <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Krystian Igras <br><small class="roles"> Author </small>  </li>
 <li>Marcin Dubel <br><small class="roles"> Author </small>  </li>
 <li>Paweł Przytuła <br><small class="roles"> Author </small>  </li>
+<li>Dominik Krzeminski <br><small class="roles"> Contributor, maintainer </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
@@ -285,7 +295,7 @@ params$generate_report_html(params$extra_params)
 
 
       <footer><div class="copyright">
-  <p>Developed by Krystian Igras, Marcin Dubel, Paweł Przytuła.</p>
+  <p>Developed by Krystian Igras, Marcin Dubel, Paweł Przytuła, Dominik Krzeminski.</p>
 </div>
 
 <div class="pkgdown">

@@ -6,6 +6,9 @@ workflow.sh
 environment
 .gitignore
 ..Rcheck
+docs
+vignettes
+_pkgdown.yml
 .git
 .github
 package

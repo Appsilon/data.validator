@@ -23,27 +23,27 @@ results from [`assertr`](https://github.com/ropensci/assertr).
 It provides tools for creating user-friendly reports that you can send by email,
 store in a logs folder, or generate automatically with RStudio Connect.
 
-### Validate data with `assertr`
+### Validate data
 
-This is a basic example of how to validate data with `assertr`:
+This is a basic example of how to validate data:
 
 ```{r, eval=FALSE}
 library(assertr)
 library(dplyr)
 
 validate(mtcars) %>%
-  assert_cols(description = "vs and am values equal 0 or 2 only", 
+  validate_cols(description = "vs and am values equal 0 or 2 only", 
          in_set(c(0, 2)), vs, am) %>%
-  assert_cols(description = "vs and am values should equal 3 or 4", 
+  validate_cols(description = "vs and am values should equal 3 or 4", 
          skip_chain_opts = TRUE,
          error_fun = warning_append, in_set(c(3, 4)), gear, carb) %>%
-  assert_rows(description = "Each row sum for am:vs columns is less or equal 1",
+  validate_rows(description = "Each row sum for am:vs columns is less or equal 1",
               rowSums, within_bounds(0, 1), vs:am) %>%
-  assert_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
+  validate_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
          within_n_sds(2), wt, qsec) %>%
-  assert_if(description = "Column drat has only positive values", 
+  validate_if(description = "Column drat has only positive values", 
          drat > 0) %>%
-  assert_if(description = "Column drat has only values larger than 3", 
+  validate_if(description = "Column drat has only values larger than 3", 
          drat > 3) %>%
   add_results(report)
 ```
@@ -66,25 +66,25 @@ library(assertr)
 library(dplyr)
 
 validate(mtcars) %>%
-  assert_cols(description = "vs and am values equal 0 or 2 only", 
+  validate_cols(description = "vs and am values equal 0 or 2 only", 
          in_set(c(0, 2)), vs, am) %>%
-  assert_cols(description = "vs and am values should equal 3 or 4", 
+  validate_cols(description = "vs and am values should equal 3 or 4", 
          skip_chain_opts = TRUE, error_fun = warning_append, 
          in_set(c(3, 4)), gear, carb) %>%
-  assert_rows(description = "Each row sum for am:vs columns is less or equal 1",
+  validate_rows(description = "Each row sum for am:vs columns is less or equal 1",
               rowSums, within_bounds(0, 1), vs:am) %>%
-  assert_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
+  validate_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
          within_n_sds(2), wt, qsec) %>%
-  assert_if(description = "Column drat has only positive values", 
+  validate_if(description = "Column drat has only positive values", 
          drat > 0) %>%
-  assert_if(description = "Column drat has only values larger than 3", 
+  validate_if(description = "Column drat has only values larger than 3", 
          drat > 3) %>%
   add_results(report)
 ```
 
 Finally, we use one of the available methods to present the results.
 
-Either print the summary,
+Either print the summary:
 
 ```{r}
 print(report)
@@ -110,9 +110,9 @@ checking whether population across Polish counties fits within 3 standard
 deviations. 
 
 ```{r}
-library(data.validator)
 library(magrittr)
 library(assertr)
+library(data.validator)
 
 report <- data_validation_report()
 
@@ -121,7 +121,7 @@ population <- read.csv(file, colClasses = c("character", "character", "character
                                             "integer", "integer", "integer"))
 
 validate(population) %>%
-  assert_cols(within_n_sds(3), total) %>%
+  validate_cols(within_n_sds(3), total) %>%
   add_results(report)
 
 print(report)
