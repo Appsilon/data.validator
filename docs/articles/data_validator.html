@@ -39,15 +39,15 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
-     
+    <span class="fa fa-home"></span>
+
     Start
   </a>
 </li>
 <li>
   <a href="../articles/index.html">
-    <span class="fas fa-university"></span>
-     
+    <span class="fa fa-university"></span>
+
     Tutorials
   </a>
 </li>
@@ -55,21 +55,21 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../reference/index.html">
-    <span class="fas fa-file-code-o"></span>
-     
+    <span class="fa fa-file-code-o"></span>
+
     Reference
   </a>
 </li>
 <li>
   <a href="https://github.com/Appsilon/data.validator">
-    <span class="fas fa-github fa-lg"></span>
-     
+    <span class="fa fa-github fa-lg"></span>
+
   </a>
 </li>
 <li>
   <a href="https://twitter.com/Appsilon">
-    <span class="fas fa-twitter fa-lg"></span>
-     
+    <span class="fa fa-twitter fa-lg"></span>
+
   </a>
 </li>
       </ul>
@@ -80,22 +80,22 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><script src="data_validator_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>All you need to know about data.validator</h1>
-            
-            <h4 class="date">2021-03-02</h4>
-      
+
+            <h4 class="date">2021-03-03</h4>
+
       <small class="dont-index">Source: <a href="https://github.com/Appsilon/data.validator/blob/master/vignettes/data_validator.Rmd"><code>vignettes/data_validator.Rmd</code></a></small>
       <div class="hidden name"><code>data_validator.Rmd</code></div>
 
     </div>
 
-    
-    
+
+
 <div id="introduction" class="section level3">
 <h3 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h3>
@@ -106,24 +106,25 @@
 <h3 class="hasAnchor">
 <a href="#validate-data" class="anchor"></a>Validate data</h3>
 <p>This is a basic example of how to validate data:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">assertr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/assertr/">assertr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/validate.html">validate</a></span>(<span class="no">mtcars</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
-         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
-         <span class="kw">skip_chain_opts</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-         <span class="kw">error_fun</span> <span class="kw">=</span> <span class="no">warning_append</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">4</span>)), <span class="no">gear</span>, <span class="no">carb</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_rows.html">validate_rows</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
-              <span class="no">rowSums</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">1</span>), <span class="no">vs</span>:<span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
-         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">2</span>), <span class="no">wt</span>, <span class="no">qsec</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>,
-         <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
-         <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_results.html">add_results</a></span>(<span class="no">report</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/validate.html">validate</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
+         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="va">vs</span>, <span class="va">am</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
+         skip_chain_opts <span class="op">=</span> <span class="cn">TRUE</span>,
+         error_fun <span class="op">=</span> <span class="va">warning_append</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>, <span class="va">gear</span>, <span class="va">carb</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_rows.html">validate_rows</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
+              <span class="va">rowSums</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">vs</span><span class="op">:</span><span class="va">am</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
+         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, <span class="va">wt</span>, <span class="va">qsec</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"Column drat has only positive values"</span>,
+         <span class="va">drat</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
+         <span class="va">drat</span> <span class="op">&gt;</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_results.html">add_results</a></span><span class="op">(</span><span class="va">report</span><span class="op">)</span></code></pre></div>
 <p>See the <a href="https://docs.ropensci.org/assertr/"><code>assertr</code> vignette</a> for the full specification.</p>
 </div>
 <div id="present-results-with-data-validator" class="section level3">
@@ -131,30 +132,33 @@
 <a href="#present-results-with-data-validator" class="anchor"></a>Present results with <code>data.validator</code>
 </h3>
 <p>The first step is to create a validator.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.validator</span>)
-<span class="no">report</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/data_validation_report.html">data_validation_report</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">data.validator</span><span class="op">)</span>
+<span class="va">report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/data_validation_report.html">data_validation_report</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Next we have to add validation results to the validator.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">assertr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/assertr/">assertr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/validate.html">validate</a></span>(<span class="no">mtcars</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
-         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>)), <span class="no">vs</span>, <span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
-         <span class="kw">skip_chain_opts</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">error_fun</span> <span class="kw">=</span> <span class="no">warning_append</span>,
-         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">4</span>)), <span class="no">gear</span>, <span class="no">carb</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_rows.html">validate_rows</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
-              <span class="no">rowSums</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span>(<span class="fl">0</span>, <span class="fl">1</span>), <span class="no">vs</span>:<span class="no">am</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
-         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">2</span>), <span class="no">wt</span>, <span class="no">qsec</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only positive values"</span>,
-         <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">0</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span>(<span class="kw">description</span> <span class="kw">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
-         <span class="no">drat</span> <span class="kw">&gt;</span> <span class="fl">3</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_results.html">add_results</a></span>(<span class="no">report</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/validate.html">validate</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"vs and am values equal 0 or 2 only"</span>,
+         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="va">vs</span>, <span class="va">am</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"vs and am values should equal 3 or 4"</span>,
+         skip_chain_opts <span class="op">=</span> <span class="cn">TRUE</span>, error_fun <span class="op">=</span> <span class="va">warning_append</span>,
+         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/in_set.html">in_set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>, <span class="va">gear</span>, <span class="va">carb</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_rows.html">validate_rows</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"Each row sum for am:vs columns is less or equal 1"</span>,
+              <span class="va">rowSums</span>, <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_bounds.html">within_bounds</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">vs</span><span class="op">:</span><span class="va">am</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"For wt and qsec we have: abs(col) &lt; 2 * sd(col)"</span>,
+         <span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, <span class="va">wt</span>, <span class="va">qsec</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"Column drat has only positive values"</span>,
+         <span class="va">drat</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_if.html">validate_if</a></span><span class="op">(</span>description <span class="op">=</span> <span class="st">"Column drat has only values larger than 3"</span>,
+         <span class="va">drat</span> <span class="op">&gt;</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_results.html">add_results</a></span><span class="op">(</span><span class="va">report</span><span class="op">)</span></code></pre></div>
 <p>Finally, we use one of the available methods to present the results.</p>
 <p>Either print the summary:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">report</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">report</span><span class="op">)</span>
 <span class="co">#&gt; Validation summary: </span>
 <span class="co">#&gt;  Number of successful validations: 1</span>
 <span class="co">#&gt;  Number of failed validations: 4</span>
@@ -170,9 +174,10 @@
 <span class="co">#&gt; |mtcars     |Each row sum for am:vs columns is less or equal 1 |error   |                7|</span>
 <span class="co">#&gt; |mtcars     |For wt and qsec we have: abs(col) &lt; 2 * sd(col)   |error   |                4|</span>
 <span class="co">#&gt; |mtcars     |vs and am values equal 0 or 2 only                |error   |               27|</span>
-<span class="co">#&gt; |mtcars     |vs and am values should equal 3 or 4              |warning |               24|</span></pre></body></html></div>
+<span class="co">#&gt; |mtcars     |vs and am values should equal 3 or 4              |warning |               24|</span></code></pre></div>
 <p>or save it as an HTML report.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/save_report.html">save_report</a></span>(<span class="no">report</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/save_report.html">save_report</a></span><span class="op">(</span><span class="va">report</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="creating-custom-reports" class="section level3">
 <h3 class="hasAnchor">
@@ -180,21 +185,22 @@
 <p>Define a function that has a <code>validation_results</code> parameter and returns an HTML object or HTML widget. The <code>validation_results</code> parameter is assumed to be passed as a results table extracted with <code><a href="../reference/get_results.html">get_results(validator)</a></code>.</p>
 <p><em>Note</em> The function can also store optional parameters that should be passed to the <code>save_report</code> function while generating a new report.</p>
 <p>In this example we create a custom report that shows validation results of checking whether population across Polish counties fits within 3 standard deviations.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">assertr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.validator</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/assertr/">assertr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">data.validator</span><span class="op">)</span>
 
-<span class="no">report</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/data_validation_report.html">data_validation_report</a></span>()
+<span class="va">report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/data_validation_report.html">data_validation_report</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="no">file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"population.csv"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"data.validator"</span>)
-<span class="no">population</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="no">file</span>, <span class="kw">colClasses</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"character"</span>, <span class="st">"character"</span>, <span class="st">"character"</span>,
-                                            <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>))
+<span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"population.csv"</span>, package <span class="op">=</span> <span class="st">"data.validator"</span><span class="op">)</span>
+<span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">file</span>, colClasses <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"character"</span>, <span class="st">"character"</span>, <span class="st">"character"</span>,
+                                            <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/validate.html">validate</a></span>(<span class="no">population</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span>(<span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span>(<span class="fl">3</span>), <span class="no">total</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_results.html">add_results</a></span>(<span class="no">report</span>)
+<span class="fu"><a href="../reference/validate.html">validate</a></span><span class="op">(</span><span class="va">population</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/validate_cols.html">validate_cols</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/assertr/reference/within_n_sds.html">within_n_sds</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="va">total</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_results.html">add_results</a></span><span class="op">(</span><span class="va">report</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">report</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">report</span><span class="op">)</span>
 <span class="co">#&gt; Validation summary: </span>
 <span class="co">#&gt;  Number of successful validations: 0</span>
 <span class="co">#&gt;  Number of failed validations: 1</span>
@@ -205,43 +211,44 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; |table_name |description |type  | total_violations|</span>
 <span class="co">#&gt; |:----------|:-----------|:-----|----------------:|</span>
-<span class="co">#&gt; |population |NA          |error |                6|</span></pre></body></html></div>
+<span class="co">#&gt; |population |NA          |error |                6|</span></code></pre></div>
 <p>We can also present the results on a Leaflet map.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">render_leaflet_report</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">validation_results</span>, <span class="no">population_data</span>, <span class="no">correct_col</span>, <span class="no">violated_col</span>) {
-  <span class="no">file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"counties.json"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"data.validator"</span>)
-  <span class="no">states</span> <span class="kw">&lt;-</span> <span class="kw pkg">rgdal</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rgdal/man/readOGR.html">readOGR</a></span>(<span class="no">file</span>, <span class="kw">GDAL1_integer64_policy</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">render_leaflet_report</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">validation_results</span>, <span class="va">population_data</span>, <span class="va">correct_col</span>, <span class="va">violated_col</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"counties.json"</span>, package <span class="op">=</span> <span class="st">"data.validator"</span><span class="op">)</span>
+  <span class="va">states</span> <span class="op">&lt;-</span> <span class="fu">rgdal</span><span class="fu">::</span><span class="fu"><a href="http://rgdal.r-forge.r-project.org/reference/readOGR.html">readOGR</a></span><span class="op">(</span><span class="va">file</span>, GDAL1_integer64_policy <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-  <span class="no">violated</span> <span class="kw">&lt;-</span> <span class="no">validation_results</span> <span class="kw">%&gt;%</span>
-    <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="no">error_df</span>, <span class="kw">keep_empty</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
-    <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span>(<span class="no">index</span>)
+  <span class="va">violated</span> <span class="op">&lt;-</span> <span class="va">validation_results</span> <span class="op">%&gt;%</span>
+    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">error_df</span>, keep_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span>
 
-  <span class="no">states</span>@<span class="kw">data</span> <span class="kw">&lt;-</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span>(<span class="no">states</span>@<span class="kw">data</span>, <span class="no">population_data</span>,
-                                  <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"JPT_KOD_JE"</span> <span class="kw">=</span> <span class="st">"county_ID"</span>))
-  <span class="no">states</span>@<span class="kw">data</span>$<span class="no">color</span> <span class="kw">&lt;-</span> <span class="no">correct_col</span>
-  <span class="no">states</span>@<span class="kw">data</span>$<span class="no">color</span>[<span class="no">violated</span>] <span class="kw">&lt;-</span> <span class="no">violated_col</span>
-  <span class="no">states</span>@<span class="kw">data</span>$<span class="no">label</span> <span class="kw">&lt;-</span> <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(<span class="st">"County: {states@data$county} &lt;br&gt;"</span>,
-                                  <span class="st">"Population: {states@data$total}"</span>)
+  <span class="va">states</span><span class="op">@</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">states</span><span class="op">@</span><span class="va">data</span>, <span class="va">population_data</span>,
+                                  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"JPT_KOD_JE"</span> <span class="op">=</span> <span class="st">"county_ID"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">states</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">color</span> <span class="op">&lt;-</span> <span class="va">correct_col</span>
+  <span class="va">states</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">color</span><span class="op">[</span><span class="va">violated</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">violated_col</span>
+  <span class="va">states</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">label</span> <span class="op">&lt;-</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"County: {states@data$county} &lt;br&gt;"</span>,
+                                  <span class="st">"Population: {states@data$total}"</span><span class="op">)</span>
 
-  <span class="kw pkg">htmltools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/tag.html">tagList</a></span>(
-    <span class="kw pkg">htmltools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">h2</a></span>(<span class="st">"Counties not fitting within 3 standard deviations"</span>),
-    <span class="kw pkg">leaflet</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span>(<span class="no">states</span>) <span class="kw">%&gt;%</span>
-      <span class="kw pkg">leaflet</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="st">"#444444"</span>, <span class="kw">weight</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">smoothFactor</span> <span class="kw">=</span> <span class="fl">0.5</span>,
-                           <span class="kw">opacity</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">fillOpacity</span> <span class="kw">=</span> <span class="fl">0.5</span>,
-                           <span class="kw">fillColor</span> <span class="kw">=</span> <span class="no">states</span>@<span class="kw">data</span>$<span class="no">color</span>,
-                           <span class="kw">label</span> <span class="kw">=</span> <span class="no">states</span>@<span class="kw">data</span>$<span class="no">label</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="kw pkg">htmltools</span><span class="kw ns">::</span><span class="no"><a href="https://rdrr.io/pkg/htmltools/man/HTML.html">HTML</a></span>),
-                           <span class="kw">highlightOptions</span> <span class="kw">=</span> <span class="kw pkg">leaflet</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">highlightOptions</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="st">"white"</span>,
-                                                                        <span class="kw">weight</span> <span class="kw">=</span> <span class="fl">2</span>,
-                                                                        <span class="kw">bringToFront</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
-  )
-}
+  <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/tag.html">tagList</a></span><span class="op">(</span>
+    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">h2</a></span><span class="op">(</span><span class="st">"Counties not fitting within 3 standard deviations"</span><span class="op">)</span>,
+    <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="va">states</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#444444"</span>, weight <span class="op">=</span> <span class="fl">1</span>, smoothFactor <span class="op">=</span> <span class="fl">0.5</span>,
+                           opacity <span class="op">=</span> <span class="fl">0.5</span>, fillOpacity <span class="op">=</span> <span class="fl">0.5</span>,
+                           fillColor <span class="op">=</span> <span class="va">states</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">color</span>,
+                           label <span class="op">=</span> <span class="va">states</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">label</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/htmltools/man/HTML.html">HTML</a></span><span class="op">)</span>,
+                           highlightOptions <span class="op">=</span> <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">highlightOptions</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span>,
+                                                                        weight <span class="op">=</span> <span class="fl">2</span>,
+                                                                        bringToFront <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
 
-<span class="fu"><a href="../reference/save_report.html">save_report</a></span>(
-  <span class="no">report</span>,
-  <span class="kw">ui_constructor</span> <span class="kw">=</span> <span class="no">render_leaflet_report</span>,
-  <span class="kw">population_data</span> <span class="kw">=</span> <span class="no">population</span>,
-  <span class="kw">correct_col</span> <span class="kw">=</span> <span class="st">"#52cf0a"</span>,
-  <span class="kw">violated_col</span> <span class="kw">=</span> <span class="st">"#bf0b4d"</span>
-)</pre></body></html></div>
+<span class="fu"><a href="../reference/save_report.html">save_report</a></span><span class="op">(</span>
+  <span class="va">report</span>,
+  ui_constructor <span class="op">=</span> <span class="va">render_leaflet_report</span>,
+  population_data <span class="op">=</span> <span class="va">population</span>,
+  correct_col <span class="op">=</span> <span class="st">"#52cf0a"</span>,
+  violated_col <span class="op">=</span> <span class="st">"#bf0b4d"</span>
+<span class="op">)</span></code></pre></div>
 <p><img src="leaflet.png"></p>
 </div>
 <div id="creating-custom-report-templates" class="section level3">
@@ -311,13 +318,13 @@ params$generate_report_html(params$extra_params)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
+
 
 
   </body>
