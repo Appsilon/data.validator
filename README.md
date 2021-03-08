@@ -21,7 +21,13 @@ data.validator
 
 ## Installation
 
-Latest development version:
+Install from CRAN:
+
+```r
+install.packages("data.validator")
+```
+
+or the latest development version:
 
 ```r
 remotes::install_github("Appsilon/data.validator")
