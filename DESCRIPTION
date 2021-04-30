@@ -3,9 +3,9 @@ Type: Package
 Title: Automatic Data Validation and Reporting
 Version: 0.1.5
 Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("aut")),
-             person("Marcin", "Dubel", email = "marcin@appsilon.com", role = c("aut")),
+             person("Marcin", "Dubel", email = "marcin@appsilon.com", role = c("aut", "cre")),
              person("Paweł", "Przytuła", email = "pawel@appsilon.com", role = c("aut")),
-             person("Dominik", "Krzeminski", email = "dominik@appsilon.com", role = c("ctb", "cre")),
+             person("Dominik", "Krzeminski", email = "dominik@appsilon.com", role = c("ctb")),
              person(family = "Appsilon Sp. z o.o.", role = c("cph")))
 Description: Validate dataset by columns and rows using convenient predicates inspired by 'assertr' package. 
              Generate good looking HTML report or print console output to display in logs of your data processing pipeline.
