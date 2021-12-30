@@ -84,20 +84,20 @@ Print results to the console:
 print(report)
 
 # Validation summary: 
-#  Number of successful validations: 2
-#  Number of failed validations: 3
-#  Number of validations with warnings: 0
-# 
+#  Number of successful validations: 1
+#  Number of failed validations: 4
+#  Number of validations with warnings: 1
+#
 # Advanced view: 
-# 
-# 
-# |table_name             |description                          |type    | total_violations|
-# |:----------------------|:------------------------------------|:-------|----------------:|
-# |Verifying cars dataset |Column drat has only positive values |error   |               32|
-# |Verifying cars dataset |maha dist within 10 mads             |success |               NA|
-# |Verifying cars dataset |mpg within 1 sds                     |error   |                8|
-# |Verifying cars dataset |not too many NAs in rows             |success |               NA|
-# |Verifying cars dataset |vs and am values equal 0 or 2 only   |error   |               27|
+#  
+# |table_name |description                                       |type    | total_violations|
+# |:----------|:-------------------------------------------------|:-------|----------------:|
+# |mtcars     |Column drat has only positive values              |success |               NA|
+# |mtcars     |Column drat has only values larger than 3         |error   |                4|
+# |mtcars     |Each row sum for am:vs columns is less or equal 1 |error   |                7|
+# |mtcars     |For wt and qsec we have: abs(col) < 2 * sd(col)   |error   |                4|
+# |mtcars     |vs and am values equal 0 or 2 only                |error   |               27|
+# |mtcars     |vs and am values should equal 3 or 4              |warning |               24|
 ```
 
 
