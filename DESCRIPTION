@@ -14,7 +14,7 @@ BugReports: https://github.com/Appsilon/data.validator/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports:
     shiny,
     assertr (>= 2.8),
