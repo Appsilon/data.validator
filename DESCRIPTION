@@ -1,11 +1,12 @@
 Package: data.validator
 Type: Package
 Title: Automatic Data Validation and Reporting
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("aut")),
              person("Marcin", "Dubel", email = "marcin@appsilon.com", role = c("aut", "cre")),
              person("Paweł", "Przytuła", email = "pawel@appsilon.com", role = c("aut")),
              person("Dominik", "Krzeminski", email = "dominik@appsilon.com", role = c("ctb")),
+             person("Servet Ahmet", "Çizmeli", email = "ahmet.cizmeli@contractors.appsilon.com", role = c("ctb")),
              person(family = "Appsilon Sp. z o.o.", role = c("cph")))
 Description: Validate dataset by columns and rows using convenient predicates inspired by 'assertr' package. 
              Generate good looking HTML report or print console output to display in logs of your data processing pipeline.
@@ -13,7 +14,7 @@ BugReports: https://github.com/Appsilon/data.validator/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports:
     shiny,
     assertr (>= 2.8),
