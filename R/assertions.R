@@ -40,6 +40,51 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
   stop("Predicate should be a function returning logical vector or function")
 }
 
+#' Defensive wrapper to add evaluation error to regular validation errors.
+#'
+#' @param this_call assertion command that is checked for valuation errors.
+#' @param data A data.frame or tibble to test.
+#' @param description A character string with description of assertion.
+#' @param error_fun Function that is called when the validation fails
+#'
+#' @return
+#'
+#' @examples
+#' library(fixtuRes)
+#' library(magrittr)
+#' library(assertr)
+#' library(data.validator)
+#'
+#' my_mock_generator <- fixtuRes::MockDataGenerator$new("fixtures_config.yml")
+#' my_data_frame <- my_mock_generator$get_data("my_data_frame", 10)
+#'
+#' report <- data.validator::data_validation_report()
+#'
+#' validate(my_data_frame, name = "Verifying data uniqueness") %>%
+#'   validate_if(has_all_names("id", "code", "test"), description = "All columns are there") %>%
+#'   validate_if(is.character(test), description = "TEST column is string") %>%
+#'   validate_if(is_uniq(id), description = "ID column is unique") %>%
+#'   validate_if(!is.na(id) & id != "", description = "ID column is not empty") %>%
+#'   validate_if(is.character(code), description = "CODE column is string") %>%
+#'   validate_rows(col_concat, is_uniq, code, type, description = "CODE and TYPE combination is unique") %>%
+#'   add_results(report)
+#'
+#' print(report)
+#' @seealso validate_if
+check_assertr_expression <- function(this_call, data, description, error_fun) {
+  tryCatch(
+    this_call,
+    error = function(e) {
+      current_error <- assertr:::make.assertr.verify.error(
+        "verify", num.violations = 1, the_call = as.character(e),
+        logical.results = 1, description, assertr:::generate_id()
+      )
+      data <- error_fun(list(current_error), data)
+      return(data)
+    }
+  )
+}
+
 #' Verify if expression regarding data is TRUE
 #'
 #' The function checks whether all the logical values returned by the expression are TRUE.
@@ -62,16 +107,14 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
 #' @export
 #' @seealso validate_cols validate_rows
 validate_if <- function(data, expr, description = NA, obligatory = FALSE, skip_chain_opts = FALSE,
-                      success_fun = assertr::success_append,
-                      error_fun = assertr::error_append, defect_fun = assertr::defect_append) {
-  assertr::verify(data = data,
-                  expr = !!rlang::enexpr(expr),
-                  description = description,
-                  skip_chain_opts = skip_chain_opts,
-                  obligatory = obligatory,
-                  success_fun = success_fun,
-                  error_fun = error_fun,
-                  defect_fun = defect_fun)
+                        success_fun = assertr::success_append,
+                        error_fun = assertr::error_append, defect_fun = assertr::defect_append) {
+
+  assertr::verify(data = data, expr = !!rlang::enexpr(expr),
+                  description = description, skip_chain_opts = skip_chain_opts,
+                  obligatory = obligatory, success_fun = success_fun,
+                  error_fun = error_fun, defect_fun = defect_fun) %>%
+    check_assertr_expression(data, description, error_fun)
 }
 
 #' Validation on columns
@@ -110,7 +153,8 @@ validate_cols <- function(data, predicate, ..., obligatory = FALSE, description 
     success_fun = success_fun,
     error_fun = error_fun,
     defect_fun = defect_fun
-  )
+  ) %>%
+    check_assertr_expression(data, description, error_fun)
 }
 
 #' Validation on rows
@@ -151,5 +195,6 @@ validate_rows <- function(data, row_reduction_fn, predicate, ..., obligatory = F
       success_fun = success_fun,
       error_fun = error_fun,
       defect_fun = defect_fun
-  )
+  ) %>%
+    check_assertr_expression(data, description, error_fun)
 }
