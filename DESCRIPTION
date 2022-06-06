@@ -1,7 +1,7 @@
 Package: data.validator
 Type: Package
 Title: Automatic Data Validation and Reporting
-Version: 0.1.6
+Version: 0.1.7
 Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("aut")),
              person("Marcin", "Dubel", email = "marcin@appsilon.com", role = c("aut", "cre")),
              person("Paweł", "Przytuła", email = "pawel@appsilon.com", role = c("aut")),
@@ -14,7 +14,7 @@ BugReports: https://github.com/Appsilon/data.validator/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports:
     shiny,
     assertr (>= 2.8),
