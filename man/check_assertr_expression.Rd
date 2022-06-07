@@ -19,6 +19,7 @@ check_assertr_expression(this_call, data, description, error_fun)
 Defensive wrapper to add evaluation error to regular validation errors.
 }
 \examples{
+\dontrun{
 library(fixtuRes)
 library(magrittr)
 library(assertr)
@@ -39,6 +40,7 @@ validate(my_data_frame, name = "Verifying data uniqueness") \%>\%
   add_results(report)
 
 print(report)
+}
 }
 \seealso{
 validate_if

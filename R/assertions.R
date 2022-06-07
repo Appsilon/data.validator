@@ -50,6 +50,7 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
 #' @return
 #'
 #' @examples
+#' \dontrun{
 #' library(fixtuRes)
 #' library(magrittr)
 #' library(assertr)
@@ -70,6 +71,7 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
 #'   add_results(report)
 #'
 #' print(report)
+#' }
 #' @seealso validate_if
 check_assertr_expression <- function(this_call, data, description, error_fun) {
   tryCatch(
