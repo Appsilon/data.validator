@@ -1,0 +1,46 @@
+---
+title: "Connect Validation Workflow"
+format: html
+editor: visual
+---
+
+## Validation workflow with {data.validator} and RStudio Connect
+
+Let's prepare the simple example. We will take mtcars and modify it a little bit. As the report is scheduled to recalculate every 24 hours, the data used for report will be different each day. It mocks the behavior of database update.
+
+```{r}
+#| echo: false
+#| include: false
+library(assertr)
+library(dplyr)
+library(data.validator)
+```
+
+```{r}
+random_factor <- runif(1, min = -1, max = 1)
+data_for_validation <-
+  mtcars %>%
+  mutate(drat = drat * random_factor)
+```
+
+The validation will be either successful or failure - approximately half of the days in each state. We can later react differently based on the validation status.
+
+```{r}
+report <- data_validation_report()
+
+validate(data_for_validation, name = "Verifying cars dataset") %>%
+  validate_if(drat > 0, description = "Column drat has only positive values") %>%
+  validate_cols(in_set(c(0, 1)), vs, am, description = "vs and am values equal 0 or 1 only") %>%
+  validate_cols(within_n_sds(3), mpg, description = "mpg within 3 sds") %>%
+  validate_rows(num_row_NAs, within_bounds(0, 2), vs, am, mpg, description = "not too many NAs in rows") %>%
+  validate_rows(maha_dist, within_n_mads(10), everything(), description = "maha dist within 10 mads") %>%
+  add_results(report)
+
+print(report)
+```
+
+Now let's see the validation report - we cannot predict whether it will be failure or successes at the time that you observe it.
+
+```{r}
+render_semantic_report_ui(data.validator::get_results(report))
+```
