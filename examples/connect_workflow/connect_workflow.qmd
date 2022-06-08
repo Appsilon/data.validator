@@ -14,6 +14,7 @@ Let's prepare the simple example. We will take mtcars and modify it a little bit
 library(assertr)
 library(dplyr)
 library(data.validator)
+library(pins)
 ```
 
 ```{r}
@@ -43,4 +44,21 @@ Now let's see the validation report - we cannot predict whether it will be failu
 
 ```{r}
 render_semantic_report_ui(data.validator::get_results(report))
+```
+
+As we are having the validation we can base the next steps on the results.
+
+```{r}
+is_validation_success <- all((get_results(report) %>% pull(type)) == "success")
+is_validation_success
+```
+
+In case there is everything fine with our updated dataset we will update the pin on Connect. You can learn more about the pins [here](https://pins.rstudio.com/). That pin can be later used by our Shiny applications, with no need for additional data manipulations and validations.
+
+```{r}
+#| eval: false
+if (is_validation_success) {
+  board <- board_rsconnect()
+  pin_write(data_for_validation, "validated_data_example")
+}
 ```
