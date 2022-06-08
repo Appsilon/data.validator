@@ -171,6 +171,10 @@ The workflow was based on the below steps:
 
 - a specific trigger is sent in order to reload Shiny data 
 
+### Working example
+
+Check the simple example of scheduled validation and storing data as `pin` here: [connect_validation_workflow](https://connect.prod.aws.appsilon.com/connect_validation_workflow/)
+
 The workflow is presented on below graphics
 ![](assets/workflow.png)
 
