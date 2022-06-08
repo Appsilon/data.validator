@@ -2,7 +2,6 @@ library(shiny)
 library(data.validator)
 library(magrittr)
 library(assertr)
-library(imola)
 
 ui <- fluidPage(
   uiOutput("validation")
