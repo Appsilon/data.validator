@@ -109,9 +109,55 @@ save_report(report)
 
 ## Full examples
 
+### Checking key columns uniqueness
+
+Common step in data validation is assuring that key columns are unique and not empty.
+
+Test dataset for preparing the validation schema can be created with [fixtuRes](https://github.com/jakubnowicki/fixtuRes) package.
+
+```r
+library(fixtuRes)
+library(magrittr)
+library(assertr)
+library(data.validator)
+
+my_mock_generator <- fixtuRes::MockDataGenerator$new("path-to-my-configuration.yml")
+my_data_frame <- my_mock_generator$get_data("my_data_frame", 10)
+
+report <- data.validator::data_validation_report()
+
+validate(my_data_frame, name = "Verifying data uniqueness") %>% 
+  validate_if(is_uniq(id), description = "ID column is unique") %>% 
+  validate_if(!is.na(id) & id != "", description = "ID column is not empty") %>% 
+  validate_if(is.character(code), description = "CODE column is string") %>% 
+  validate_rows(col_concat, is_uniq, code, type, description = "CODE and TYPE combination is unique") %>% 
+  add_results(report)
+
+print(report)
+
+# Validation summary: 
+#  Number of successful validations: 4
+#  Number of failed validations: 0
+#  Number of validations with warnings: 0
+# 
+# Advanced view: 
+# 
+# 
+# |table_name              |description                         |type    | total_violations|
+# |:-----------------------|:-----------------------------------|:-------|----------------:|
+# |Verifying data uniqness |CODE and TYPE combination is unique |success |               NA|
+# |Verifying data uniqness |CODE column is string               |success |               NA|
+# |Verifying data uniqness |ID column is not empty              |success |               NA|
+# |Verifying data uniqness |ID column is unique                 |success |               NA|
+```
+
+### Custom reporting on leaflet map
+
 - [Custom reporting on leaflet map](https://github.com/Appsilon/data.validator/blob/master/examples/custom_report/example.R)
 
 ![](assets/custom_report_example.gif)
+
+### Other examples
 
 - [Minimal example to get you started](https://github.com/Appsilon/data.validator/blob/master/examples/minimal_example/example.R)
 
