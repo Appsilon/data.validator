@@ -119,6 +119,7 @@ save_report(report)
 
 - [Various way of saving reports](https://github.com/Appsilon/data.validator/blob/master/examples/sample_validations/example.R)
 
+- [Rendering report as a part of Shiny app](https://github.com/Appsilon/data.validator/blob/master/examples/shiny_app/shiny_example.R)
 
 ## Using custom report templates
 
