@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.80">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Connect Validation Workflow</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <script src="connect_workflow_files/libs/clipboard/clipboard.min.js"></script>
+  <script src="connect_workflow_files/libs/quarto-html/quarto.js"></script>
+  <script src="connect_workflow_files/libs/quarto-html/popper.min.js"></script>
+  <script src="connect_workflow_files/libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="connect_workflow_files/libs/quarto-html/anchor.min.js"></script>
+  <link href="connect_workflow_files/libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="connect_workflow_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="connect_workflow_files/libs/bootstrap/bootstrap.min.js"></script>
+  <link href="connect_workflow_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="connect_workflow_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script src="connect_workflow_files/libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+  <script src="connect_workflow_files/libs/uirender-binding-0.4.2/uirender.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body class="fullcontent">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+<div class="quarto-title"><h1 class="title display-7">Connect Validation Workflow</h1></div></header>
+<section id="validation-workflow-with-data.validator-and-rstudio-connect" class="level2">
+<h2 class="anchored" data-anchor-id="validation-workflow-with-data.validator-and-rstudio-connect">Validation workflow with {data.validator} and RStudio Connect</h2>
+<p>Let’s prepare the simple example. We will take mtcars and modify it a little bit. As the report is scheduled to recalculate every 24 hours, the data used for report will be different each day. It mocks the behavior of database update.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>random_factor <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data_for_validation <span class="ot">&lt;-</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">drat =</span> drat <span class="sc">*</span> random_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The validation will be either successful or failure - approximately half of the days in each state. We can later react differently based on the validation status.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>report <span class="ot">&lt;-</span> <span class="fu">data_validation_report</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">validate</span>(data_for_validation, <span class="at">name =</span> <span class="st">"Verifying cars dataset"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate_if</span>(drat <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="at">description =</span> <span class="st">"Column drat has only positive values"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate_cols</span>(<span class="fu">in_set</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), vs, am, <span class="at">description =</span> <span class="st">"vs and am values equal 0 or 1 only"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate_cols</span>(<span class="fu">within_n_sds</span>(<span class="dv">3</span>), mpg, <span class="at">description =</span> <span class="st">"mpg within 3 sds"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate_rows</span>(num_row_NAs, <span class="fu">within_bounds</span>(<span class="dv">0</span>, <span class="dv">2</span>), vs, am, mpg, <span class="at">description =</span> <span class="st">"not too many NAs in rows"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validate_rows</span>(maha_dist, <span class="fu">within_n_mads</span>(<span class="dv">10</span>), <span class="fu">everything</span>(), <span class="at">description =</span> <span class="st">"maha dist within 10 mads"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_results</span>(report)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(report)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Validation summary: 
+ Number of successful validations: 4
+ Number of failed validations: 1
+ Number of validations with warnings: 0
+
+Advanced view: 
+
+
+|table_name             |description                          |type    | total_violations|
+|:----------------------|:------------------------------------|:-------|----------------:|
+|Verifying cars dataset |Column drat has only positive values |error   |               32|
+|Verifying cars dataset |maha dist within 10 mads             |success |               NA|
+|Verifying cars dataset |mpg within 3 sds                     |success |               NA|
+|Verifying cars dataset |not too many NAs in rows             |success |               NA|
+|Verifying cars dataset |vs and am values equal 0 or 1 only   |success |               NA|</code></pre>
+</div>
+</div>
+<p>Now let’s see the validation report - we cannot predict whether it will be failure or successes at the time that you observe it.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">render_semantic_report_ui</span>(data.validator<span class="sc">::</span><span class="fu">get_results</span>(report))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-a0fd26f2316d309c07d0" style="width:100%;height:100%;" class="uirender html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a0fd26f2316d309c07d0">{"x":{"ui":"<div>\n  <table id=\"summary\" class=\"ui padded table\">\n    <tbody>\n      <tr>\n        <td id=\"failed_total\" class=\"two wide right aligned\">\n          <div class=\"ui label red circular huge\">1<\/div>\n        <\/td>\n        <td class=\"three wide left aligned\">\n          <h2>Failed<\/h2>\n        <\/td>\n        <td id=\"warned_total\" class=\"two wide right aligned\">\n          <div class=\"ui label blue circular huge\">0<\/div>\n        <\/td>\n        <td class=\"three wide left aligned\">\n          <h2>Warnings<\/h2>\n        <\/td>\n        <td id=\"passed_total\" class=\"two wide right aligned\">\n          <div class=\"ui label green circular huge\">4<\/div>\n        <\/td>\n        <td class=\"three wide left aligned\">\n          <h2>Passed<\/h2>\n        <\/td>\n      <\/tr>\n    <\/tbody>\n  <\/table>\n  <div>\n    <div class=\"ui raised segment\" style=\"margin-bottom: 0.5em\">\n      <div class=\"ui demo ribbon label blue\">Verifying cars dataset<\/div>\n      <p><\/p>\n      <div class=\"ui styled accordion\" style=\"width:100%\">\n        <div class=\"title active\">\n          <i class=\"dropdown icon\"><\/i>\n          <div class=\"ui label red circular tiny\">1<\/div>\n          Failed\n        <\/div>\n        <div class=\"content active\">\n          <table class=\"ui padded striped table\">\n            <thead>\n              <tr>\n                <th class=\"twelve wide left aligned\">\n                  <h5>Validation rule<\/h5>\n                <\/th>\n                <th class=\"one wide center aligned\">\n                  <h5>Status<\/h5>\n                <\/th>\n                <th class=\"three wide center aligned\">\n                  <h5>Error details<\/h5>\n                <\/th>\n              <\/tr>\n            <\/thead>\n            <tbody>\n              <tr>\n                <td class=\"left aligned\">\n                  <h6>Column drat has only positive values<\/h6>\n                <\/td>\n                <td class=\"center aligned\">\n                  <i class=\"red big remove icon\"><\/i>\n                <\/td>\n                <td class=\"center aligned\">\n                  <div id=\"76Tlh1654685880137\" class=\"ui longer test modal visible scrolling\">\n                    <div class=\"header\">\n                      <h5>Verifying cars dataset: Column drat has only positive values<\/h5>\n                    <\/div>\n                    <div class=\"scrolling content\">\n                      <div class=\"description\">\n                        <table class=\"ui definition table\">\n                          <tbody>\n                            <tr>\n                              <td>\n                                <h6>Error message<\/h6>\n                              <\/td>\n                              <td class=\"middle aligned\">\n                                <code style=\"white-space: pre-wrap; font-size: 0.85em\">verification [drat &gt; 0] failed! (32 failures)<\/code>\n                              <\/td>\n                            <\/tr>\n                            <tr>\n                              <td>\n                                <h6>Violations<\/h6>\n                              <\/td>\n                              <td class=\"middle aligned\">32<\/td>\n                            <\/tr>\n                          <\/tbody>\n                        <\/table>\n                        <div style=\"padding-left: 1em;\">\n                          <div class=\"ui header\">Violated data (sample)<\/div>\n                          <table class=\"ui cellable table\">\n <thead>\n  <tr>\n   <th> verb <\/th>\n   <th> redux_fn <\/th>\n   <th> predicate <\/th>\n   <th> column <\/th>\n   <th> index <\/th>\n   <th> value <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td> verify <\/td>\n   <td> NA <\/td>\n   <td> drat &gt; 0 <\/td>\n   <td> NA <\/td>\n   <td> 1 <\/td>\n   <td> NA <\/td>\n  <\/tr>\n  <tr>\n   <td> verify <\/td>\n   <td> NA <\/td>\n   <td> drat &gt; 0 <\/td>\n   <td> NA <\/td>\n   <td> 2 <\/td>\n   <td> NA <\/td>\n  <\/tr>\n  <tr>\n   <td> verify <\/td>\n   <td> NA <\/td>\n   <td> drat &gt; 0 <\/td>\n   <td> NA <\/td>\n   <td> 3 <\/td>\n   <td> NA <\/td>\n  <\/tr>\n  <tr>\n   <td> verify <\/td>\n   <td> NA <\/td>\n   <td> drat &gt; 0 <\/td>\n   <td> NA <\/td>\n   <td> 4 <\/td>\n   <td> NA <\/td>\n  <\/tr>\n  <tr>\n   <td> verify <\/td>\n   <td> NA <\/td>\n   <td> drat &gt; 0 <\/td>\n   <td> NA <\/td>\n   <td> 5 <\/td>\n   <td> NA <\/td>\n  <\/tr>\n  <tr>\n   <td> verify <\/td>\n   <td> NA <\/td>\n   <td> drat &gt; 0 <\/td>\n   <td> NA <\/td>\n   <td> 6 <\/td>\n   <td> NA <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>\n                          <div class=\"ui horizontal divider\">\n                            <i class=\"flag icon\"><\/i>\n                          <\/div>\n                        <\/div>\n                      <\/div>\n                    <\/div>\n                  <\/div>\n                  <button class=\"ui tiny button\" onclick=\"$(&#39;#76Tlh1654685880137&#39;).modal(&#39;show&#39;);\">Show<\/button>\n                <\/td>\n              <\/tr>\n            <\/tbody>\n          <\/table>\n        <\/div>\n        <div class=\"title \">\n          <i class=\"dropdown icon\"><\/i>\n          <div class=\"ui label  circular tiny\">0<\/div>\n          Warnings\n        <\/div>\n        <div class=\"content \">No cases to display.<\/div>\n        <div class=\"title \">\n          <i class=\"dropdown icon\"><\/i>\n          <div class=\"ui label green circular tiny\">4<\/div>\n          Passed\n        <\/div>\n        <div class=\"content \">\n          <table class=\"ui padded striped table\">\n            <thead>\n              <tr>\n                <th class=\"twelve wide left aligned\">\n                  <h5>Validation rule<\/h5>\n                <\/th>\n                <th class=\"one wide center aligned\">\n                  <h5>Status<\/h5>\n                <\/th>\n                <th class=\"three wide center aligned\">\n                  <h5>Error details<\/h5>\n                <\/th>\n              <\/tr>\n            <\/thead>\n            <tbody>\n              <tr>\n                <td class=\"left aligned\">\n                  <h6>maha dist within 10 mads<\/h6>\n                <\/td>\n                <td class=\"center aligned\">\n                  <i class=\"big green checkmark icon\"><\/i>\n                <\/td>\n                <td class=\"center aligned\">\n                  <button class=\"ui disabled button\">Show<\/button>\n                <\/td>\n              <\/tr>\n              <tr>\n                <td class=\"left aligned\">\n                  <h6>not too many NAs in rows<\/h6>\n                <\/td>\n                <td class=\"center aligned\">\n                  <i class=\"big green checkmark icon\"><\/i>\n                <\/td>\n                <td class=\"center aligned\">\n                  <button class=\"ui disabled button\">Show<\/button>\n                <\/td>\n              <\/tr>\n              <tr>\n                <td class=\"left aligned\">\n                  <h6>mpg within 3 sds<\/h6>\n                <\/td>\n                <td class=\"center aligned\">\n                  <i class=\"big green checkmark icon\"><\/i>\n                <\/td>\n                <td class=\"center aligned\">\n                  <button class=\"ui disabled button\">Show<\/button>\n                <\/td>\n              <\/tr>\n              <tr>\n                <td class=\"left aligned\">\n                  <h6>vs and am values equal 0 or 1 only<\/h6>\n                <\/td>\n                <td class=\"center aligned\">\n                  <i class=\"big green checkmark icon\"><\/i>\n                <\/td>\n                <td class=\"center aligned\">\n                  <button class=\"ui disabled button\">Show<\/button>\n                <\/td>\n              <\/tr>\n            <\/tbody>\n          <\/table>\n        <\/div>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/div>","shiny_custom_semantic":"https://d335w9rbwpvuxm.cloudfront.net/2.8.3"},"evals":[],"jsHooks":[]}</script>
+<script>
+HTMLWidgets.addPostRenderHandler(function() {
+
+  function activateAccordion() {
+    $('.ui.accordion').accordion();
+  }
+  $(window).on('load', function () {
+    activateAccordion();
+  });
+
+});
+</script>
+</div>
+</div>
+<p>As we are having the validation we can base the next steps on the results.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>is_validation_success <span class="ot">&lt;-</span> <span class="fu">all</span>((<span class="fu">get_results</span>(report) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(type)) <span class="sc">==</span> <span class="st">"success"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>is_validation_success</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>In case there is everything fine with our updated dataset we will update the pin on Connect. You can learn more about the pins <a href="https://pins.rstudio.com/">here</a>. That pin can be later used by our Shiny applications, with no need for additional data manipulations and validations.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (is_validation_success) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  board <span class="ot">&lt;-</span> <span class="fu">board_rsconnect</span>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pin_write</span>(data_for_validation, <span class="st">"validated_data_example"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</main>
+<!-- /main column -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+</body></html>
