@@ -9,7 +9,7 @@ find_chain_parts <- function() {
 
 #' Get first name of the data frame
 #' @param df data.frame
-#' @return deparesed chain part
+#' @return deparsed chain part
 get_first_name <- function(df){
   ee <- find_chain_parts()
   deparse(ee$lhs)

@@ -1,7 +1,7 @@
 #' Create a UI segment element.
 #' @description Create a UI segment element.
 #' @param title Title of the segment.
-#' @param ... Additional agruments inside segment.
+#' @param ... Additional arguments inside segment.
 #' @return Segment.
 segment <- function(title, ...) {
   htmltools::div(class = "ui raised segment", style = "margin-bottom: 0.5em",
@@ -121,7 +121,7 @@ result_table <- function(results, type, mark) {
 
 #' Create a UI accordion container.
 #' @description Create a UI accordion container.
-#' @param ... Additional agruments inside accordion container.
+#' @param ... Additional arguments inside accordion container.
 #' @return Accordion container.
 make_accordion_container <- function(...) {
   htmltools::tagList(

@@ -10,7 +10,7 @@ get_first_name(df)
 \item{df}{data.frame}
 }
 \value{
-deparesed chain part
+deparsed chain part
 }
 \description{
 Get first name of the data frame

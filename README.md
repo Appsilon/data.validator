@@ -196,7 +196,7 @@ Then modify the template adding custom title, or graphics with leaving the below
 
 # How the package can be used in production?
 
-The package was successfuly used by Appsilon in production enviroment for protecting Shiny Apps against beeing run on incorrect data.
+The package was successfully used by Appsilon in production environment for protecting Shiny Apps against being run on incorrect data.
 
 The workflow was based on the below steps:
 

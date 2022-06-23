@@ -7,7 +7,7 @@
 make_accordion_container(...)
 }
 \arguments{
-\item{...}{Additional agruments inside accordion container.}
+\item{...}{Additional arguments inside accordion container.}
 }
 \value{
 Accordion container.
