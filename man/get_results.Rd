@@ -22,6 +22,6 @@ The response is a list containing information about successful, failed, warning 
     \item call - assertion call
     \item message - assertion result message for specific column
     \item type - error, warning or success
-    \item error_df - nested table storing details about error or warning result (like vilated indexes and valies)
+    \item error_df - nested table storing details about error or warning result (like violated indexes and values)
   }
 }

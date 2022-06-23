@@ -88,7 +88,7 @@ Report <- R6::R6Class(
 
 #' Create new validator object
 #'
-#' @description  The object returns R6 class environment resposible for storing validation results.
+#' @description  The object returns R6 class environment responsible for storing validation results.
 #' @export
 data_validation_report <- function() {
   Report$new()
@@ -119,7 +119,7 @@ add_results <- function(data, report) {
 #'     \item call - assertion call
 #'     \item message - assertion result message for specific column
 #'     \item type - error, warning or success
-#'     \item error_df - nested table storing details about error or warning result (like vilated indexes and valies)
+#'     \item error_df - nested table storing details about error or warning result (like violated indexes and values)
 #'   }
 #' @param report Report object that stores validation results. See \link{add_results}.
 #' @param unnest If TRUE, error_df table is unnested. Results with remaining columns duplicated in table.
@@ -146,7 +146,7 @@ save_results <- function(report, file_name = "results.csv", method = utils::writ
 #' @param output_dir Target report directory.
 #' @param ui_constructor Function of \code{validation_results} and optional parameters that generates HTML
 #'   code or HTML widget that should be used to generate report content. See \code{custom_report} example.
-#' @param template Path to Rmd template in which ui_contructor is rendered. See \code{data.validator} rmarkdown
+#' @param template Path to Rmd template in which ui_constructor is rendered. See \code{data.validator} rmarkdown
 #'   template to see basic construction - the one is used as a default template.
 #' @param ... Additional parameters passed to \code{ui_constructor}.
 #' @export

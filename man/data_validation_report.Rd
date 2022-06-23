@@ -7,5 +7,5 @@
 data_validation_report()
 }
 \description{
-The object returns R6 class environment resposible for storing validation results.
+The object returns R6 class environment responsible for storing validation results.
 }
