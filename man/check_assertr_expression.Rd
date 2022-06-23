@@ -15,6 +15,9 @@ check_assertr_expression(this_call, data, description, error_fun)
 
 \item{error_fun}{Function that is called when the validation fails}
 }
+\value{
+validation object with evaluation errors added to the list if occurred.
+}
 \description{
 Defensive wrapper to add evaluation error to regular validation errors.
 }
@@ -36,7 +39,7 @@ validate(my_data_frame, name = "Verifying data uniqueness") \%>\%
   validate_if(is_uniq(id), description = "ID column is unique") \%>\%
   validate_if(!is.na(id) & id != "", description = "ID column is not empty") \%>\%
   validate_if(is.character(code), description = "CODE column is string") \%>\%
-  validate_rows(col_concat, is_uniq, code, type, description = "CODE and TYPE combination is unique") \%>\%
+  validate_rows(col_concat, is_uniq, code, type, description = "CODE and TYPE is unique") \%>\%
   add_results(report)
 
 print(report)
