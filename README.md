@@ -1,4 +1,4 @@
-# data.validator <a href="https://appsilon.github.io/data.validator/"><img src="assets/hexsticker.png" align="right" alt="data.validator logo" style="height: 140px;"></a>
+# data.validator <a href="https://appsilon.github.io/data.validator/"><img src="man/figures/hexsticker.png" align="right" alt="data.validator logo" style="height: 140px;"></a>
 
 > _Validate your data and create nice reports straight from R._
 
@@ -18,7 +18,7 @@
 * Functions for creating user-friendly reports that you can send to email, store in logs folder,
   or generate automatically with RStudio Connect.
 
-![](assets/semantic_report_example.gif)
+![](man/figures/semantic_report_example.gif)
 
 ## Installation
 
@@ -153,7 +153,7 @@ print(report)
 
 - [Custom reporting on leaflet map](https://github.com/Appsilon/data.validator/blob/master/examples/custom_report/example.R)
 
-![](assets/custom_report_example.gif)
+![](man/figures/custom_report_example.gif)
 
 ### Other examples
 
@@ -221,7 +221,7 @@ The workflow was based on the below steps:
 Check the simple example of scheduled validation and storing data as `pin` here: [connect_validation_workflow](https://connect.prod.aws.appsilon.com/connect_validation_workflow/)
 
 The workflow is presented on below graphics
-![](assets/workflow.png)
+![](man/figures/workflow.png)
 
 ## Contributing
 
