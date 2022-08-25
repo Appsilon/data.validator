@@ -15,3 +15,4 @@ table with results number
 \description{
 Get results number
 }
+\keyword{internal}

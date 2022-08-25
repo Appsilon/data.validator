@@ -12,3 +12,4 @@ A characters corresponding to random ID.
 \description{
 Generate a random ID.
 }
+\keyword{internal}

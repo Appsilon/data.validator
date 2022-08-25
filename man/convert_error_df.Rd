@@ -12,3 +12,4 @@ convert_error_df(error_df)
 \description{
 Convert error table column types
 }
+\keyword{internal}

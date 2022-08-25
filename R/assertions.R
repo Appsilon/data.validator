@@ -29,6 +29,7 @@ validate <- function(data, name, description = NULL) {
 #'
 #' @param predicate Predicate or predicate generator function.
 #' @param method optional list with fields direct and generator of assertions
+#' @keywords internal
 get_assert_method <- function(predicate, method = list(direct = assertr::assert, generator = assertr::insist)) {
   predicate_output <- predicate(0:1)
   if (is.logical(predicate_output)) {
@@ -73,6 +74,7 @@ get_assert_method <- function(predicate, method = list(direct = assertr::assert,
 #' print(report)
 #' }
 #' @seealso validate_if
+#' @keywords internal
 check_assertr_expression <- function(this_call, data, description, error_fun) {
   tryCatch(
     this_call,

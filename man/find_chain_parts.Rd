@@ -9,3 +9,4 @@ find_chain_parts()
 \description{
 Find all chain parts in parent frame
 }
+\keyword{internal}

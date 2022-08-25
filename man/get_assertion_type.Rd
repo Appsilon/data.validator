@@ -15,3 +15,4 @@ character with id of assertion: "error", "success", "warning"
 \description{
 get assertion type
 }
+\keyword{internal}

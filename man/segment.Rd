@@ -17,3 +17,4 @@ Segment.
 \description{
 Create a UI segment element.
 }
+\keyword{internal}

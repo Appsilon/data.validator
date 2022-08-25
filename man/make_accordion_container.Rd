@@ -15,3 +15,4 @@ Accordion container.
 \description{
 Create a UI accordion container.
 }
+\keyword{internal}

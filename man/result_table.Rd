@@ -19,3 +19,4 @@ Table row.
 \description{
 Create table with results.
 }
+\keyword{internal}

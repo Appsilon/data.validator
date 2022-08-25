@@ -32,3 +32,4 @@ Accordion.
 \description{
 Create a UI accordion element.
 }
+\keyword{internal}

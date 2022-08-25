@@ -19,3 +19,4 @@ Summary table.
 \description{
 Create summary table.
 }
+\keyword{internal}

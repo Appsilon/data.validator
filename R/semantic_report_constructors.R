@@ -3,6 +3,7 @@
 #' @param title Title of the segment.
 #' @param ... Additional arguments inside segment.
 #' @return Segment.
+#' @keywords internal
 segment <- function(title, ...) {
   htmltools::div(class = "ui raised segment", style = "margin-bottom: 0.5em",
              htmltools::div(class = "ui demo ribbon label blue", title),
@@ -14,6 +15,7 @@ segment <- function(title, ...) {
 #' @description Prepare modal content.
 #' @param error Assertr error.
 #' @return Modal content.
+#' @keywords internal
 prepare_modal_content <- function(error) {
   data_part <- NULL
   errors_number <- seq_along(error$error_df[[1]])
@@ -50,6 +52,7 @@ prepare_modal_content <- function(error) {
 #' @return Table row.
 #' @importFrom dplyr %>%
 #' @importFrom rlang .data
+#' @keywords internal
 make_table_row <- function(results, type, mark) {
   description <- results %>% dplyr::pull(.data$description)
   id <- results %>% dplyr::pull(.data$assertion.id)
@@ -98,6 +101,7 @@ make_table_row <- function(results, type, mark) {
 #' @param type Result type.
 #' @param mark Icon to display.
 #' @return Table row.
+#' @keywords internal
 result_table <- function(results, type, mark) {
   if (nrow(results) == 0) {
     "No cases to display."
@@ -123,6 +127,7 @@ result_table <- function(results, type, mark) {
 #' @description Create a UI accordion container.
 #' @param ... Additional arguments inside accordion container.
 #' @return Accordion container.
+#' @keywords internal
 make_accordion_container <- function(...) {
   htmltools::tagList(
     htmltools::div(class = "ui styled accordion", style = "width:100%", ...)
@@ -139,6 +144,7 @@ make_accordion_container <- function(...) {
 #' @param type Result type.
 #' @param active Is active?
 #' @return Accordion.
+#' @keywords internal
 make_accordion_element <- function(results, color = "green", label, active = FALSE, type, mark) {
   state <- NULL
   if (active) {
@@ -163,6 +169,7 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
 #' @param n_fails Number of warning assertions.
 #' @param n_warns Number of violation assertions.
 #' @return Validation report.
+#' @keywords internal
 display_results <- function(data, n_passes, n_fails, n_warns) {
   data_name <- data$table_name[1]
   results_failed <- data %>%
@@ -218,6 +225,7 @@ display_results <- function(data, n_passes, n_fails, n_warns) {
 #' @param color Color of the label.
 #' @param label Label to display.
 #' @return Summary table row.
+#' @keywords internal
 create_summary_row <- function(id, number, color, label) {
   list(htmltools::tags$td(id = id,
                  class = "two wide right aligned",
@@ -231,6 +239,7 @@ create_summary_row <- function(id, number, color, label) {
 #' @param n_fails Number of failed validations.
 #' @param n_warns Number of warnings.
 #' @return Summary table.
+#' @keywords internal
 make_summary_table <- function(n_passes, n_fails, n_warns) {
   fails_label_color <- "red"
   if (identical(n_fails, 0)) {
@@ -259,6 +268,7 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 #' @param n_warns Number of warnings.
 #' @param validation_results Data frame with validation results.
 #' @return HTML validation report.
+#' @keywords internal
 get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_results) {
   summary_table <- make_summary_table(n_passes, n_fails, n_warns)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
