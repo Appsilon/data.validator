@@ -31,9 +31,11 @@ Imports:
     htmlwidgets,
     tibble
 Suggests:
-    testthat,
     covr,
-    fixtuRes
+    fixtuRes,
+    lintr,
+    rcmdcheck,
+    testthat
 Collate:
     'results_parsers.R'
     'semantic_report_constructors.R'
