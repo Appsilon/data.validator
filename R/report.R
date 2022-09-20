@@ -1,4 +1,7 @@
-Report <- R6::R6Class( #nolint: object_name_linter
+#' @importFrom R6 R6Class
+#' @importFrom rmarkdown render
+#' @keywords internal
+Report <- R6Class( #nolint: object_name_linter
   classname = "Report",
   public = list(
     print = function(success = TRUE, warning = TRUE, error = TRUE) {
@@ -58,7 +61,7 @@ Report <- R6::R6Class( #nolint: object_name_linter
 
       private$report_constructor <- report_ui_constructor
 
-      rmarkdown::render(
+      render(
         input = template,
         output_format = "html_document",
         output_file = output_file,
