@@ -17,3 +17,4 @@ get_assert_method(
 \description{
 Match proper method depending on predicate type
 }
+\keyword{internal}

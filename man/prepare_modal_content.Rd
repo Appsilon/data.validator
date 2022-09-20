@@ -15,3 +15,4 @@ Modal content.
 \description{
 Prepare modal content.
 }
+\keyword{internal}

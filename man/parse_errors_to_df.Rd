@@ -16,3 +16,4 @@ data.frame with errors
 \description{
 Parse errors to data.frame
 }
+\keyword{internal}

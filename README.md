@@ -1,15 +1,13 @@
-<a href = "https://appsilon.com/careers/" target="_blank"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"/></a>
+# data.validator <a href="https://appsilon.github.io/data.validator/"><img src="man/figures/hexsticker.png" align="right" alt="data.validator logo" style="height: 140px;"></a>
 
+> _Validate your data and create nice reports straight from R._
 
+<!-- badges: start -->
 [![R-CMD-check](https://github.com/Appsilon/data.validator/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/data.validator/actions)
 [![Codecov test coverage](https://codecov.io/gh/Appsilon/data.validator/branch/master/graph/badge.svg)](https://codecov.io/gh/Appsilon/data.validator?branch=master)
 [![cranlogs](https://cranlogs.r-pkg.org/badges/data.validator)](https://CRAN.R-project.org/package=data.validator)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/data.validator)](https://CRAN.R-project.org/package=data.validator)
-
-<img src="assets/hexsticker.png" width="160px" align="right"/>
-
-data.validator
-==============
+<!-- badges: end -->
 
 ## Description
 
@@ -17,10 +15,10 @@ data.validator
 
 * Functions for validating datasets in `%>%` pipelines: `validate_if`, `validate_cols` and `validate_rows`
 * Predicate functions from [assertr](https://github.com/ropensci/assertr) package, like `in_set`, `within_bounds`, etc.
-* Functions for creating user-friendly reports that you can send to email, store in logs folder, 
+* Functions for creating user-friendly reports that you can send to email, store in logs folder,
   or generate automatically with RStudio Connect.
 
-![](assets/semantic_report_example.gif)
+![](man/figures/semantic_report_example.gif)
 
 ## Installation
 
@@ -83,13 +81,13 @@ Print results to the console:
 ```r
 print(report)
 
-# Validation summary: 
+# Validation summary:
 #  Number of successful validations: 1
 #  Number of failed validations: 4
 #  Number of validations with warnings: 1
 #
-# Advanced view: 
-#  
+# Advanced view:
+#
 # |table_name |description                                       |type    | total_violations|
 # |:----------|:-------------------------------------------------|:-------|----------------:|
 # |mtcars     |Column drat has only positive values              |success |               NA|
@@ -126,23 +124,23 @@ my_data_frame <- my_mock_generator$get_data("my_data_frame", 10)
 
 report <- data.validator::data_validation_report()
 
-validate(my_data_frame, name = "Verifying data uniqueness") %>% 
-  validate_if(is_uniq(id), description = "ID column is unique") %>% 
-  validate_if(!is.na(id) & id != "", description = "ID column is not empty") %>% 
-  validate_if(is.character(code), description = "CODE column is string") %>% 
-  validate_rows(col_concat, is_uniq, code, type, description = "CODE and TYPE combination is unique") %>% 
+validate(my_data_frame, name = "Verifying data uniqueness") %>%
+  validate_if(is_uniq(id), description = "ID column is unique") %>%
+  validate_if(!is.na(id) & id != "", description = "ID column is not empty") %>%
+  validate_if(is.character(code), description = "CODE column is string") %>%
+  validate_rows(col_concat, is_uniq, code, type, description = "CODE and TYPE combination is unique") %>%
   add_results(report)
 
 print(report)
 
-# Validation summary: 
+# Validation summary:
 #  Number of successful validations: 4
 #  Number of failed validations: 0
 #  Number of validations with warnings: 0
-# 
-# Advanced view: 
-# 
-# 
+#
+# Advanced view:
+#
+#
 # |table_name              |description                         |type    | total_violations|
 # |:-----------------------|:-----------------------------------|:-------|----------------:|
 # |Verifying data uniqness |CODE and TYPE combination is unique |success |               NA|
@@ -155,7 +153,7 @@ print(report)
 
 - [Custom reporting on leaflet map](https://github.com/Appsilon/data.validator/blob/master/examples/custom_report/example.R)
 
-![](assets/custom_report_example.gif)
+![](man/figures/custom_report_example.gif)
 
 ### Other examples
 
@@ -212,18 +210,18 @@ The workflow was based on the below steps:
 
 - thanks to `assertr` functionality, the report is easily understandable both for technical, and non-technical person
 
-- data provider makes required data fixes  
+- data provider makes required data fixes
 
 4b. When data is correct:
 
-- a specific trigger is sent in order to reload Shiny data 
+- a specific trigger is sent in order to reload Shiny data
 
 ### Working example
 
 Check the simple example of scheduled validation and storing data as `pin` here: [connect_validation_workflow](https://connect.prod.aws.appsilon.com/connect_validation_workflow/)
 
 The workflow is presented on below graphics
-![](assets/workflow.png)
+![](man/figures/workflow.png)
 
 ## Contributing
 
@@ -238,9 +236,6 @@ If you want to contribute to this project please submit a regular PR, once youâ€
 Both repository **README.md** file and an official documentation page
 are generated with markdown.
 
-Documentation is rendered with `pkgdown`. Just run
-`pkgdown::build_site()` after rendering new **README.md**.
-
 ## Appsilon
 
 <img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />
@@ -248,4 +243,6 @@ Documentation is rendered with `pkgdown`. Just run
 Appsilon is the **Full Service Certified RStudio Partner**. Learn more
 at [appsilon.com](https://appsilon.com).
 
-Get in touch [support+opensource@appsilon.com](support+opensource@appsilon.com)
+Get in touch [opensource@appsilon.com](opensource@appsilon.com)
+
+<a href = "https://appsilon.com/careers/" target="_blank"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"/></a>

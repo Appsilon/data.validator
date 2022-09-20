@@ -21,3 +21,4 @@ HTML validation report.
 \description{
 Generate HTML validation report.
 }
+\keyword{internal}

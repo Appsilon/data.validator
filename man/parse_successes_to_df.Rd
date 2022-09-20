@@ -16,3 +16,4 @@ data.frame with successes
 \description{
 Parse successes to data.frame
 }
+\keyword{internal}

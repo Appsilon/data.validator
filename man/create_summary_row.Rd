@@ -21,3 +21,4 @@ Summary table row.
 \description{
 Create summary table row.
 }
+\keyword{internal}

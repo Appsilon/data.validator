@@ -15,3 +15,4 @@ data.frame with successes and errors
 \description{
 Parse results to data.frame
 }
+\keyword{internal}

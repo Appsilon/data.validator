@@ -9,8 +9,8 @@ save_report(
   output_file = "validation_report.html",
   output_dir = getwd(),
   ui_constructor = render_semantic_report_ui,
-  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package
-    = "data.validator"),
+  template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package =
+    "data.validator"),
   ...
 )
 }

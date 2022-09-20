@@ -13,4 +13,4 @@ error_class
 \description{
 Constants
 }
-\keyword{datasets}
+\keyword{internal}
