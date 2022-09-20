@@ -31,8 +31,18 @@ attr(validated_data, "assertr_errors") <- list(
     assertion.id = "a1"
   )
 )
-attr(attr(validated_data, "assertr_errors")[[1]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
-attr(attr(validated_data, "assertr_errors")[[2]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
+attr(attr(validated_data, "assertr_errors")[[1]], "class") <- c(
+  "assertr_assert_error",
+  "assertr_error",
+  "error",
+  "condition"
+)
+attr(attr(validated_data, "assertr_errors")[[2]], "class") <- c(
+  "assertr_assert_error",
+  "assertr_error",
+  "error",
+  "condition"
+)
 attr(attr(validated_data, "assertr_errors")[[2]], "warning") <- TRUE
 attr(validated_data, "assertr_success") <- list(
   list(
@@ -52,8 +62,16 @@ attr(validated_data, "assertr_success") <- list(
     description = "variable4 correct"
   )
 )
-attr(attr(validated_data, "assertr_success")[[1]], "class") <- c("assertr_success", "success", "condition")
-attr(attr(validated_data, "assertr_success")[[2]], "class") <- c("assertr_success", "success", "condition")
+attr(attr(validated_data, "assertr_success")[[1]], "class") <- c(
+  "assertr_success",
+  "success",
+  "condition"
+)
+attr(attr(validated_data, "assertr_success")[[2]], "class") <- c(
+  "assertr_success",
+  "success",
+  "condition"
+)
 
 validated_data_no_errors <- dplyr::tibble()
 attr(validated_data_no_errors, "assertr_errors") <- list(
@@ -73,7 +91,12 @@ attr(validated_data_no_errors, "assertr_errors") <- list(
     assertion.id = "a1"
   )
 )
-attr(attr(validated_data_no_errors, "assertr_errors")[[1]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
+attr(attr(validated_data_no_errors, "assertr_errors")[[1]], "class") <- c(
+  "assertr_assert_error",
+  "assertr_error",
+  "error",
+  "condition"
+)
 attr(attr(validated_data_no_errors, "assertr_errors")[[1]], "warning") <- TRUE
 
 attr(validated_data_no_errors, "assertr_success") <- list(
@@ -94,8 +117,16 @@ attr(validated_data_no_errors, "assertr_success") <- list(
     description = "variable4 correct"
   )
 )
-attr(attr(validated_data_no_errors, "assertr_success")[[1]], "class") <- c("assertr_success", "success", "condition")
-attr(attr(validated_data_no_errors, "assertr_success")[[2]], "class") <- c("assertr_success", "success", "condition")
+attr(attr(validated_data_no_errors, "assertr_success")[[1]], "class") <- c(
+  "assertr_success",
+  "success",
+  "condition"
+)
+attr(attr(validated_data_no_errors, "assertr_success")[[2]], "class") <- c(
+  "assertr_success",
+  "success",
+  "condition"
+)
 
 validated_data_only_warnings <- dplyr::tibble()
 attr(validated_data_only_warnings, "assertr_errors") <- list(
@@ -115,7 +146,12 @@ attr(validated_data_only_warnings, "assertr_errors") <- list(
     assertion.id = "a1"
   )
 )
-attr(attr(validated_data_only_warnings, "assertr_errors")[[1]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
+attr(attr(validated_data_only_warnings, "assertr_errors")[[1]], "class") <- c(
+  "assertr_assert_error",
+  "assertr_error",
+  "error",
+  "condition"
+)
 attr(attr(validated_data_only_warnings, "assertr_errors")[[1]], "warning") <- TRUE
 
 validated_data_only_passed <- dplyr::tibble()
@@ -137,8 +173,16 @@ attr(validated_data_only_passed, "assertr_success") <- list(
     description = "variable4 correct"
   )
 )
-attr(attr(validated_data_only_passed, "assertr_success")[[1]], "class") <- c("assertr_success", "success", "condition")
-attr(attr(validated_data_only_passed, "assertr_success")[[2]], "class") <- c("assertr_success", "success", "condition")
+attr(attr(validated_data_only_passed, "assertr_success")[[1]], "class") <- c(
+  "assertr_success",
+  "success",
+  "condition"
+)
+attr(attr(validated_data_only_passed, "assertr_success")[[2]], "class") <- c(
+  "assertr_success",
+  "success",
+  "condition"
+)
 
 validated_data_no_passed <- dplyr::tibble()
 attr(validated_data_no_passed, "assertr_errors") <- list(
@@ -173,8 +217,18 @@ attr(validated_data_no_passed, "assertr_errors") <- list(
     assertion.id = "a1"
   )
 )
-attr(attr(validated_data_no_passed, "assertr_errors")[[1]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
-attr(attr(validated_data_no_passed, "assertr_errors")[[2]], "class") <- c("assertr_assert_error", "assertr_error", "error", "condition")
+attr(attr(validated_data_no_passed, "assertr_errors")[[1]], "class") <- c(
+  "assertr_assert_error",
+  "assertr_error",
+  "error",
+  "condition"
+)
+attr(attr(validated_data_no_passed, "assertr_errors")[[2]], "class") <- c(
+  "assertr_assert_error",
+  "assertr_error",
+  "error",
+  "condition"
+)
 attr(attr(validated_data_no_passed, "assertr_errors")[[2]], "warning") <- TRUE
 
 private <- function(r6_object, el) {

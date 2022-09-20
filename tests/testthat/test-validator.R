@@ -10,7 +10,8 @@ test_that("Validator is empty after initialization", {
   expect_equal(results, dplyr::tibble())
 })
 
-test_that("Validator adds validations correctly when there are warnings, errors and passed validations", {
+test_that(
+  "Validator adds validations correctly when there are warnings, errors and passed validations", {
   validator <- data_validation_report()
 
   add_results(validated_data, validator)
@@ -23,7 +24,8 @@ test_that("Validator adds validations correctly when there are warnings, errors 
   expect_equal(results$type, c("error", "warning", "success", "success"))
 })
 
-test_that("Validator adds validations correctly when there are only warnings and passed validations", {
+test_that(
+  "Validator adds validations correctly when there are only warnings and passed validations", {
   validator <- data_validation_report()
 
   add_results(validated_data_no_errors, validator)

@@ -1,9 +1,9 @@
 #' Prepare data for validation chain
 #'
 #' Prepare data for validation and generating report.
-#' The function prepares data for chain validation and ensures all the validation results are gathered correctly.
-#' The function also attaches additional information to the data (name and description)
-#' that is then displayed in validation report.
+#' The function prepares data for chain validation and ensures all the validation results are
+#' gathered correctly. The function also attaches additional information to the data
+#' (name and description) that is then displayed in validation report.
 #'
 #' @param data data.frame or tibble to test
 #'
@@ -18,10 +18,10 @@ validate <- function(data, name, description = NULL) {
       name <- get_first_name(data)
     }
   }
-  attr(data, "data-description") <- description
-  attr(data, "data-name") <- name
-  attr(data, "assertr_in_chain_success_fun_override") <- assertr::success_append
-  attr(data, "assertr_in_chain_error_fun_override") <- assertr::error_append
+  attr(data, "data-description") <- description #nolint: object_name_linter
+  attr(data, "data-name") <- name #nolint: object_name_linter
+  attr(data, "assertr_in_chain_success_fun_override") <- assertr::success_append #nolint: object_length_linter
+  attr(data, "assertr_in_chain_error_fun_override") <- assertr::error_append #nolint: object_length_linter
   data
 }
 
@@ -30,7 +30,11 @@ validate <- function(data, name, description = NULL) {
 #' @param predicate Predicate or predicate generator function.
 #' @param method optional list with fields direct and generator of assertions
 #' @keywords internal
-get_assert_method <- function(predicate, method = list(direct = assertr::assert, generator = assertr::insist)) {
+get_assert_method <- function(predicate,
+                              method = list(
+                                direct = assertr::assert,
+                                generator = assertr::insist
+                              )) {
   predicate_output <- predicate(0:1)
   if (is.logical(predicate_output)) {
     return(method$direct)
@@ -92,8 +96,8 @@ check_assertr_expression <- function(this_call, data, description, error_fun) {
 #' Verify if expression regarding data is TRUE
 #'
 #' The function checks whether all the logical values returned by the expression are TRUE.
-#' The function is meant for handling all the cases that cannot be reached by using \link{validate_cols}
-#' and \link{validate_rows} functions.
+#' The function is meant for handling all the cases that cannot be reached by using
+#' \link{validate_cols} and \link{validate_rows} functions.
 #'
 #' @param data A data.frame or tibble to test
 #' @param expr A Logical expression to test for, e.g. \code{var_name > 0}
@@ -102,8 +106,9 @@ check_assertr_expression <- function(this_call, data, description, error_fun) {
 #' @param obligatory If TRUE and assertion failed the data is marked as defective.
 #'   For defective data, all the following rules are handled by defect_fun function
 #' @param skip_chain_opts While wrapping data with \link{validate} function, \code{success_fun} and
-#'   \code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append} respectively.
-#'   In order to use parameters assigned to the function directly set skip_chain_opts to TRUE
+#'   \code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append}
+#'   respectively. In order to use parameters assigned to the function directly set skip_chain_opts
+#'   to TRUE
 #' @param success_fun Function that is called when the validation pass
 #' @param error_fun Function that is called when the validation fails
 #' @param defect_fun Function that is called when the data is marked as defective
@@ -124,8 +129,8 @@ validate_if <- function(data, expr, description = NA, obligatory = FALSE, skip_c
 #' Validation on columns
 #'
 #' @param data A data.frame or tibble to test
-#' @param predicate  Predicate function or predicate generator such as \code{\link[assertr]{in_set}} or
-#'   \code{\link[assertr]{within_n_sds}}
+#' @param predicate Predicate function or predicate generator such as \code{\link[assertr]{in_set}}
+#'   or \code{\link[assertr]{within_n_sds}}
 #' @param ... Columns selection that \code{predicate} should be called on.
 #'   All tidyselect \code{\link[tidyselect]{language}} methods are supported
 #' @param description A character string with description of assertion.
@@ -133,17 +138,24 @@ validate_if <- function(data, expr, description = NA, obligatory = FALSE, skip_c
 #' @param obligatory If TRUE and assertion failed the data is marked as defective.
 #'   For defective data, all the following rules are handled by defect_fun function
 #' @param skip_chain_opts While wrapping data with \link{validate} function, \code{success_fun} and
-#'   \code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append} respectively.
-#'   In order to use parameters assigned to the function directly set skip_chain_opts to TRUE
+#'   \code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append}
+#'   respectively. In order to use parameters assigned to the function directly set skip_chain_opts
+#'   to TRUE
 #' @param success_fun Function that is called when the validation pass
 #' @param error_fun Function that is called when the validation fails
 #' @param defect_fun Function that is called when the data is marked as defective
 #'
 #' @export
 #' @seealso validate_if validate_rows
-validate_cols <- function(data, predicate, ..., obligatory = FALSE, description = NA,
-                        skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
-                        defect_fun = assertr::defect_append) {
+validate_cols <- function(data,
+                          predicate,
+                          ...,
+                          obligatory = FALSE,
+                          description = NA,
+                          skip_chain_opts = FALSE,
+                          success_fun = assertr::success_append,
+                          error_fun = assertr::error_append,
+                          defect_fun = assertr::defect_append) {
 
   assertr_function <- get_assert_method(predicate)
 
@@ -164,10 +176,10 @@ validate_cols <- function(data, predicate, ..., obligatory = FALSE, description 
 #' Validation on rows
 #'
 #' @param data A data.frame or tibble to test
-#' @param row_reduction_fn Function that should reduce rows into a single column that is passed to validation
-#'   e.g. \code{\link[assertr]{num_row_NAs}}
-#' @param predicate  Predicate function or predicate generator such as \code{\link[assertr]{in_set}} or
-#'   \code{\link[assertr]{within_n_sds}}
+#' @param row_reduction_fn Function that should reduce rows into a single column that is passed to
+#'   validation e.g. \code{\link[assertr]{num_row_NAs}}
+#' @param predicate Predicate function or predicate generator such as \code{\link[assertr]{in_set}}
+#'   or \code{\link[assertr]{within_n_sds}}
 #' @param ... Columns selection that \code{row_reduction_fn} should be called on.
 #'   All tidyselect \code{\link[tidyselect]{language}} methods are supported
 #' @param description A character string with description of assertion.
@@ -175,18 +187,28 @@ validate_cols <- function(data, predicate, ..., obligatory = FALSE, description 
 #' @param obligatory If TRUE and assertion failed the data is marked as defective.
 #'   For defective data, all the following rules are handled by defect_fun function
 #' @param skip_chain_opts While wrapping data with \link{validate} function, \code{success_fun} and
-#'   \code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append} respectively.
-#'   In order to use parameters assigned to the function directly set skip_chain_opts to TRUE.
+#'   \code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append}
+#'   respectively. In order to use parameters assigned to the function directly set
+#'   skip_chain_opts to TRUE.
 #' @param success_fun Function that is called when the validation pass
 #' @param error_fun Function that is called when the validation fails
 #' @param defect_fun Function that is called when the data is marked as defective
 #' @export
 #' @seealso validate_cols validate_if
-validate_rows <- function(data, row_reduction_fn, predicate, ..., obligatory = FALSE, description = NA,
-                        skip_chain_opts = FALSE, success_fun = assertr::success_append, error_fun = assertr::error_append,
-                        defect_fun = assertr::defect_append) {
+validate_rows <- function(data,
+                          row_reduction_fn, predicate,
+                          ...,
+                          obligatory = FALSE,
+                          description = NA,
+                          skip_chain_opts = FALSE,
+                          success_fun = assertr::success_append,
+                          error_fun = assertr::error_append,
+                          defect_fun = assertr::defect_append) {
 
-  assertr_function <- get_assert_method(predicate, list(direct = assertr::assert_rows, generator = assertr::insist_rows))
+  assertr_function <- get_assert_method(
+    predicate,
+    list(direct = assertr::assert_rows, generator = assertr::insist_rows)
+  )
 
   assertr_function(
       data,

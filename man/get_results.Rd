@@ -9,11 +9,13 @@ get_results(report, unnest = FALSE)
 \arguments{
 \item{report}{Report object that stores validation results. See \link{add_results}.}
 
-\item{unnest}{If TRUE, error_df table is unnested. Results with remaining columns duplicated in table.}
+\item{unnest}{If TRUE, error_df table is unnested. Results with remaining columns duplicated in
+table.}
 }
 \description{
-The response is a list containing information about successful, failed, warning assertions and
-  the table stores important information about validation results. Those are:
+The response is a list containing information about successful, failed,
+  warning assertions andthe table stores important information about validation results.
+  Those are:
   \itemize{
     \item table_name - name of validated table
     \item assertion.id - id used for each assertion
@@ -22,6 +24,7 @@ The response is a list containing information about successful, failed, warning 
     \item call - assertion call
     \item message - assertion result message for specific column
     \item type - error, warning or success
-    \item error_df - nested table storing details about error or warning result (like violated indexes and values)
+    \item error_df - nested table storing details about error or warning result (like violated
+      indexes and values)
   }
 }

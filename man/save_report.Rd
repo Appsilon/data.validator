@@ -21,11 +21,13 @@ save_report(
 
 \item{output_dir}{Target report directory.}
 
-\item{ui_constructor}{Function of \code{validation_results} and optional parameters that generates HTML
-code or HTML widget that should be used to generate report content. See \code{custom_report} example.}
+\item{ui_constructor}{Function of \code{validation_results} and optional parameters that
+generates HTML code or HTML widget that should be used to generate report content. See
+\code{custom_report} example.}
 
-\item{template}{Path to Rmd template in which ui_constructor is rendered. See \code{data.validator} rmarkdown
-template to see basic construction - the one is used as a default template.}
+\item{template}{Path to Rmd template in which ui_constructor is rendered. See
+\code{data.validator} rmarkdown template to see basic construction - the one is used as a
+default template.}
 
 \item{...}{Additional parameters passed to \code{ui_constructor}.}
 }

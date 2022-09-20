@@ -27,8 +27,9 @@ The description is then displayed in the validation report}
 For defective data, all the following rules are handled by defect_fun function}
 
 \item{skip_chain_opts}{While wrapping data with \link{validate} function, \code{success_fun} and
-\code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append} respectively.
-In order to use parameters assigned to the function directly set skip_chain_opts to TRUE}
+\code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append}
+respectively. In order to use parameters assigned to the function directly set skip_chain_opts
+to TRUE}
 
 \item{success_fun}{Function that is called when the validation pass}
 
@@ -38,8 +39,8 @@ In order to use parameters assigned to the function directly set skip_chain_opts
 }
 \description{
 The function checks whether all the logical values returned by the expression are TRUE.
-The function is meant for handling all the cases that cannot be reached by using \link{validate_cols}
-and \link{validate_rows} functions.
+The function is meant for handling all the cases that cannot be reached by using
+\link{validate_cols} and \link{validate_rows} functions.
 }
 \seealso{
 validate_cols validate_rows

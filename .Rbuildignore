@@ -16,3 +16,4 @@ examples
 README\.md
 validation_report\.html
 pkgdown
+.lintr

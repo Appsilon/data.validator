@@ -14,7 +14,7 @@ warning_id <- "warning"
 #' @return character with id of assertion: "error", "success", "warning"
 #' @keywords internal
 get_assertion_type <- function(assertion) {
-  assertr_types <- class(assertion)
+  assertr_types <- class(assertion) #nolint: object_usage_linter
   dplyr::case_when(
     success_class %in% assertr_types ~ success_id,
     isTRUE(attr(assertion, "warning")) ~ warning_id,
@@ -28,7 +28,11 @@ get_assertion_type <- function(assertion) {
 #' @param error_df Table consisting assertr error details
 #' @keywords internal
 convert_error_df <- function(error_df) {
-  dplyr::mutate_at(error_df, dplyr::vars(c("verb", "redux_fn", "predicate", "column", "value")), as.character)
+  dplyr::mutate_at(
+    error_df,
+    dplyr::vars(c("verb", "redux_fn", "predicate", "column", "value")),
+    as.character
+  )
 }
 
 #' Parse errors to data.frame
