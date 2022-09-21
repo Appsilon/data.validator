@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ### Introduction
 
-`data.validator` is a set of tools for creating reports based on validation 
+`data.validator` is a set of tools for creating reports based on validation
 results from [`assertr`](https://github.com/ropensci/assertr).
 
 It provides tools for creating user-friendly reports that you can send by email,
@@ -32,18 +32,18 @@ library(assertr)
 library(dplyr)
 
 validate(mtcars) %>%
-  validate_cols(description = "vs and am values equal 0 or 2 only", 
+  validate_cols(description = "vs and am values equal 0 or 2 only",
          in_set(c(0, 2)), vs, am) %>%
-  validate_cols(description = "vs and am values should equal 3 or 4", 
+  validate_cols(description = "vs and am values should equal 3 or 4",
          skip_chain_opts = TRUE,
          error_fun = warning_append, in_set(c(3, 4)), gear, carb) %>%
   validate_rows(description = "Each row sum for am:vs columns is less or equal 1",
               rowSums, within_bounds(0, 1), vs:am) %>%
   validate_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
          within_n_sds(2), wt, qsec) %>%
-  validate_if(description = "Column drat has only positive values", 
+  validate_if(description = "Column drat has only positive values",
          drat > 0) %>%
-  validate_if(description = "Column drat has only values larger than 3", 
+  validate_if(description = "Column drat has only values larger than 3",
          drat > 3) %>%
   add_results(report)
 ```
@@ -66,18 +66,18 @@ library(assertr)
 library(dplyr)
 
 validate(mtcars) %>%
-  validate_cols(description = "vs and am values equal 0 or 2 only", 
+  validate_cols(description = "vs and am values equal 0 or 2 only",
          in_set(c(0, 2)), vs, am) %>%
-  validate_cols(description = "vs and am values should equal 3 or 4", 
-         skip_chain_opts = TRUE, error_fun = warning_append, 
+  validate_cols(description = "vs and am values should equal 3 or 4",
+         skip_chain_opts = TRUE, error_fun = warning_append,
          in_set(c(3, 4)), gear, carb) %>%
   validate_rows(description = "Each row sum for am:vs columns is less or equal 1",
               rowSums, within_bounds(0, 1), vs:am) %>%
   validate_cols(description = "For wt and qsec we have: abs(col) < 2 * sd(col)",
          within_n_sds(2), wt, qsec) %>%
-  validate_if(description = "Column drat has only positive values", 
+  validate_if(description = "Column drat has only positive values",
          drat > 0) %>%
-  validate_if(description = "Column drat has only values larger than 3", 
+  validate_if(description = "Column drat has only values larger than 3",
          drat > 3) %>%
   add_results(report)
 ```
@@ -98,16 +98,16 @@ save_report(report)
 
 ### Creating custom reports
 
-Define a function that has a `validation_results` parameter and returns an HTML 
-object or HTML widget. The `validation_results` parameter is assumed to be 
+Define a function that has a `validation_results` parameter and returns an HTML
+object or HTML widget. The `validation_results` parameter is assumed to be
 passed as a results table extracted with `get_results(validator)`.
 
-*Note* The function can also store optional parameters that should be passed to 
+*Note* The function can also store optional parameters that should be passed to
 the `save_report` function while generating a new report.
 
-In this example we create a custom report that shows validation results of 
-checking whether population across Polish counties fits within 3 standard 
-deviations. 
+In this example we create a custom report that shows validation results of
+checking whether population across Polish counties fits within 3 standard
+deviations.
 
 ```{r}
 library(magrittr)
@@ -203,7 +203,7 @@ The workflow is based on the steps below:
 
 2. The scheduler sources the data from a PostgreSQL table and validates it based on predefined rules.
 
-3. Based on validation results a new `data.validator` report is created.  
+3. Based on validation results a new `data.validator` report is created.
 
 4.
 
@@ -211,12 +211,12 @@ The workflow is based on the steps below:
 
     - The data provider and the person responsible for data quality receive a report via email. Thanks to `assertr` functionality, the report is easily understandable for both technical and non-technical persons.
 
-    - The data provider makes the required data fixes.  
+    - The data provider makes the required data fixes.
 
 
   b. When the data meets all validation rules:
 
-    - A specific trigger is sent in order to reload the data in the Shiny app. 
+    - A specific trigger is sent in order to reload the data in the Shiny app.
 
 ### More examples
 

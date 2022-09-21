@@ -16,7 +16,6 @@ Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.2.1
 Imports:
-    shiny,
     assertr (>= 2.8),
     shiny.semantic (>= 0.3.3),
     knitr,
@@ -31,9 +30,12 @@ Imports:
     htmlwidgets,
     tibble
 Suggests:
-    testthat,
     covr,
-    fixtuRes
+    fixtuRes,
+    lintr,
+    rcmdcheck,
+    shiny,
+    testthat
 Collate:
     'results_parsers.R'
     'semantic_report_constructors.R'

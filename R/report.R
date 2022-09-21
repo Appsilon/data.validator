@@ -1,4 +1,7 @@
-Report <- R6::R6Class(
+#' @importFrom R6 R6Class
+#' @importFrom rmarkdown render
+#' @keywords internal
+Report <- R6Class( #nolint: object_name_linter
   classname = "Report",
   public = list(
     print = function(success = TRUE, warning = TRUE, error = TRUE) {
@@ -32,7 +35,7 @@ Report <- R6::R6Class(
       invisible(data)
     },
     get_validations = function(unnest = FALSE) {
-      validation_results = private$validation_results
+      validation_results <- private$validation_results
       if (unnest) {
         if (all(purrr::map_lgl(validation_results$error_df, is.null))) {
           validation_results$error_df <- NULL
@@ -47,14 +50,18 @@ Report <- R6::R6Class(
       params_list <- modifyList(list(validation_results = private$validation_results), extra_params)
       do.call(private$report_constructor, params_list)
     },
-    save_html_report = function(
-      template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"),
-      output_file = "validation_report.html", output_dir = getwd(), report_ui_constructor = render_semantic_report_ui,
-      ...) {
+    save_html_report = function(template = system.file(
+                                  "rmarkdown/templates/standard/skeleton/skeleton.Rmd",
+                                  package = "data.validator"
+                                ),
+                                output_file = "validation_report.html",
+                                output_dir = getwd(),
+                                report_ui_constructor = render_semantic_report_ui,
+                                ...) {
 
       private$report_constructor <- report_ui_constructor
 
-      rmarkdown::render(
+      render(
         input = template,
         output_format = "html_document",
         output_file = output_file,
@@ -109,8 +116,9 @@ add_results <- function(data, report) {
 
 #' Get validation results
 #'
-#' @description The response is a list containing information about successful, failed, warning assertions and
-#'   the table stores important information about validation results. Those are:
+#' @description The response is a list containing information about successful, failed,
+#'   warning assertions andthe table stores important information about validation results.
+#'   Those are:
 #'   \itemize{
 #'     \item table_name - name of validated table
 #'     \item assertion.id - id used for each assertion
@@ -119,10 +127,12 @@ add_results <- function(data, report) {
 #'     \item call - assertion call
 #'     \item message - assertion result message for specific column
 #'     \item type - error, warning or success
-#'     \item error_df - nested table storing details about error or warning result (like violated indexes and values)
+#'     \item error_df - nested table storing details about error or warning result (like violated
+#'       indexes and values)
 #'   }
 #' @param report Report object that stores validation results. See \link{add_results}.
-#' @param unnest If TRUE, error_df table is unnested. Results with remaining columns duplicated in table.
+#' @param unnest If TRUE, error_df table is unnested. Results with remaining columns duplicated in
+#'   table.
 #' @export
 get_results <- function(report, unnest = FALSE) {
   report$get_validations(unnest)
@@ -144,14 +154,23 @@ save_results <- function(report, file_name = "results.csv", method = utils::writ
 #' @param report Report object that stores validation results.
 #' @param output_file Html file name to write report to.
 #' @param output_dir Target report directory.
-#' @param ui_constructor Function of \code{validation_results} and optional parameters that generates HTML
-#'   code or HTML widget that should be used to generate report content. See \code{custom_report} example.
-#' @param template Path to Rmd template in which ui_constructor is rendered. See \code{data.validator} rmarkdown
-#'   template to see basic construction - the one is used as a default template.
+#' @param ui_constructor Function of \code{validation_results} and optional parameters that
+#'   generates HTML code or HTML widget that should be used to generate report content. See
+#'   \code{custom_report} example.
+#' @param template Path to Rmd template in which ui_constructor is rendered. See
+#'   \code{data.validator} rmarkdown template to see basic construction - the one is used as a
+#'   default template.
 #' @param ... Additional parameters passed to \code{ui_constructor}.
 #' @export
-save_report <- function(report, output_file = "validation_report.html", output_dir = getwd(), ui_constructor = render_semantic_report_ui,
-                        template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd", package = "data.validator"), ...) {
+save_report <- function(report,
+                        output_file = "validation_report.html",
+                        output_dir = getwd(),
+                        ui_constructor = render_semantic_report_ui,
+                        template = system.file(
+                          "rmarkdown/templates/standard/skeleton/skeleton.Rmd",
+                          package = "data.validator"
+                        ),
+                        ...) {
   report$save_html_report(template, output_file, output_dir, ui_constructor, ...)
 }
 
@@ -164,6 +183,10 @@ save_report <- function(report, output_file = "validation_report.html", output_d
 #' @param warning Should warning results be presented?
 #' @param error Should error results be presented?
 #' @export
-save_summary <- function(report, file_name = "validation_log.txt", success = TRUE, warning = TRUE, error = TRUE) {
+save_summary <- function(report,
+                         file_name = "validation_log.txt",
+                         success = TRUE,
+                         warning = TRUE,
+                         error = TRUE) {
   report$save_log(file_name, success, warning, error)
 }

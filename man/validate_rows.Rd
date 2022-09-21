@@ -20,11 +20,11 @@ validate_rows(
 \arguments{
 \item{data}{A data.frame or tibble to test}
 
-\item{row_reduction_fn}{Function that should reduce rows into a single column that is passed to validation
-e.g. \code{\link[assertr]{num_row_NAs}}}
+\item{row_reduction_fn}{Function that should reduce rows into a single column that is passed to
+validation e.g. \code{\link[assertr]{num_row_NAs}}}
 
-\item{predicate}{Predicate function or predicate generator such as \code{\link[assertr]{in_set}} or
-\code{\link[assertr]{within_n_sds}}}
+\item{predicate}{Predicate function or predicate generator such as \code{\link[assertr]{in_set}}
+or \code{\link[assertr]{within_n_sds}}}
 
 \item{...}{Columns selection that \code{row_reduction_fn} should be called on.
 All tidyselect \code{\link[tidyselect]{language}} methods are supported}
@@ -36,8 +36,9 @@ For defective data, all the following rules are handled by defect_fun function}
 The description is then displayed in the validation report}
 
 \item{skip_chain_opts}{While wrapping data with \link{validate} function, \code{success_fun} and
-\code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append} respectively.
-In order to use parameters assigned to the function directly set skip_chain_opts to TRUE.}
+\code{error_fun} parameters are rewritten with \code{success_append} and \code{error_append}
+respectively. In order to use parameters assigned to the function directly set
+skip_chain_opts to TRUE.}
 
 \item{success_fun}{Function that is called when the validation pass}
 

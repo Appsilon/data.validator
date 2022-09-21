@@ -21,5 +21,6 @@ render_raw_report_ui(
 \item{error}{Should error results be presented?}
 }
 \description{
-Renders content of simple report version that prints \code{validation_results} table.
+Renders content of simple report version that prints \code{validation_results}
+  table.
 }

@@ -15,7 +15,7 @@ validate(data, name, description = NULL)
 }
 \description{
 Prepare data for validation and generating report.
-The function prepares data for chain validation and ensures all the validation results are gathered correctly.
-The function also attaches additional information to the data (name and description)
-that is then displayed in validation report.
+The function prepares data for chain validation and ensures all the validation results are
+gathered correctly. The function also attaches additional information to the data
+(name and description) that is then displayed in validation report.
 }

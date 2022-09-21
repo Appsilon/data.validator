@@ -2,8 +2,8 @@
 #' @keywords internal
 find_chain_parts <- function() {
   i <- 1
-  while(!("chain_parts" %in% ls(envir=parent.frame(i))) && i < sys.nframe()) {
-    i <- i+1
+  while(!("chain_parts" %in% ls(envir = parent.frame(i))) && i < sys.nframe()) { #nolint: spaces_left_parentheses_linter
+    i <- i + 1
   }
   parent.frame(i)
 }
@@ -12,7 +12,7 @@ find_chain_parts <- function() {
 #' @param df data.frame
 #' @return deparsed chain part
 #' @keywords internal
-get_first_name <- function(df){
+get_first_name <- function(df) {
   ee <- find_chain_parts()
   deparse(ee$lhs)
 }
@@ -21,7 +21,7 @@ get_first_name <- function(df){
 #'
 #' @return A characters corresponding to random ID.
 #' @keywords internal
-generate_id <- function () {
+generate_id <- function() {
   paste0(paste0(sample(c(LETTERS, letters, 0:9), 5, TRUE),
                 collapse = ""), round(as.numeric(Sys.time()) * 1000))
 }
