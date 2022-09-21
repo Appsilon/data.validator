@@ -80,12 +80,15 @@ get_assert_method <- function(predicate,
 #' @seealso validate_if
 #' @keywords internal
 check_assertr_expression <- function(this_call, data, description, error_fun) {
+  make.assertr.verify.error <- utils::getFromNamespace("make.assertr.verify.error", "assertr")
+  generate_id <- utils::getFromNamespace("generate_id", "assertr")
+
   tryCatch(
     this_call,
     error = function(e) {
-      current_error <- assertr:::make.assertr.verify.error(
+      current_error <- make.assertr.verify.error(
         "verify", num.violations = 1, the_call = as.character(e),
-        logical.results = 1, description, assertr:::generate_id()
+        logical.results = 1, description, generate_id()
       )
       data <- error_fun(list(current_error), data)
       return(data)
