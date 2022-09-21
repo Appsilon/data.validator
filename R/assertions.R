@@ -80,7 +80,7 @@ get_assert_method <- function(predicate,
 #' @seealso validate_if
 #' @keywords internal
 check_assertr_expression <- function(this_call, data, description, error_fun) {
-  make.assertr.verify.error <- utils::getFromNamespace("make.assertr.verify.error", "assertr")
+  make.assertr.verify.error <- utils::getFromNamespace("make.assertr.verify.error", "assertr") #nolint: object_name_linter
   generate_id <- utils::getFromNamespace("generate_id", "assertr")
 
   tryCatch(
