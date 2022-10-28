@@ -25,7 +25,12 @@
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<![endif]--><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-FVQKL0FR02"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FVQKL0FR02');
+</script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -94,8 +99,11 @@
 <div class="page-header"><h1 id="datavalidator-">data.validator <a href="https://appsilon.github.io/data.validator/"><img src="reference/figures/hexsticker.png" align="right" alt="data.validator logo" style="height: 140px;"></a>
 <a class="anchor" aria-label="anchor" href="#datavalidator-"></a>
 </h1></div>
-<blockquote><p><em>Validate your data and create nice reports straight from R.</em></p></blockquote>
+<blockquote>
+<p><em>Validate your data and create nice reports straight from R.</em></p>
+</blockquote>
 <!-- badges: start -->
+
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
@@ -125,7 +133,8 @@
 <ol style="list-style-type: decimal">
 <li>Create report object.</li>
 <li>Prepare your dataset. You can load it, preprocess and then run <code><a href="reference/validate.html">validate()</a></code> pipeline.</li>
-<li>Validate your datasets.<ul>
+<li>Validate your datasets.
+<ul>
 <li>Start validation block with <code><a href="reference/validate.html">validate()</a></code> function. It adds new section to the report.</li>
 <li>Use <code>validate_*</code> functions and predicates to validate the data. You can create your custom predicates. See <code>between()</code> example.</li>
 <li>Add assertion results to the report with <code><a href="reference/add_results.html">add_results()</a></code>
@@ -232,7 +241,9 @@
 <div class="section level3">
 <h3 id="custom-reporting-on-leaflet-map">Custom reporting on leaflet map<a class="anchor" aria-label="anchor" href="#custom-reporting-on-leaflet-map"></a>
 </h3>
-<ul><li><a href="https://github.com/Appsilon/data.validator/blob/master/examples/custom_report/example.R" class="external-link">Custom reporting on leaflet map</a></li></ul>
+<ul>
+<li><a href="https://github.com/Appsilon/data.validator/blob/master/examples/custom_report/example.R" class="external-link">Custom reporting on leaflet map</a></li>
+</ul>
 <p><img src="reference/figures/custom_report_example.gif"></p>
 </div>
 <div class="section level3">
@@ -251,11 +262,15 @@
 </h2>
 <p>In order to generate rmarkdown report <code>data.validator</code> uses predefined report template. You may find it in <code>inst/rmarkdown/templates/standard/skeleton/skeleton.Rmd</code>.</p>
 <p>The report contains basic requirements for each report template used by <code>save_report</code> function:</p>
-<ul><li>defining params</li></ul>
+<ul>
+<li>defining params</li>
+</ul>
 <pre><code>params:
   generate_report_html: !expr function(...) {}
   extra_params: list()</code></pre>
-<ul><li>calling content renderer chunk</li></ul>
+<ul>
+<li>calling content renderer chunk</li>
+</ul>
 <pre><code>```{r generate_report, echo = FALSE}
 params$generate_report_html(params$extra_params)
 ```</code></pre>
@@ -279,7 +294,9 @@ params$generate_report_html(params$extra_params)
 <li><p>data provider makes required data fixes</p></li>
 </ul>
 <p>4b. When data is correct:</p>
-<ul><li>a specific trigger is sent in order to reload Shiny data</li></ul>
+<ul>
+<li>a specific trigger is sent in order to reload Shiny data</li>
+</ul>
 <div class="section level3">
 <h3 id="working-example">Working example<a class="anchor" aria-label="anchor" href="#working-example"></a>
 </h3>
