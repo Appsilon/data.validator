@@ -27,7 +27,6 @@ Imports:
     rlang,
     rmarkdown,
     htmltools,
-    htmlwidgets,
     tibble
 Suggests:
     covr,
