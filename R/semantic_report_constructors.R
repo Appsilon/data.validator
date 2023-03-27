@@ -314,17 +314,13 @@ get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_result
         display_results(n_passes, n_fails, n_warns)
     }) %>%
     htmltools::div()
-  htmltools::div(summary_table, html_report)
+  htmltools::div(
+    summary_table,
+    html_report,
+    onmouseover = "setTimeout(function() {$('.ui.accordion').accordion()}, 500);
+      this.onmouseover = null;"
+  )
 }
-
-post_render_js <- "
-  function activateAccordion() {
-    $('.ui.accordion').accordion();
-  }
-  $(window).on('load', function () {
-    activateAccordion();
-  });
-"
 
 #' Render semantic version of report
 #'
@@ -353,10 +349,7 @@ render_semantic_report_ui <- function(validation_results,
   )
   get_semantic_report_ui(n_passes, n_fails, n_warns,
                        validation_results) %>%
-    shiny.semantic::uirender(width = "100%", height = "100%") %>%
-    htmltools::tagList(
-      htmlwidgets::onStaticRenderComplete(post_render_js)
-    )
+    shiny.semantic::uirender(width = "100%", height = "100%")
 }
 
 #' Render simple version of report
