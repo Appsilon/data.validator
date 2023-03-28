@@ -319,11 +319,13 @@ get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_result
 
 post_render_js <- "
   function activateAccordion() {
-    $('.ui.accordion').accordion();
+    setTimeout(
+      function() {
+        $('.ui.accordion').accordion();
+      },
+      1000
+    )
   }
-  $(window).on('load', function () {
-    activateAccordion();
-  });
 "
 
 #' Render semantic version of report
@@ -354,9 +356,7 @@ render_semantic_report_ui <- function(validation_results,
   get_semantic_report_ui(n_passes, n_fails, n_warns,
                        validation_results) %>%
     shiny.semantic::uirender(width = "100%", height = "100%") %>%
-    htmltools::tagList(
-      htmlwidgets::onStaticRenderComplete(post_render_js)
-    )
+    htmlwidgets::onRender(post_render_js)
 }
 
 #' Render simple version of report
