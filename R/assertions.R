@@ -129,6 +129,8 @@ validate_if <- function(data, expr, description = NA, obligatory = FALSE, skip_c
     check_assertr_expression(data, description, error_fun)
 }
 
+NO_COLUMNS_SELECTED_MESSAGE <- "No columns selected, using all columns."
+
 #' Validation on columns
 #'
 #' @param data A data.frame or tibble to test
@@ -162,18 +164,33 @@ validate_cols <- function(data,
 
   assertr_function <- get_assert_method(predicate)
 
-  assertr_function(
-    data,
-    predicate,
-    ...,
-    skip_chain_opts = skip_chain_opts,
-    obligatory = obligatory,
-    description = description,
-    success_fun = success_fun,
-    error_fun = error_fun,
-    defect_fun = defect_fun
-  ) %>%
-    check_assertr_expression(data, description, error_fun)
+  if (is.null(match.call(expand.dots = FALSE)$`...`)) {
+    message(NO_COLUMNS_SELECTED_MESSAGE)
+    assertr_function(
+      data,
+      predicate,
+      dplyr::everything(),
+      skip_chain_opts = skip_chain_opts,
+      obligatory = obligatory,
+      description = description,
+      success_fun = success_fun,
+      error_fun = error_fun,
+      defect_fun = defect_fun
+    )
+  } else {
+    assertr_function(
+      data,
+      predicate,
+      ...,
+      skip_chain_opts = skip_chain_opts,
+      obligatory = obligatory,
+      description = description,
+      success_fun = success_fun,
+      error_fun = error_fun,
+      defect_fun = defect_fun
+    )
+  }  %>%
+      check_assertr_expression(data, description, error_fun)
 }
 
 #' Validation on rows
