@@ -137,7 +137,8 @@ NO_COLUMNS_SELECTED_MESSAGE <- "No columns selected, using all columns."
 #' @param predicate Predicate function or predicate generator such as \code{\link[assertr]{in_set}}
 #'   or \code{\link[assertr]{within_n_sds}}
 #' @param ... Columns selection that \code{predicate} should be called on.
-#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported
+#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported.
+#'   If not provided, all \code{\link[tidyselect]{everything}} will be used.
 #' @param description A character string with description of assertion.
 #'   The description is then displayed in the validation report
 #' @param obligatory If TRUE and assertion failed the data is marked as defective.
@@ -201,7 +202,8 @@ validate_cols <- function(data,
 #' @param predicate Predicate function or predicate generator such as \code{\link[assertr]{in_set}}
 #'   or \code{\link[assertr]{within_n_sds}}
 #' @param ... Columns selection that \code{row_reduction_fn} should be called on.
-#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported
+#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported.
+#'   If not provided, all \code{\link[tidyselect]{everything}} will be used.
 #' @param description A character string with description of assertion.
 #'   The description is then displayed in the validation report
 #' @param obligatory If TRUE and assertion failed the data is marked as defective.

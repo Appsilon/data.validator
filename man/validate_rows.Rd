@@ -27,7 +27,8 @@ validation e.g. \code{\link[assertr]{num_row_NAs}}}
 or \code{\link[assertr]{within_n_sds}}}
 
 \item{...}{Columns selection that \code{row_reduction_fn} should be called on.
-All tidyselect \code{\link[tidyselect]{language}} methods are supported}
+All tidyselect \code{\link[tidyselect]{language}} methods are supported.
+If not provided, all \code{\link[tidyselect]{everything}} will be used.}
 
 \item{obligatory}{If TRUE and assertion failed the data is marked as defective.
 For defective data, all the following rules are handled by defect_fun function}
