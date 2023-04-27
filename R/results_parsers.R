@@ -109,7 +109,7 @@ parse_results_to_df <- function(data) {
 #' @keywords internal
 get_results_number <- function(results) {
   results %>%
-    dplyr::select(.data$assertion.id, .data$type) %>%
+    dplyr::select("assertion.id", "type") %>%
     dplyr::distinct() %>%
     dplyr::pull(.data$type) %>%
     table()
