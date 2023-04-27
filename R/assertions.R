@@ -230,7 +230,22 @@ validate_rows <- function(data,
     list(direct = assertr::assert_rows, generator = assertr::insist_rows)
   )
 
-  assertr_function(
+  if (is.null(match.call(expand.dots = FALSE)$`...`)) {
+    message(NO_COLUMNS_SELECTED_MESSAGE)
+    assertr_function(
+      data,
+      row_reduction_fn,
+      predicate,
+      everything(),
+      skip_chain_opts = skip_chain_opts,
+      obligatory = obligatory,
+      description = description,
+      success_fun = success_fun,
+      error_fun = error_fun,
+      defect_fun = defect_fun
+    )
+  } else {
+    assertr_function(
       data,
       row_reduction_fn,
       predicate,
@@ -241,6 +256,7 @@ validate_rows <- function(data,
       success_fun = success_fun,
       error_fun = error_fun,
       defect_fun = defect_fun
-  ) %>%
+    )
+  } %>%
     check_assertr_expression(data, description, error_fun)
 }
