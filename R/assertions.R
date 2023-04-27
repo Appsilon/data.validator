@@ -129,7 +129,7 @@ validate_if <- function(data, expr, description = NA, obligatory = FALSE, skip_c
     check_assertr_expression(data, description, error_fun)
 }
 
-NO_COLUMNS_SELECTED_MESSAGE <- "No columns selected, using all columns."
+NO_COLUMNS_SELECTED_MESSAGE <- "No columns selected, using all columns." #nolint: object_name_linter
 
 #' Validation on columns
 #'
@@ -165,7 +165,7 @@ validate_cols <- function(data,
 
   assertr_function <- get_assert_method(predicate)
 
-  if (is.null(match.call(expand.dots = FALSE)$`...`)) {
+  assertion_command <- if (is.null(match.call(expand.dots = FALSE)$`...`)) {
     message(NO_COLUMNS_SELECTED_MESSAGE)
     assertr_function(
       data,
@@ -190,8 +190,9 @@ validate_cols <- function(data,
       error_fun = error_fun,
       defect_fun = defect_fun
     )
-  }  %>%
-      check_assertr_expression(data, description, error_fun)
+  }
+
+  check_assertr_expression(assertion_command, data, description, error_fun)
 }
 
 #' Validation on rows
@@ -232,7 +233,7 @@ validate_rows <- function(data,
     list(direct = assertr::assert_rows, generator = assertr::insist_rows)
   )
 
-  if (is.null(match.call(expand.dots = FALSE)$`...`)) {
+  assertion_command <- if (is.null(match.call(expand.dots = FALSE)$`...`)) {
     message(NO_COLUMNS_SELECTED_MESSAGE)
     assertr_function(
       data,
@@ -259,6 +260,7 @@ validate_rows <- function(data,
       error_fun = error_fun,
       defect_fun = defect_fun
     )
-  } %>%
-    check_assertr_expression(data, description, error_fun)
+  }
+
+  check_assertr_expression(assertion_command, data, description, error_fun)
 }
