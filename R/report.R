@@ -117,7 +117,7 @@ add_results <- function(data, report) {
 #' Get validation results
 #'
 #' @description The response is a list containing information about successful, failed,
-#'   warning assertions andthe table stores important information about validation results.
+#'   warning assertions and the table stores important information about validation results.
 #'   Those are:
 #'   \itemize{
 #'     \item table_name - name of validated table

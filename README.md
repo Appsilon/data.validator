@@ -4,7 +4,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Appsilon/data.validator/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/data.validator/actions)
-[![Codecov test coverage](https://codecov.io/gh/Appsilon/data.validator/branch/master/graph/badge.svg)](https://codecov.io/gh/Appsilon/data.validator?branch=master)
+[![codecov](https://codecov.io/gh/Appsilon/data.validator/branch/master/graph/badge.svg)](https://codecov.io/gh/Appsilon/data.validator?branch=master)
 [![cranlogs](https://cranlogs.r-pkg.org/badges/data.validator)](https://CRAN.R-project.org/package=data.validator)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/data.validator)](https://CRAN.R-project.org/package=data.validator)
 <!-- badges: end -->
@@ -36,7 +36,7 @@ remotes::install_github("Appsilon/data.validator")
 
 ## Data validation
 
-Validaton cycle is simple:
+Validation cycle is simple:
 
 1. Create report object.
 2. Prepare your dataset. You can load it, preprocess and then run `validate()` pipeline.
@@ -111,7 +111,7 @@ save_report(report)
 
 Common step in data validation is assuring that key columns are unique and not empty.
 
-Test dataset for preparing the validation schema can be created with [fixtuRes](https://github.com/jakubnowicki/fixtuRes) package.
+Test dataset for preparing the validation schema can be created with [`fixtuRes`](https://github.com/jakubnowicki/fixtuRes) package.
 
 ```r
 library(fixtuRes)
