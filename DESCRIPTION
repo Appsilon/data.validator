@@ -14,7 +14,8 @@ BugReports: https://github.com/Appsilon/data.validator/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
+Language: en-US
 Imports:
     assertr (>= 2.8),
     shiny.semantic (>= 0.3.3),
@@ -35,6 +36,7 @@ Suggests:
     lintr,
     rcmdcheck,
     shiny,
+    spelling,
     testthat
 Collate:
     'results_parsers.R'
