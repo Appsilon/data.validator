@@ -129,13 +129,16 @@ validate_if <- function(data, expr, description = NA, obligatory = FALSE, skip_c
     check_assertr_expression(data, description, error_fun)
 }
 
+NO_COLUMNS_SELECTED_MESSAGE <- "No columns selected, using all columns." #nolint: object_name_linter
+
 #' Validation on columns
 #'
 #' @param data A data.frame or tibble to test
 #' @param predicate Predicate function or predicate generator such as \code{\link[assertr]{in_set}}
 #'   or \code{\link[assertr]{within_n_sds}}
 #' @param ... Columns selection that \code{predicate} should be called on.
-#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported
+#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported.
+#'   If not provided, all \code{\link[tidyselect]{everything}} will be used.
 #' @param description A character string with description of assertion.
 #'   The description is then displayed in the validation report
 #' @param obligatory If TRUE and assertion failed the data is marked as defective.
@@ -162,18 +165,36 @@ validate_cols <- function(data,
 
   assertr_function <- get_assert_method(predicate)
 
-  assertr_function(
-    data,
-    predicate,
-    ...,
-    skip_chain_opts = skip_chain_opts,
-    obligatory = obligatory,
-    description = description,
-    success_fun = success_fun,
-    error_fun = error_fun,
-    defect_fun = defect_fun
-  ) %>%
-    check_assertr_expression(data, description, error_fun)
+  is_colums_empty <- is.null(match.call(expand.dots = FALSE)$`...`)
+
+  assertion_command <- if (is_colums_empty) {
+    message(NO_COLUMNS_SELECTED_MESSAGE)
+    assertr_function(
+      data,
+      predicate,
+      dplyr::everything(),
+      skip_chain_opts = skip_chain_opts,
+      obligatory = obligatory,
+      description = description,
+      success_fun = success_fun,
+      error_fun = error_fun,
+      defect_fun = defect_fun
+    )
+  } else {
+    assertr_function(
+      data,
+      predicate,
+      ...,
+      skip_chain_opts = skip_chain_opts,
+      obligatory = obligatory,
+      description = description,
+      success_fun = success_fun,
+      error_fun = error_fun,
+      defect_fun = defect_fun
+    )
+  }
+
+  check_assertr_expression(assertion_command, data, description, error_fun)
 }
 
 #' Validation on rows
@@ -184,7 +205,8 @@ validate_cols <- function(data,
 #' @param predicate Predicate function or predicate generator such as \code{\link[assertr]{in_set}}
 #'   or \code{\link[assertr]{within_n_sds}}
 #' @param ... Columns selection that \code{row_reduction_fn} should be called on.
-#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported
+#'   All tidyselect \code{\link[tidyselect]{language}} methods are supported.
+#'   If not provided, all \code{\link[tidyselect]{everything}} will be used.
 #' @param description A character string with description of assertion.
 #'   The description is then displayed in the validation report
 #' @param obligatory If TRUE and assertion failed the data is marked as defective.
@@ -213,7 +235,24 @@ validate_rows <- function(data,
     list(direct = assertr::assert_rows, generator = assertr::insist_rows)
   )
 
-  assertr_function(
+  is_colums_empty <- is.null(match.call(expand.dots = FALSE)$`...`)
+
+  assertion_command <- if (is_colums_empty) {
+    message(NO_COLUMNS_SELECTED_MESSAGE)
+    assertr_function(
+      data,
+      row_reduction_fn,
+      predicate,
+      dplyr::everything(),
+      skip_chain_opts = skip_chain_opts,
+      obligatory = obligatory,
+      description = description,
+      success_fun = success_fun,
+      error_fun = error_fun,
+      defect_fun = defect_fun
+    )
+  } else {
+    assertr_function(
       data,
       row_reduction_fn,
       predicate,
@@ -224,6 +263,8 @@ validate_rows <- function(data,
       success_fun = success_fun,
       error_fun = error_fun,
       defect_fun = defect_fun
-  ) %>%
-    check_assertr_expression(data, description, error_fun)
+    )
+  }
+
+  check_assertr_expression(assertion_command, data, description, error_fun)
 }
