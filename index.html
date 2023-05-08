@@ -45,7 +45,7 @@
     
     <a class="navbar-brand me-2" href="index.html">data.validator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     <a href="https://shiny.tools" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -151,7 +151,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/assertr/" class="external-link">assertr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">data.validator</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/data.validator/">data.validator</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">report</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/data_validation_report.html">data_validation_report</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -212,7 +212,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jakubnowicki/fixtuRes" class="external-link">fixtuRes</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/assertr/" class="external-link">assertr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">data.validator</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/data.validator/">data.validator</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">my_mock_generator</span> <span class="op">&lt;-</span> <span class="fu">fixtuRes</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/fixtuRes/man/MockDataGenerator.html" class="external-link">MockDataGenerator</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"path-to-my-configuration.yml"</span><span class="op">)</span></span>
 <span><span class="va">my_data_frame</span> <span class="op">&lt;-</span> <span class="va">my_mock_generator</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="st">"my_data_frame"</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -361,9 +361,10 @@ params$generate_report_html(params$extra_params)
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Krystian Igras <br><small class="roles"> Author </small>  </li>
 <li>Marcin Dubel <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Paweł Przytuła <br><small class="roles"> Author </small>  </li>
+<li>Jakub Nowicki <br><small class="roles"> Author </small>  </li>
+<li>Krystian Igras <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
