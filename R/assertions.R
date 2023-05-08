@@ -165,7 +165,9 @@ validate_cols <- function(data,
 
   assertr_function <- get_assert_method(predicate)
 
-  assertion_command <- if (is.null(match.call(expand.dots = FALSE)$`...`)) {
+  is_colums_empty <- is.null(match.call(expand.dots = FALSE)$`...`)
+
+  assertion_command <- if (is_colums_empty) {
     message(NO_COLUMNS_SELECTED_MESSAGE)
     assertr_function(
       data,
@@ -233,7 +235,9 @@ validate_rows <- function(data,
     list(direct = assertr::assert_rows, generator = assertr::insist_rows)
   )
 
-  assertion_command <- if (is.null(match.call(expand.dots = FALSE)$`...`)) {
+  is_colums_empty <- is.null(match.call(expand.dots = FALSE)$`...`)
+
+  assertion_command <- if (is_colums_empty) {
     message(NO_COLUMNS_SELECTED_MESSAGE)
     assertr_function(
       data,
