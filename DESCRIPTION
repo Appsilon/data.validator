@@ -1,15 +1,17 @@
 Package: data.validator
 Type: Package
 Title: Automatic Data Validation and Reporting
-Version: 0.1.7.9002
-Authors@R: c(person("Krystian", "Igras", email = "krystian@appsilon.com", role = c("aut")),
-             person("Marcin", "Dubel", email = "marcin@appsilon.com", role = c("aut", "cre")),
+Version: 0.2.0
+Authors@R: c(person("Marcin", "Dubel", email = "opensource+marcin@appsilon.com", role = c("aut", "cre")),
              person("Paweł", "Przytuła", email = "pawel@appsilon.com", role = c("aut")),
-             person("Dominik", "Krzeminski", email = "dominik@appsilon.com", role = c("ctb")),
+             person("Jakub", "Nowicki", email = "kuba@appsilon.com", role = c("aut")),
+             person("Krystian", "Igras", email = "krystian8207@gmail.com", role = c("aut")),
+             person("Dominik", "Krzeminski", email = "craymon92@gmail.com", role = c("ctb")),
              person("Servet Ahmet", "Çizmeli", email = "ahmet.cizmeli@contractors.appsilon.com", role = c("ctb")),
              person(family = "Appsilon Sp. z o.o.", role = c("cph")))
 Description: Validate dataset by columns and rows using convenient predicates inspired by 'assertr' package.
              Generate good looking HTML report or print console output to display in logs of your data processing pipeline.
+URL: https://appsilon.github.io/data.validator/, https://github.com/Appsilon/data.validator
 BugReports: https://github.com/Appsilon/data.validator/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
