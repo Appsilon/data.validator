@@ -16,6 +16,22 @@ test_that("get_assert_method correctly choses assertion method", {
   )
 })
 
+test_that("predicate in get_assert_method expects function returning logical vector or function", {
+  predicate <- function(x) x + 1
+  expect_error(data.validator:::get_assert_method(predicate))
+})
+
+test_that("validate returns expected attributes", {
+  data <- data.frame(V1 = c("c", "d"), V2 = c(2, 2), V3 = c(1, 1))
+  data <- validate(data, description = "Validation object description test")
+  attr_names <- names(attributes(data))
+
+  expect_true("data-name" %in% attr_names)
+  expect_true("data-description" %in% attr_names)
+  expect_true("assertr_in_chain_success_fun_override" %in% attr_names)
+  expect_true("assertr_in_chain_error_fun_override" %in% attr_names)
+})
+
 test_that("Validation works even with evaluation error", {
   validation_result <-
     data.validator::validate(iris, name = "Iris wrong column test") %>%
@@ -69,4 +85,17 @@ test_that("validate_rows throws a message if there are no columns selected", {
   validation <- validate(data)
 
   expect_message(validate_rows(validation, rowSums, function(x) TRUE))
+})
+
+test_that("validate_if correctly handles validation", {
+  data <- data.frame(
+    V1 = c(1, 0),
+    V2 = c(-1, -2)
+  )
+
+  val_success <- validate_if(data, V2 < 0)
+  val_error <- validate_if(data, V1 < 0)
+
+  expect_true(success_class %in% names(attributes(val_success)))
+  expect_true("assertr_errors" %in% names(attributes(val_error)))
 })
