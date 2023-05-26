@@ -4,7 +4,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Appsilon/data.validator/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/data.validator/actions)
-[![codecov](https://codecov.io/gh/Appsilon/data.validator/branch/master/graph/badge.svg)](https://codecov.io/gh/Appsilon/data.validator?branch=master)
+[![codecov](https://codecov.io/gh/Appsilon/data.validator/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/data.validator?branch=main)
 [![cranlogs](https://cranlogs.r-pkg.org/badges/data.validator)](https://CRAN.R-project.org/package=data.validator)
 [![total](https://cranlogs.r-pkg.org/badges/grand-total/data.validator)](https://CRAN.R-project.org/package=data.validator)
 <!-- badges: end -->
