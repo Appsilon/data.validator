@@ -82,7 +82,7 @@ test_that("validate_rows throws a message if there are no columns selected", {
   expect_message(validate_rows(validation, rowSums, function(x) TRUE))
 })
 
-test_that("validation returns either `assert_success` or `assert_errors` attribute based on result", {
+test_that("validation returns assert_success or assert_errors attribute based on result", {
   data <- data.frame(
     V1 = c(1, 0),
     V2 = c(-1, -2)
