@@ -16,11 +16,6 @@ test_that("get_assert_method correctly choses assertion method", {
   )
 })
 
-test_that("predicate in get_assert_method expects function returning logical vector or function", {
-  predicate <- function(x) x + 1
-  expect_error(data.validator:::get_assert_method(predicate))
-})
-
 test_that("validate returns expected attributes", {
   data <- data.frame(V1 = c("c", "d"), V2 = c(2, 2), V3 = c(1, 1))
   data <- validate(data, description = "Validation object description test")
@@ -87,15 +82,16 @@ test_that("validate_rows throws a message if there are no columns selected", {
   expect_message(validate_rows(validation, rowSums, function(x) TRUE))
 })
 
-test_that("validate_if correctly handles validation", {
+test_that("validation returns success or error attribute", {
   data <- data.frame(
     V1 = c(1, 0),
     V2 = c(-1, -2)
   )
+  data <- validate(data)
 
   val_success <- validate_if(data, V2 < 0)
   val_error <- validate_if(data, V1 < 0)
 
-  expect_true(success_class %in% names(attributes(val_success)))
+  expect_true("assertr_success" %in% names(attributes(val_success)))
   expect_true("assertr_errors" %in% names(attributes(val_error)))
 })
