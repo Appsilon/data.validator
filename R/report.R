@@ -8,8 +8,8 @@ Report <- R6Class( #nolint: object_name_linter
       types <- c(success_id, warning_id, error_id)[c(success, warning, error)]
       cat("Validation summary: \n")
       if (success) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
-      if (warning) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
-      if (error) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
+      if (warning) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
+      if (error) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
       if (nrow(private$validation_results) > 0) {
         cat("\n")
         cat("Advanced view: \n")
