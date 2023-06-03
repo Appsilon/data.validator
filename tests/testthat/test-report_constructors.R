@@ -21,7 +21,7 @@ results_test <- function() {
 
 expect_has_props <- function(component, props) {
     test <- grepl(props, as.character(component))
-    expect_true(test)
+    testthat::expect_true(test)
 }
 
 mark_failed <- "red big remove"
