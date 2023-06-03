@@ -2,7 +2,6 @@ context("Report constructor")
 local_edition(3)
 
 library(htmltools)
-library(glue)
 
 results_test <- function() {
     dat <- data.frame(
@@ -50,7 +49,7 @@ test_that("create_summary_row() generates ui with specified arguments", {
 
     expect_has_props(
         tagq$find("div")$parent()$selectedTags(),
-        glue('id="{id}"')
+        paste0("id=", '"', id, '"')
     )
     expect_true(tagq$find("div")$hasClass("red"))
     expect_has_props(tagq$allTags(), n_fails)
@@ -125,7 +124,7 @@ test_that("make_table_row() generates modal content for results with failed vali
 
     tagq <- tagQuery(ui)
     tags <- tagq$
-                find(glue("#{results_failed$assertion.id}"))$
+                find(paste0("#", results_failed$assertion.id))$
                 find("table")$
                 parent()$
                 selectedTags()
