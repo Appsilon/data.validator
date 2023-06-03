@@ -10,7 +10,7 @@ report_test <- function() {
 
     validate(dat)  %>%
         validate_cols(is.numeric)  %>%
-        validate_if(V1 > 0)  %>%
+        validate_if(.data$V1 > 0)  %>%
         add_results(report)
 
     return(report)

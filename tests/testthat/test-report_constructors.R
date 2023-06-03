@@ -12,16 +12,15 @@ results_test <- function() {
     report <- data_validation_report()
 
     validate(dat, description = "A test report")  |>
-        validate_cols(is.numeric, V1, V2, description = "Column is numeric")  |>
-        validate_if(V1 > 0, description = "Is greater than 0")  |>
+        validate_cols(is.numeric, description = "Columns are numeric")  |>
+        validate_if(.data$V1 > 0, description = "Is greater than 0")  |>
         add_results(report)
 
     get_results(report)
 }
 
 expect_has_props <- function(component, props) {
-  as.character(component) %>%
-    grepl(props, .) %>%
+    grepl(props, as.character(component)) %>%
     expect_true()
 }
 
