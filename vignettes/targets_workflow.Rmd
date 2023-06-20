@@ -1,11 +1,10 @@
 ---
 title: "Targets validation workflow"
-date: "`r Sys.Date()`"
-output: 
-  html_document:
-    highlight: kate
-    toc: true
-    mathjax: null
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Targets validation workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ## Introduction
@@ -131,7 +130,7 @@ withr::with_dir("R", {
       })
       report
     }
-    
+
     validation_violation <- function(report) {
       violations_exist <- report$get_validations() %>%
         summarise(
@@ -283,7 +282,7 @@ tar_make_catch <- function() {
     tar_make(),
     validation_violation = function(e) {
       tar_read("metadata_validation") %>% save_report()
-      tar_visnetwork()  
+      tar_visnetwork()
     }
   )
 }
@@ -306,7 +305,7 @@ The error indicates that the factor, and integer column checks failed. As we alr
 Suppose a not-so-ideal scenario that we have to accept the new data structure of the input data, where the columns `index`, and `Species` are numeric, and character respectively. To fix the validation failures we'll have to update the schema file as follows:
 
 ```{r}
-tar_read("schema") %>% 
+tar_read("schema") %>%
   mutate(
     type = case_when(
       name == "Species" ~ "character",
