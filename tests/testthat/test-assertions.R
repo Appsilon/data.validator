@@ -83,6 +83,9 @@ test_that("validate_rows throws a message if there are no columns selected", {
 })
 
 test_that("validation returns assert_success or assert_errors attribute based on result", {
+  name_success  <- "assertr_success"
+  name_error  <- "assertr_errors"
+
   data <- data.frame(
     V1 = c(1, 0),
     V2 = c(-1, -2)
@@ -92,6 +95,9 @@ test_that("validation returns assert_success or assert_errors attribute based on
   val_success <- validate_if(data, V2 < 0)
   val_error <- validate_if(data, V1 < 0)
 
-  expect_true("assertr_success" %in% names(attributes(val_success)))
-  expect_true("assertr_errors" %in% names(attributes(val_error)))
+  expect_true(name_success %in% names(attributes(val_success)))
+  expect_false(name_error %in% names(attributes(val_success)))
+  expect_true(name_error %in% names(attributes(val_error)))
+  expect_false(name_success %in% names(attributes(val_error)))
 })
+

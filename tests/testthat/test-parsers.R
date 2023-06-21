@@ -1,6 +1,6 @@
 context("parsers")
 
-test_that("parse_errors_to_df parses correct assertion type", {
+test_that("parse_errors_to_df parses correct error assertion type", {
   data <- data.frame(
     V1 = c(1, 0, -3)
   )
@@ -10,7 +10,7 @@ test_that("parse_errors_to_df parses correct assertion type", {
   expect_equal(parse_errors_to_df(validation)$type, error_id)
 })
 
-test_that("parse_successes_to_df parses correct assertion type", {
+test_that("parse_successes_to_df parses correct success assertion type", {
   data <- data.frame(
     V1 = c(0, 1, 0)
   )
