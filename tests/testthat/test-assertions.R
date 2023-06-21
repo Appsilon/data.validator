@@ -100,4 +100,3 @@ test_that("validation returns assert_success or assert_errors attribute based on
   expect_true(name_error %in% names(attributes(val_error)))
   expect_false(name_success %in% names(attributes(val_error)))
 })
-

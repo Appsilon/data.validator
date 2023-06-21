@@ -7,6 +7,7 @@ test_that("parse_errors_to_df parses correct error assertion type", {
   validation <- validate(data) %>%
     validate_if(V1 < 0)
 
+  # `error_id` is coming from `results_parsers.R`
   expect_equal(parse_errors_to_df(validation)$type, error_id)
 })
 
@@ -17,6 +18,7 @@ test_that("parse_successes_to_df parses correct success assertion type", {
   validation <- validate(data) %>%
     validate_rows(rowSums, assertr::in_set(0, 1), V1)
 
+  # `success_id` is coming from `results_parsers.R`
   expect_equal(parse_successes_to_df(validation)$type, success_id)
 })
 
