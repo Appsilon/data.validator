@@ -3,22 +3,6 @@ local_edition(3)
 
 library(htmltools)
 
-results_test <- function() {
-    dat <- data.frame(
-        V1 = c(1, 2, 3),
-        V2 = c("a", "b", "c")
-    )
-
-    report <- data_validation_report()
-
-    validate(dat, description = "A test report")  |>
-        validate_cols(is.numeric, description = "Columns are numeric")  |>
-        validate_if(.data$V1 > 0, description = "Is greater than 0")  |>
-        add_results(report)
-
-    get_results(report)
-}
-
 expect_has_props <- function(component, props) {
     test <- grepl(props, as.character(component))
     testthat::expect_true(test)
