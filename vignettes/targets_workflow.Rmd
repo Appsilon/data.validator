@@ -184,7 +184,6 @@ withr::with_dir("R", {
           description = glue::glue("Column classes: {col_class}")
         ) %>%
         add_results(report)
-
     }
   })
 
@@ -288,7 +287,6 @@ validate_column_class <- function(col_class, schema, data, report) {
       description = glue::glue("Column classes: {col_class}")
     ) %>%
     add_results(report)
-
 }
 ```
 
