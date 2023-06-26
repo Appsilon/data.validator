@@ -194,6 +194,7 @@ tar_script({
   library(targets)
 
   source("R/functions.R")
+
   options(crayon.enabled = FALSE)
   tar_option_set(
     packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
@@ -321,6 +322,7 @@ The `targets` script file for metadata validation looks like:
 library(targets)
 
 source("R/functions.R")
+
 options(crayon.enabled = FALSE)
 tar_option_set(
   packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
@@ -492,6 +494,7 @@ tar_script({
   library(targets)
 
   source("R/functions.R")
+
   options(crayon.enabled = FALSE)
   tar_option_set(
     packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
@@ -615,6 +618,7 @@ The `_targets.R` script looks like:
 library(targets)
 
 source("R/functions.R")
+
 options(crayon.enabled = FALSE)
 tar_option_set(
   packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
