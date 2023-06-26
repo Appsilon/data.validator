@@ -237,6 +237,7 @@ reads:
 
 ```{r, eval=FALSE}
 # R/functions.R
+
 get_data <- function(file) {
   read_csv(file, col_types = cols())
 }
@@ -543,6 +544,7 @@ The functions that compute the pipeline "targets" are as follows:
 
 ```{r, eval=FALSE}
 # R/functions.R
+
 get_data <- function(file) {
   read_csv(file, col_types = cols())
 }
