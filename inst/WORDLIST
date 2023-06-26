@@ -20,6 +20,7 @@ renderer
 reproducibility
 rmarkdown
 scalable
+schemas
 tibble
 tidyselect
 ui
