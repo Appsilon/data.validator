@@ -676,3 +676,23 @@ showing that the dataset has been curated:
 ```{r}
 tar_read("report_after_curation")
 ```
+
+## Summary
+
+Data validation is crucial for businesses to mitigate risks associated with
+erroneous data and make informed decisions. The targets validation workflow
+presented in this tutorial combines the power of the `targets` package with the
+`data.validator` to ensure data reliability and accuracy, in an efficient, cost
+effective, and scalable way. 
+
+The targets validation workflow offers several benefits. It provides a 
+structured framework for organizing and executing data validation tasks,
+ensuring reproducibility and efficiency. By combining `targets` with
+`data.validator`, the workflow can handle complex data validation scenarios,
+adapt to evolving schemas, and facilitate error localization and data curation
+processes.
+
+Overall, this tutorial demonstrates the importance of incorporating data
+validation into data pipelines and highlights how the `targets` package
+and `data.validator` tool can be leveraged to ensure reliable and accurate data
+for decision-making purposes.
