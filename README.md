@@ -62,7 +62,7 @@ validate(mtcars, name = "Verifying cars dataset") %>%
   add_results(report)
 
 between <- function(a, b) {
-  function(x) { a <= x && x <= b }
+  function(x) { a <= x & x <= b }
 }
 
 validate(iris, name = "Verifying flower dataset") %>%
