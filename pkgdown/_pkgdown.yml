@@ -46,6 +46,9 @@ navbar:
     - icon: fa-file-code-o
       text: "Reference"
       href: reference/index.html
+    - icon: fa-newspaper-o
+      text: "Changelog"
+      href: news/index.html
   right:
     - icon: fa-github fa-lg
       href: https://github.com/Appsilon/data.validator

@@ -15,7 +15,9 @@ num
 df
 errored
 params
+pkgdown
 preprocess
+README
 renderer
 reproducibility
 rmarkdown
