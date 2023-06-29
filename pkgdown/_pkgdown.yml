@@ -31,9 +31,18 @@ url: https://appsilon.github.io/data.validator/
 navbar:
   bg: primary
   left:
-    - icon: fa-university
-      text: "Tutorial"
-      href: articles/data_validator.html
+    - home:
+      icon: fa-home
+      text: "Start"
+      href: index.html
+    - tutorials:
+      icon: fa-university
+      text: "Articles"
+      menu:
+      - text: All you need to know about data.validator
+        href: articles/data_validator.html
+      - text: Targets validation workflow
+        href: articles/targets_workflow.html
     - icon: fa-file-code-o
       text: "Reference"
       href: reference/index.html
@@ -56,13 +65,6 @@ home:
         title: GitHub
         text: |
           <a class="github-button" href="https://github.com/appsilon/data.validator" data-size="large" data-show-count="true" aria-label="Star appsilon/data.validator on GitHub">Star</a>
-
-
-articles:
-- title: All tutorials
-  desc: ~
-  contents:
-  - '`data_validator`'
 
 reference:
 - title: Validation functions
