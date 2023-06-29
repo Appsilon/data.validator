@@ -35,11 +35,17 @@ Imports:
 Suggests:
     covr,
     fixtuRes,
+    fs,
     lintr,
+    magrittr,
     rcmdcheck,
+    readr,
     shiny,
     spelling,
-    testthat
+    targets,
+    testthat,
+    visNetwork,
+    withr
 Collate:
     'results_parsers.R'
     'semantic_report_constructors.R'

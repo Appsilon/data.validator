@@ -1,3 +1,4 @@
+Acyclic
 Appsilon
 CMD
 Rmd
@@ -9,13 +10,17 @@ assertr
 codecov
 cranlogs
 csv
+curation
 num
 df
+errored
 params
 preprocess
 renderer
+reproducibility
 rmarkdown
 scalable
+schemas
 tibble
 tidyselect
 ui
