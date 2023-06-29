@@ -7,7 +7,7 @@
 
 # data.validator 0.1.6
 
-- `roxygen` dependency updated from 7.1.1 to 7.1.2
+- No changes in this release. It was released to revive `data.validator` on CRAN, previously archived due to the archiving of `shiny.semantic` dependency.
 
 # data.validator 0.1.5
 
