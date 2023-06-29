@@ -78,6 +78,24 @@ purposes, the file structure of the targets project looks like:
 
 -   `_targets.R` is the special file that defines the `targets` workflow.
 
+### Dependencies
+
+To run the code in this tutorial, the following libraries must be installed:
+
+```{r, eval=FALSE}
+library(targets)
+library(readr)
+library(dplyr)
+library(data.validator)
+library(rlang)
+library(purrr)
+```
+
+When the pipeline is executed `targets` performs all computation in a separate R
+process using `callr::r()`. To define the packages that should be loaded 
+in that process the `tar_option_set()` function is  used in the `_targets.R`
+script. 
+
 ### Input data
 
 Let's consider the `iris` dataset with some tweaks in order to work with
@@ -89,6 +107,9 @@ different data validation concepts. We perform the following mutations:
 and save to a CSV file that will be tracked as a data input by the pipeline.
 
 ```{r}
+library(readr)
+library(dplyr)
+
 input_data <- iris %>%
   mutate(
     index = 1:nrow(iris),
@@ -111,6 +132,11 @@ We save the schema as a CSV with two columns. `name` stands for the name of the
 columns, and `type` stands for their class:
 
 ```{r}
+library(readr)
+library(dplyr)
+library(purrr)
+library(magrittr)
+
 get_schema <- function(data) {
   imap_dfr(data, \(var, name) {
     tibble(
@@ -194,7 +220,6 @@ tar_script({
 
   source("R/functions.R")
 
-  options(crayon.enabled = FALSE)
   tar_option_set(
     packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
                  "purrr")
@@ -237,6 +262,14 @@ reads:
 
 ```{r, eval=FALSE}
 # R/functions.R
+
+# The namespace of the process that executes these functions is defined
+# in the `_targets.R` file where the following libraries are loaded:
+#
+# tar_option_set(
+#   packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
+#                "purrr")
+# )
 
 get_data <- function(file) {
   read_csv(file, col_types = cols())
@@ -322,7 +355,6 @@ library(targets)
 
 source("R/functions.R")
 
-options(crayon.enabled = FALSE)
 tar_option_set(
   packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
                "purrr")
@@ -348,7 +380,7 @@ the dependency graph, showing a natural left-to-right flow of work, and giving
 feedback on the state of each "target":
 
 ```{r, eval = TRUE}
-tar_visnetwork()
+targets::tar_visnetwork()
 ```
 
 We run the pipeline and control for a validation error using the custom error
@@ -362,6 +394,9 @@ HTML report to disk and render the Directed Acyclic Graph that indicates the
 error:
 
 ```{r}
+library(targets)
+library(data.validator)
+
 tar_make_catch <- function() {
   tryCatch(
     tar_make(),
@@ -386,7 +421,7 @@ We can inspect the report object calculated in the `metadata_validation`
 "target":
 
 ```{r}
-tar_read("metadata_validation")
+targets::tar_read("metadata_validation")
 ```
 
 The error indicates that the factor, and integer column checks failed. As we
@@ -400,6 +435,10 @@ character respectively. To fix the validation failures we'll have to update
 the schema file as follows:
 
 ```{r}
+library(targets)
+library(dplyr)
+library(magrittr)
+
 tar_read("schema") %>%
   mutate(
     type = case_when(
@@ -416,7 +455,7 @@ After updating the `schema.csv` and rendering the flow of the pipeline, we can
 see that downstream targets depending on the `schema.csv` are outdated:
 
 ```{r}
-tar_visnetwork()
+targets::tar_visnetwork()
 ```
 
 This time running the pipeline completes successfully, and all unnecessary steps
@@ -494,7 +533,6 @@ tar_script({
 
   source("R/functions.R")
 
-  options(crayon.enabled = FALSE)
   tar_option_set(
     packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
                  "purrr")
@@ -544,6 +582,14 @@ The functions that compute the pipeline "targets" are as follows:
 
 ```{r, eval=FALSE}
 # R/functions.R
+
+# The namespace of the process that executes these functions is defined
+# in the `_targets.R` file where the following libraries are loaded:
+#
+# tar_option_set(
+#   packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
+#                "purrr")
+# )
 
 get_data <- function(file) {
   read_csv(file, col_types = cols())
@@ -619,7 +665,6 @@ library(targets)
 
 source("R/functions.R")
 
-options(crayon.enabled = FALSE)
 tar_option_set(
   packages = c("readr", "dplyr", "data.validator", "assertr", "rlang",
                "purrr")
@@ -649,7 +694,7 @@ validation step is used by the next step for error-localization. The later
 "target" is passed to the data curation step resulting to a cleansed dataset:
 
 ```{r}
-tar_visnetwork()
+targets::tar_visnetwork()
 ```
 
 In addition, we emphasize in the graph above, that the function and input file
@@ -660,7 +705,7 @@ not importing the data again.
 Building the pipeline:
 
 ```{r}
-tar_make()
+targets::tar_make()
 ```
 
 In the beginning of this vignette we have intentionally added some outliers in
@@ -669,7 +714,7 @@ the `Sepal.Width` column. In fact these outliers are captured in the
 graph above):
 
 ```{r}
-tar_read("validation_report")
+targets::tar_read("validation_report")
 ```
 
 After pinpointing the precise location of the violations in the data, the
@@ -679,7 +724,7 @@ validation phase, which in fact does not return any incorrect observations,
 showing that the dataset has been curated:
 
 ```{r}
-tar_read("report_after_curation")
+targets::tar_read("report_after_curation")
 ```
 
 ## Summary
