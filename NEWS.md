@@ -1,6 +1,6 @@
 # data.validator (development version)
 
-- Arguments swapping of `error` and `warning` params in `save_summary()` fixed
+- Swapping of `error` and `warning` arguments in `save_summary()` fixed
 
 # data.validator 0.2.0
 
