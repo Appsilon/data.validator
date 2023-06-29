@@ -1,3 +1,7 @@
+# data.validator (development version)
+
+- Arguments swapping of `error` and `warning` params in `save_summary()` fixed
+
 # data.validator 0.2.0
 
 - `validate_cols()` and `validate_rows()` will use all columns in dataframe if no column is passed
@@ -7,7 +11,7 @@
 
 # data.validator 0.1.6
 
-- No changes in this release. It was released to revive `data.validator` on CRAN, previously archived due to the archiving of `shiny.semantic` dependency.
+No changes. Released to restore `data.validator` on CRAN, previously archived due to the archiving of `shiny.semantic` dependency.
 
 # data.validator 0.1.5
 
