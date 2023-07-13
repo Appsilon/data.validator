@@ -1,20 +1,17 @@
-#' Find all chain parts in parent frame
+#' Recursively constructs Abstract Syntax Tree for a given expression
 #' @keywords internal
-find_chain_parts <- function() {
-  i <- 1
-  while(!("chain_parts" %in% ls(envir = parent.frame(i))) && i < sys.nframe()) { #nolint: spaces_left_parentheses_linter
-    i <- i + 1
-  }
-  parent.frame(i)
-}
+getAST <- function(ee) purrr::map_if(as.list(ee), is.call, getAST)
 
-#' Get first name of the data frame
-#' @param df data.frame
+#' Get name of the data frame based on active frames
 #' @return deparsed chain part
 #' @keywords internal
-get_first_name <- function(df) {
-  ee <- find_chain_parts()
-  deparse(ee$lhs)
+get_first_name <- function() {
+  sc <- sys.calls()
+  first_call_with_pipe <- purrr::map( as.list(sc), getAST ) %>%
+    purrr::keep( ~identical(.[[1]], quote(`%>%`)) )
+
+  if( length(first_call_with_pipe) == 0 ) return( enexpr(x) )        # Not in a pipe
+  deparse(dplyr::last( first_call_with_pipe )[[2]])
 }
 
 #' Generate a random ID.

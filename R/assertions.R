@@ -15,7 +15,7 @@ validate <- function(data, name, description = NULL) {
   if (missing(name)) {
     name <- deparse(substitute(data))
     if (name == ".") {
-      name <- get_first_name(data)
+      name <- get_first_name()
     }
   }
   attr(data, "data-description") <- description #nolint: object_name_linter

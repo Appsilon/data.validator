@@ -23,7 +23,7 @@ Report <- R6Class( #nolint: object_name_linter
       invisible(self)
     },
     add_validations = function(data, name = NULL) {
-      object_name <- ifelse(!is.null(name), name, get_first_name(data))
+      object_name <- ifelse(!is.null(name), name, get_first_name())
       results <- parse_results_to_df(data) %>%
         dplyr::mutate(table_name = object_name) %>%
         dplyr::select(table_name, dplyr::everything())
