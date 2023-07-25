@@ -12,6 +12,7 @@
 #'
 #' @export
 validate <- function(data, name, description = NULL) {
+  # browser()
   if (missing(name)) {
     name <- deparse(substitute(data))
     if (name == ".") {

@@ -6,13 +6,26 @@ getAST <- function(ee) purrr::map_if(as.list(ee), is.call, getAST)
 #' @return deparsed chain part
 #' @keywords internal
 get_first_name <- function() {
+  # browser()
   sc <- sys.calls()
-  first_call_with_pipe <- purrr::map( as.list(sc), getAST ) %>%
-    purrr::keep( ~identical(.[[1]], quote(`%>%`)) )
+  first_call_with_pipe <- purrr::map(as.list(sc), getAST) %>%
+    purrr::keep(~identical(.[[1]], quote(`%>%`)))
 
-  if( length(first_call_with_pipe) == 0 ) return( enexpr(x) )        # Not in a pipe
-  deparse(dplyr::last( first_call_with_pipe )[[2]])
+  # first_object <- dplyr::last(first_call_with_pipe)[[2]]
+
+  # Create a recursive function to find the first non-call object
+  find_first_noncall <- function(object) {
+    if (is.list(object)) {
+      return(find_first_noncall(object[[2]]))
+    } else {
+      return(object)
+    }
+  }
+
+  first_object <- find_first_noncall(dplyr::last(first_call_with_pipe)[[2]])
+  deparse(first_object)
 }
+
 
 #' Generate a random ID.
 #'
