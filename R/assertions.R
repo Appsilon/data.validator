@@ -15,8 +15,14 @@ validate <- function(data, name, description = NULL) {
   # browser()
   if (missing(name)) {
     name <- deparse(substitute(data))
+
+    # If the data comes from a chain of %>% commands
     if (name == ".") {
       name <- get_first_name()
+    }
+    if (is_complex_command(name) && name != ".") {
+      first_object <- find_first_noncall(match.call()$data)
+      name <- deparse(first_object)
     }
   }
   attr(data, "data-description") <- description #nolint: object_name_linter
