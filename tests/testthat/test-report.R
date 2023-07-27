@@ -70,6 +70,14 @@ test_that("Can export with write_excel_csv function and it matches with results 
   expect_equal(actual, expected)
 })
 
+test_that("Error on passing a function without file argument", {
+  tmp <- file.path(tempdir(), "test.csv")
+  on.exit(unlink(tmp))
+
+  report <- report_test()
+  expect_error(save_results(report, tmp, method = utils::alarm))
+})
+
 test_that("it's possible to exclude the success results in the exported log.", {
   tmp <- file.path(tempdir(), "hide_success_log.txt")
   on.exit(unlink(tmp))
