@@ -38,6 +38,38 @@ test_that("exported CSV matched results obtained from get_results", {
     expect_equal(actual, expected)
 })
 
+test_that("Can export with saveRDS function and it matches with results from get_results", {
+  tmp <- file.path(tempdir(), "test.rds")
+  on.exit(unlink(tmp))
+
+  report <- report_test()
+  save_results(report, tmp, method = saveRDS)
+
+  actual <- readRDS(tmp) %>%
+    dplyr::mutate_all(as.character)
+
+  expected <- get_results(report, unnest = TRUE) %>%
+    dplyr::mutate_all(as.character)
+
+  expect_equal(actual, expected)
+})
+
+test_that("Can export with write_excel_csv function and it matches with results from get_results", {
+  tmp <- file.path(tempdir(), "test.csv")
+  on.exit(unlink(tmp))
+
+  report <- report_test()
+  save_results(report, tmp, method = write_excel_csv)
+
+  actual <- read_csv(tmp) %>%
+    dplyr::mutate_all(as.character)
+
+  expected <- get_results(report, unnest = TRUE) %>%
+    dplyr::mutate_all(as.character)
+
+  expect_equal(actual, expected)
+})
+
 test_that("it's possible to exclude the success results in the exported log.", {
     tmp <- file.path(tempdir(), "hide_success_log.txt")
     on.exit(unlink(tmp))

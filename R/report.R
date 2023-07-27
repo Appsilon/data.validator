@@ -79,9 +79,14 @@ Report <- R6Class( #nolint: object_name_linter
         self$print(success, warning, error)
         sink()
     },
-    save_results = function(file_name, method = write.csv, ...) {
-      self$get_validations(unnest = TRUE) %>%
-        write.csv(file = file_name)
+    save_results = function(file_name = "results.csv", method = utils::write.csv, ...) {
+      func_args <- names(formals(method))
+      if (all(func_args != "...") && !("file" %in% func_args))
+        rlang::abort("Function supplied to method not supported. Function must have 'file' argument.")
+      suppressWarnings(
+        self$get_validations(unnest = TRUE) %>%
+          method(file = file_name, ...)
+      )
     }
   ),
   private = list(
