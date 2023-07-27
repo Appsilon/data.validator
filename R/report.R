@@ -1,24 +1,39 @@
 #' @importFrom R6 R6Class
 #' @importFrom rmarkdown render
 #' @keywords internal
-Report <- R6Class( #nolint: object_name_linter
+Report <- R6Class(
+  #nolint: object_name_linter
   classname = "Report",
   public = list(
-    print = function(success = TRUE, warning = TRUE, error = TRUE) {
-      types <- c(success_id, warning_id, error_id)[c(success, warning, error)]
+    print = function(success = TRUE,
+                     warning = TRUE,
+                     error = TRUE) {
+      types <-
+        c(success_id, warning_id, error_id)[c(success, warning, error)]
       cat("Validation summary: \n")
-      if (success) cat(" Number of successful validations: ", private$n_passed, "\n", sep = "")
-      if (warning) cat(" Number of validations with warnings: ", private$n_warned, "\n", sep = "")
-      if (error) cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
+      if (success)
+        cat(" Number of successful validations: ",
+            private$n_passed,
+            "\n",
+            sep = "")
+      if (warning)
+        cat(" Number of validations with warnings: ",
+            private$n_warned,
+            "\n",
+            sep = "")
+      if (error)
+        cat(" Number of failed validations: ", private$n_failed, "\n", sep = "")
       if (nrow(private$validation_results) > 0) {
         cat("\n")
         cat("Advanced view: \n")
-        print(private$validation_results %>%
-                dplyr::filter(type %in% types) %>%
-                dplyr::select(table_name, description, type, num.violations) %>%
-                dplyr::group_by(table_name, description, type) %>%
-                dplyr::summarise(total_violations = sum(num.violations)) %>%
-                knitr::kable())
+        print(
+          private$validation_results %>%
+            dplyr::filter(type %in% types) %>%
+            dplyr::select(table_name, description, type, num.violations) %>%
+            dplyr::group_by(table_name, description, type) %>%
+            dplyr::summarise(total_violations = sum(num.violations)) %>%
+            knitr::kable()
+        )
       }
       invisible(self)
     },
@@ -28,10 +43,14 @@ Report <- R6Class( #nolint: object_name_linter
         dplyr::mutate(table_name = object_name) %>%
         dplyr::select(table_name, dplyr::everything())
       n_results <- get_results_number(results)
-      private$n_failed <- sum(private$n_failed, n_results[error_id], na.rm = TRUE)
-      private$n_warned <- sum(private$n_warned, n_results[warning_id], na.rm = TRUE)
-      private$n_passed <- sum(private$n_passed, n_results[success_id], na.rm = TRUE)
-      private$validation_results <- dplyr::bind_rows(private$validation_results, results)
+      private$n_failed <-
+        sum(private$n_failed, n_results[error_id], na.rm = TRUE)
+      private$n_warned <-
+        sum(private$n_warned, n_results[warning_id], na.rm = TRUE)
+      private$n_passed <-
+        sum(private$n_passed, n_results[success_id], na.rm = TRUE)
+      private$validation_results <-
+        dplyr::bind_rows(private$validation_results, results)
       invisible(data)
     },
     get_validations = function(unnest = FALSE) {
@@ -47,18 +66,17 @@ Report <- R6Class( #nolint: object_name_linter
       validation_results
     },
     generate_html_report = function(extra_params) {
-      params_list <- modifyList(list(validation_results = private$validation_results), extra_params)
+      params_list <-
+        modifyList(list(validation_results = private$validation_results),
+                   extra_params)
       do.call(private$report_constructor, params_list)
     },
-    save_html_report = function(template = system.file(
-                                  "rmarkdown/templates/standard/skeleton/skeleton.Rmd",
-                                  package = "data.validator"
-                                ),
+    save_html_report = function(template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd",
+                                                       package = "data.validator"),
                                 output_file = "validation_report.html",
                                 output_dir = getwd(),
                                 report_ui_constructor = render_semantic_report_ui,
                                 ...) {
-
       private$report_constructor <- report_ui_constructor
 
       render(
@@ -75,21 +93,19 @@ Report <- R6Class( #nolint: object_name_linter
       )
     },
     save_log = function(file_name = "validation_log.txt", success, warning, error) {
-        sink(file_name)
-        self$print(success, warning, error)
-        sink()
+      sink(file_name)
+      self$print(success, warning, error)
+      sink()
     },
-    save_results = function(file_name = "results.csv", method = utils::write.csv, ...) {
+    save_results = function(file_name = "results.csv",
+                            method = utils::write.csv,
+                            ...) {
       func_args <- names(formals(method))
       if (all(func_args != "...") && !("file" %in% func_args))
-        rlang::abort(
-          "Function supplied to method not supported.
-          Function must have 'file' argument."
-        )
-      suppressWarnings(
-        self$get_validations(unnest = TRUE) %>%
-          method(file = file_name, ...)
-      )
+        rlang::abort("Function supplied to method not supported.
+          Function must have 'file' argument.")
+      suppressWarnings(self$get_validations(unnest = TRUE) %>%
+                         method(file = file_name, ...))
     }
   ),
   private = list(
@@ -153,9 +169,13 @@ get_results <- function(report, unnest = FALSE) {
 #' @param method Function that should be used to save results table (write.csv default).
 #' @param ... Remaining parameters passed to \code{method}.
 #' @export
-save_results <- function(report, file_name = "results.csv", method = utils::write.csv, ...) {
-  report$save_results(file_name, method, ...)
-}
+save_results <-
+  function(report,
+           file_name = "results.csv",
+           method = utils::write.csv,
+           ...) {
+    report$save_results(file_name, method, ...)
+  }
 
 #' Saving results as a HTML report
 #'
@@ -174,10 +194,8 @@ save_report <- function(report,
                         output_file = "validation_report.html",
                         output_dir = getwd(),
                         ui_constructor = render_semantic_report_ui,
-                        template = system.file(
-                          "rmarkdown/templates/standard/skeleton/skeleton.Rmd",
-                          package = "data.validator"
-                        ),
+                        template = system.file("rmarkdown/templates/standard/skeleton/skeleton.Rmd",
+                                               package = "data.validator"),
                         ...) {
   report$save_html_report(template, output_file, output_dir, ui_constructor, ...)
 }
