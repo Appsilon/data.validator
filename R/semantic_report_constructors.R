@@ -5,9 +5,11 @@
 #' @return Segment.
 #' @keywords internal
 segment <- function(title, ...) {
-  htmltools::div(class = "ui raised segment", style = "margin-bottom: 0.5em",
-             htmltools::div(class = "ui demo ribbon label blue", title),
-             ...
+  htmltools::div(
+    class = "ui raised segment",
+    style = "margin-bottom: 0.5em",
+    htmltools::div(class = "ui demo ribbon label blue", title),
+    ...
   )
 }
 
@@ -81,31 +83,37 @@ make_table_row <- function(results, type, mark) {
 
     onclick <- sprintf("$('#%s').modal('show');", id)
     modal_header <- paste0(data_name, ": ", description)
-    modal <-
-      htmltools::div(id = id, class = "ui longer test modal visible scrolling",
-                 htmltools::div(class = "header", htmltools::tags$h5(modal_header)),
-                 htmltools::div(class = "scrolling content",
-                            htmltools::div(class = "description",
-                                       htmltools::tagList(
-                                         prepare_modal_content(results)
-                                       )
-                            )
-                 )
+    modal <- htmltools::div(
+      id = id,
+      class = "ui longer test modal visible scrolling",
+      htmltools::div(class = "header", htmltools::tags$h5(modal_header)),
+      htmltools::div(
+        class = "scrolling content",
+        htmltools::div(
+          class = "description",
+          htmltools::tagList(
+            prepare_modal_content(results)
+          )
+        )
       )
+    )
   }
 
   htmltools::tags$tr(
-    htmltools::tags$td(class = "left aligned",
-                   htmltools::tags$h6(description)
+    htmltools::tags$td(
+      class = "left aligned",
+      htmltools::tags$h6(description)
     ),
-    htmltools::tags$td(class = "center aligned",
-                   shiny.semantic::icon(mark)
+    htmltools::tags$td(
+      class = "center aligned",
+      shiny.semantic::icon(mark)
     ),
-    htmltools::tags$td(class = "center aligned",
-                   htmltools::tagList(
-                     modal,
-                     htmltools::tags$button(class = button_class, "Show", onclick = onclick)
-                   )
+    htmltools::tags$td(
+      class = "center aligned",
+      htmltools::tagList(
+        modal,
+        htmltools::tags$button(class = button_class, "Show", onclick = onclick)
+      )
     )
   )
 }
@@ -220,25 +228,31 @@ display_results <- function(data, n_passes, n_fails, n_warns) {
     segment_title,
     htmltools::p(),
     make_accordion_container(
-      if (!is.null(n_fails)) make_accordion_element(
-        results = results_failed,
-        color = label_color_negative,
-        label = "Failed",
-        mark = "red big remove",
-        type = error_id,
-        active = is_negative_active),
-      if (!is.null(n_warns)) make_accordion_element(
-        results = results_warning,
-        color = label_color_neutral,
-        label = "Warnings",
-        mark = "big blue exclamation circle",
-        type = warning_id,
-        active = is_neutral_active),
-      if (!is.null(n_passes)) make_accordion_element(
-        results = results_passed,
-        label = "Passed",
-        type = success_id,
-        mark = "big green checkmark")
+      if (!is.null(n_fails))
+        make_accordion_element(
+          results = results_failed,
+          color = label_color_negative,
+          label = "Failed",
+          mark = "red big remove",
+          type = error_id,
+          active = is_negative_active
+        ),
+      if (!is.null(n_warns))
+        make_accordion_element(
+          results = results_warning,
+          color = label_color_neutral,
+          label = "Warnings",
+          mark = "big blue exclamation circle",
+          type = warning_id,
+          active = is_neutral_active
+        ),
+      if (!is.null(n_passes))
+        make_accordion_element(
+          results = results_passed,
+          label = "Passed",
+          type = success_id,
+          mark = "big green checkmark"
+        )
     )
   )
   code
@@ -309,11 +323,12 @@ get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_result
   summary_table <- make_summary_table(n_passes, n_fails, n_warns)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {
-      validation_results %>%
-        dplyr::filter(.data$table_name == .x) %>%
-        display_results(n_passes, n_fails, n_warns)
-    }) %>%
+    validation_results %>%
+      dplyr::filter(.data$table_name == .x) %>%
+      display_results(n_passes, n_fails, n_warns)
+  }) %>%
     htmltools::div()
+
   htmltools::div(summary_table, html_report)
 }
 
@@ -353,8 +368,12 @@ render_semantic_report_ui <- function(validation_results,
   if (error) n_fails <- length(
     unique(validation_results[validation_results$type == error_id, ]$assertion.id)
   )
-  get_semantic_report_ui(n_passes, n_fails, n_warns,
-                       validation_results) %>%
+  get_semantic_report_ui(
+    n_passes,
+    n_fails,
+    n_warns,
+    validation_results
+  ) %>%
     shiny.semantic::uirender(width = "100%", height = "100%") %>%
     htmlwidgets::onRender(post_render_js)
 }

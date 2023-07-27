@@ -51,7 +51,7 @@ Report <- R6Class( #nolint: object_name_linter
       do.call(private$report_constructor, params_list)
     },
     save_html_report = function(template = system.file(
-                                  "rmarkdown/templates/standard/skeleton/skeleton.Rmd",
+                                  "rmarkdown/templates/standard/skeleton/skeleton.Rmd", #nolint
                                   package = "data.validator"
                                 ),
                                 output_file = "validation_report.html",
@@ -75,9 +75,9 @@ Report <- R6Class( #nolint: object_name_linter
       )
     },
     save_log = function(file_name = "validation_log.txt", success, warning, error) {
-        sink(file_name)
-        self$print(success, warning, error)
-        sink()
+      sink(file_name)
+      self$print(success, warning, error)
+      sink()
     },
     save_results = function(file_name, method = write.csv, ...) {
       self$get_validations(unnest = TRUE) %>%
