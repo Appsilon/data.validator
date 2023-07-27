@@ -82,7 +82,10 @@ Report <- R6Class( #nolint: object_name_linter
     save_results = function(file_name = "results.csv", method = utils::write.csv, ...) {
       func_args <- names(formals(method))
       if (all(func_args != "...") && !("file" %in% func_args))
-        rlang::abort("Function supplied to method not supported. Function must have 'file' argument.")
+        rlang::abort(
+          "Function supplied to method not supported.
+          Function must have 'file' argument."
+        )
       suppressWarnings(
         self$get_validations(unnest = TRUE) %>%
           method(file = file_name, ...)
