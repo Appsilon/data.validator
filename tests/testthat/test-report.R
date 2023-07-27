@@ -59,9 +59,9 @@ test_that("Can export with write_excel_csv function and it matches with results 
   on.exit(unlink(tmp))
 
   report <- report_test()
-  save_results(report, tmp, method = write_excel_csv)
+  save_results(report, tmp, method = readr::write_excel_csv)
 
-  actual <- read_csv(tmp) %>%
+  actual <- readr::read_csv(tmp) %>%
     dplyr::mutate_all(as.character)
 
   expected <- get_results(report, unnest = TRUE) %>%
