@@ -1,6 +1,7 @@
 linters:
   linters_with_defaults(
-    line_length_linter = line_length_linter(100)
+    line_length_linter = line_length_linter(100),
+    object_name_linter = object_name_linter(c("camelCase", "snake_case"))
   )
 exclusions:
   c(
