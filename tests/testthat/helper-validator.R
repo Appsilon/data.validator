@@ -14,7 +14,7 @@ attr(validated_data, "assertr_errors") <- list(
     call = "validation_call()",
     description = "variable correct",
     assertion.id = "a1"
-    ),
+  ),
   list(
     error_df = data.frame(
       verb = factor("assert"),
