@@ -29,7 +29,7 @@ is_complex_command <- function(command_string) {
 #' @return The first non-call object found in the list representation of an R expression.
 #' @keywords internal
 find_first_noncall <- function(object) {
-  if (is.list(object) | any(is_complex_command(deparse(object)))) {
+  if (is.list(object) || any(is_complex_command(deparse(object)))) {
     return(find_first_noncall(object[[2]]))
   } else {
     return(object)
