@@ -43,7 +43,7 @@ describe("find_first_noncall", {
 
 describe("get_first_name", {
   test_data <- data.frame(col_1 = c(0, 1, 2), col_2 = c(3, 4, 5))
-  test_fun <- function(data){
+  test_fun <- function(data) {
     get_first_name()
   }
 
