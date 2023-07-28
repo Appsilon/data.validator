@@ -2,17 +2,14 @@
 % Please edit documentation in R/utils.R
 \name{get_first_name}
 \alias{get_first_name}
-\title{Get first name of the data frame}
+\title{Get name of the data frame based on active frames}
 \usage{
-get_first_name(df)
-}
-\arguments{
-\item{df}{data.frame}
+get_first_name()
 }
 \value{
 deparsed chain part
 }
 \description{
-Get first name of the data frame
+Get name of the data frame based on active frames
 }
 \keyword{internal}
