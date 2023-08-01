@@ -100,3 +100,48 @@ test_that("validation returns assert_success or assert_errors attribute based on
   expect_true(name_error %in% names(attributes(val_error)))
   expect_false(name_success %in% names(attributes(val_error)))
 })
+
+describe("validate function identifies name attribute", {
+  it("is identified when the function is called directly", {
+    test_data <- data.frame(col_1 = c(0, 1, 2), col_2 = c(3, 4, 5))
+    result <- attr(validate(test_data), "data-name")
+    expect_equal(result, "test_data")
+  })
+
+  it("is identified with the native R pipe", {
+    test_data <- data.frame(col_1 = c(0, 1, 2), col_2 = c(3, 4, 5))
+    result <- test_data |> validate() |> attr("data-name")
+    expect_equal(result, "test_data")
+  })
+
+  it("is identified with the magrittr pipe", {
+    test_data <- data.frame(col_1 = c(0, 1, 2), col_2 = c(3, 4, 5))
+    result <- test_data %>% validate() %>% attr("data-name")
+    expect_equal(result, "test_data")
+  })
+
+  it("is preserved through a series of operations with pipes", {
+    test_data <- data.frame(col_1 = c(0, 1, 2), col_2 = c(3, 4, 5))
+    result_case_1 <- test_data |>
+      dplyr::select(col_1) |>
+      dplyr::filter(col_1 > 0) |>
+      validate() |>
+      attr("data-name")
+    result_case_2 <- test_data %>%
+      dplyr::select(col_1) %>%
+      dplyr::filter(col_1 > 0) %>%
+      validate() %>%
+      attr("data-name")
+    result_case_3 <- test_data |> dplyr::select(col_1) %>% validate() %>% attr("data-name")
+    result_case_4 <- test_data %>% dplyr::select(col_1) |> validate() %>% attr("data-name")
+    result_case_5 <- test_data %>% dplyr::select(col_1) %>% validate() |> attr("data-name")
+    result_case_6 <- test_data |> dplyr::select(col_1) %>% validate() |> attr("data-name")
+
+    expect_equal(result_case_1, "test_data")
+    expect_equal(result_case_2, "test_data")
+    expect_equal(result_case_3, "test_data")
+    expect_equal(result_case_4, "test_data")
+    expect_equal(result_case_5, "test_data")
+    expect_equal(result_case_6, "test_data")
+  })
+})
