@@ -12,8 +12,9 @@ save_results(report, file_name = "results.csv", method = utils::write.csv, ...)
 \item{file_name}{Name of the resulting file (including extension).}
 
 \item{method}{Function that should be used to save results table (write.csv default)
-The function passed to method should have 'x' and 'file' arguments. Functions with
-different arguments can be passed by creating a wrapper function for it.}
+The function passed to \code{method} should have 'x' and 'file' arguments. Functions with
+different arguments can be passed by creating a wrapper function for it.
+See example save_results_methods.}
 
 \item{...}{Remaining parameters passed to \code{method}.}
 }

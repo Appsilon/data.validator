@@ -142,8 +142,9 @@ get_results <- function(report, unnest = FALSE) {
 #' @param report Report object that stores validation results. See \link{get_results}.
 #' @param file_name Name of the resulting file (including extension).
 #' @param method Function that should be used to save results table (write.csv default)
-#' The function passed to method should have 'x' and 'file' arguments. Functions with
+#' The function passed to \code{method} should have 'x' and 'file' arguments. Functions with
 #' different arguments can be passed by creating a wrapper function for it.
+#' See example save_results_methods.
 #' @param ... Remaining parameters passed to \code{method}.
 #' @export
 save_results <- function(report, file_name = "results.csv", method = utils::write.csv, ...) {
