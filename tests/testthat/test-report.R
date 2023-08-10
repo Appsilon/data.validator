@@ -59,7 +59,8 @@ test_that(
   }
 )
 
-test_that("'get_results' saves file via custom function 'base_save' and matches the original object", {
+test_that(
+  "'get_results' saves file via custom function 'base_save' and matches the original object", {
     tmp <- file.path(tempdir(), "test")
     on.exit(unlink(tmp))
 
@@ -77,7 +78,8 @@ test_that("'get_results' saves file via custom function 'base_save' and matches 
       dplyr::mutate_all(as.character)
 
     expect_equal(actual, expected)
-  })
+  }
+)
 
 test_that("'get_results' saves file via readr::write_excel_csv and matches the original object", {
   tmp <- file.path(tempdir(), "test.csv")
