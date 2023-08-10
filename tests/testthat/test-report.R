@@ -38,6 +38,81 @@ test_that("exported CSV matched results obtained from get_results", {
   expect_equal(actual, expected)
 })
 
+test_that(
+  "Can export with saveRDS function via wrapper and it matches with results from get_results", {
+    tmp <- file.path(tempdir(), "test.rds")
+    on.exit(unlink(tmp))
+
+    report <- report_test()
+    write_rds <- function(x, file, ...) {
+      saveRDS(object = x, file = file, ...)
+    }
+    save_results(report, tmp, method = write_rds)
+
+    actual <- readRDS(tmp) %>%
+      dplyr::mutate_all(as.character)
+
+    expected <- get_results(report, unnest = TRUE) %>%
+      dplyr::mutate_all(as.character)
+
+    expect_equal(actual, expected)
+  }
+)
+
+test_that(
+  "Can export with save function via wrapper and it matches with results from get_results", {
+    tmp <- file.path(tempdir(), "test")
+    on.exit(unlink(tmp))
+
+    report <- report_test()
+    base_save <- function(x, file) {
+      save(x, file = file)
+    }
+    save_results(report, tmp, method = base_save)
+
+    load(tmp)
+    actual <- x %>%
+      dplyr::mutate_all(as.character)
+
+    expected <- get_results(report, unnest = TRUE) %>%
+      dplyr::mutate_all(as.character)
+
+    expect_equal(actual, expected)
+  }
+)
+
+test_that("Fails when unsupported method is passed", {
+  tmp <- file.path(tempdir(), "test.csv")
+  on.exit(unlink(tmp))
+
+  report <- report_test()
+  expect_error(save_results(report, tmp, method = saveRDS))
+})
+
+test_that("Can export with write_excel_csv function and it matches with results from get_results", {
+  tmp <- file.path(tempdir(), "test.csv")
+  on.exit(unlink(tmp))
+
+  report <- report_test()
+  save_results(report, tmp, method = readr::write_excel_csv)
+
+  actual <- readr::read_csv(tmp) %>%
+    dplyr::mutate_all(as.character)
+
+  expected <- get_results(report, unnest = TRUE) %>%
+    dplyr::mutate_all(as.character)
+
+  expect_equal(actual, expected)
+})
+
+test_that("Error on passing a function without file argument", {
+  tmp <- file.path(tempdir(), "test.csv")
+  on.exit(unlink(tmp))
+
+  report <- report_test()
+  expect_error(save_results(report, tmp, method = utils::alarm))
+})
+
 test_that("it's possible to exclude the success results in the exported log.", {
   tmp <- file.path(tempdir(), "hide_success_log.txt")
   on.exit(unlink(tmp))

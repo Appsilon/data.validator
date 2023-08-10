@@ -9,6 +9,7 @@
 - Added a defensive wrapper (`data.validator:::check_assertr_expression()`) to add evaluation error to regular validation errors
 - Removed deprecated `.data` calls in `dplyr::select()`
 - `shiny.semantic::accordion()` bug fixes
+- `save_results()` now uses function passed to `method` argument to write results
 
 # data.validator 0.1.6
 
