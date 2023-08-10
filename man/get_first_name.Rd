@@ -2,14 +2,16 @@
 % Please edit documentation in R/utils.R
 \name{get_first_name}
 \alias{get_first_name}
-\title{Get name of the data frame based on active frames}
+\title{Extract the name of the initial data object in a magrittr pipe chain}
 \usage{
 get_first_name()
 }
 \value{
-deparsed chain part
+A string representing the name of the initial data object in the pipe chain.
 }
 \description{
-Get name of the data frame based on active frames
+This function analyzes the call stack, identifies the first call using
+the magrittr pipe operator (`%>%`), and then retrieves the name of the
+initial object in that pipe chain.
 }
 \keyword{internal}
