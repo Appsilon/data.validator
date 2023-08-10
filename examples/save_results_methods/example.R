@@ -32,3 +32,6 @@ base_save <- function(x, file, ...) {
 }
 save_results(report, file_name = "results", method = base_save)
 
+# If the function passed to method already has 'x' and 'file' arguments,
+# we do not need a wrapper function.
+save_results(report, method = utils::write.csv)
