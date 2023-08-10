@@ -39,7 +39,7 @@ test_that("exported CSV matched results obtained from get_results", {
 })
 
 test_that(
-  "Can export with saveRDS function via wrapper and it matches with results from get_results", {
+  "'get_results' saves file via custom function 'write_rds' and matches the original object", {
     tmp <- file.path(tempdir(), "test.rds")
     on.exit(unlink(tmp))
 
@@ -59,8 +59,7 @@ test_that(
   }
 )
 
-test_that(
-  "Can export with save function via wrapper and it matches with results from get_results", {
+test_that("'get_results' saves file via custom function 'base_save' and matches the original object", {
     tmp <- file.path(tempdir(), "test")
     on.exit(unlink(tmp))
 
@@ -78,10 +77,9 @@ test_that(
       dplyr::mutate_all(as.character)
 
     expect_equal(actual, expected)
-  }
-)
+  })
 
-test_that("Fails when unsupported method is passed", {
+test_that("'get_results' fails when unsupported method is passed", {
   tmp <- file.path(tempdir(), "test.csv")
   on.exit(unlink(tmp))
 
@@ -89,7 +87,7 @@ test_that("Fails when unsupported method is passed", {
   expect_error(save_results(report, tmp, method = saveRDS))
 })
 
-test_that("Can export with write_excel_csv function and it matches with results from get_results", {
+test_that("'get_results' saves file via readr::write_excel_csv and matches the original object", {
   tmp <- file.path(tempdir(), "test.csv")
   on.exit(unlink(tmp))
 
@@ -105,7 +103,7 @@ test_that("Can export with write_excel_csv function and it matches with results 
   expect_equal(actual, expected)
 })
 
-test_that("Error on passing a function without file argument", {
+test_that("'get_results' fails when passing a function without file argument", {
   tmp <- file.path(tempdir(), "test.csv")
   on.exit(unlink(tmp))
 

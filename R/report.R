@@ -80,7 +80,18 @@ Report <- R6Class( #nolint: object_name_linter
       sink()
     },
     save_results = function(file_name = "results.csv", method = utils::write.csv, ...) {
-      method(x = self$get_validations(unnest = TRUE), file = file_name, ...)
+      tryCatch({
+        method(x = self$get_validations(unnest = TRUE), file = file_name, ...)
+      },
+      error = function(error) {
+        rlang::abort(
+          paste(
+            "Error message:", error$message, "\nProbable Reason:",
+            "Method may not be supported. Method must have 'x' and 'file' arguments.",
+            "Please create a wrapper function to use un-supported methods."
+          )
+        )
+      })
     }
   ),
   private = list(
@@ -148,15 +159,7 @@ get_results <- function(report, unnest = FALSE) {
 #' @param ... Remaining parameters passed to \code{method}.
 #' @export
 save_results <- function(report, file_name = "results.csv", method = utils::write.csv, ...) {
-  tryCatch({
-    report$save_results(file_name, method, ...)
-  },
-  error = function(error) {
-    rlang::abort(
-      "Method is not supported. Method must have 'x' and 'file' arguments.
-      Please create a wrapper function to use un-supported methods."
-    )
-  })
+  report$save_results(file_name, method, ...)
 }
 
 #' Saving results as a HTML report
