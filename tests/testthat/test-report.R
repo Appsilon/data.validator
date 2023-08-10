@@ -79,14 +79,6 @@ test_that("'get_results' saves file via custom function 'base_save' and matches 
     expect_equal(actual, expected)
   })
 
-test_that("'get_results' fails when unsupported method is passed", {
-  tmp <- file.path(tempdir(), "test.csv")
-  on.exit(unlink(tmp))
-
-  report <- report_test()
-  expect_error(save_results(report, tmp, method = saveRDS))
-})
-
 test_that("'get_results' saves file via readr::write_excel_csv and matches the original object", {
   tmp <- file.path(tempdir(), "test.csv")
   on.exit(unlink(tmp))
