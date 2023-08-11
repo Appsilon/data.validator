@@ -20,7 +20,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">data.validator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9002</small>
 
     <a href="https://shiny.tools" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -114,7 +114,10 @@
 
 
 <dt>method</dt>
-<dd><p>Function that should be used to save results table (write.csv default).</p></dd>
+<dd><p>Function that should be used to save results table (write.csv default)
+The function passed to <code>method</code> should have 'x' and 'file' arguments. Functions with
+different arguments can be passed by creating a wrapper function for it.
+See example save_results_methods.</p></dd>
 
 
 <dt>...</dt>

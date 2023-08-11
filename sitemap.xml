@@ -49,6 +49,9 @@
     <loc>https://appsilon.github.io/data.validator/reference/error_class.html</loc>
   </url>
   <url>
+    <loc>https://appsilon.github.io/data.validator/reference/find_first_noncall.html</loc>
+  </url>
+  <url>
     <loc>https://appsilon.github.io/data.validator/reference/generate_id.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>https://appsilon.github.io/data.validator/reference/get_assertion_type.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/data.validator/reference/get_ast.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/data.validator/reference/get_first_name.html</loc>
@@ -71,6 +77,9 @@
   </url>
   <url>
     <loc>https://appsilon.github.io/data.validator/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/data.validator/reference/is_complex_command.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/data.validator/reference/make_accordion_container.html</loc>
