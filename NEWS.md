@@ -2,6 +2,7 @@
 
 - Swapping of `error` and `warning` arguments in `save_summary()` fixed
 - Fixed `validate()` function to correctly return `data-name` attribute when used in pipe chains with `%>%` or `|>` operator.
+- `save_results()` now uses function passed to `method` argument to write results
 
 # data.validator 0.2.0
 
@@ -9,7 +10,6 @@
 - Added a defensive wrapper (`data.validator:::check_assertr_expression()`) to add evaluation error to regular validation errors
 - Removed deprecated `.data` calls in `dplyr::select()`
 - `shiny.semantic::accordion()` bug fixes
-- `save_results()` now uses function passed to `method` argument to write results
 
 # data.validator 0.1.6
 
