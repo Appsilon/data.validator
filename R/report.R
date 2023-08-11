@@ -79,9 +79,19 @@ Report <- R6Class( #nolint: object_name_linter
       self$print(success, warning, error)
       sink()
     },
-    save_results = function(file_name, method = write.csv, ...) {
-      self$get_validations(unnest = TRUE) %>%
-        write.csv(file = file_name)
+    save_results = function(file_name = "results.csv", method = utils::write.csv, ...) {
+      tryCatch({
+        method(x = self$get_validations(unnest = TRUE), file = file_name, ...)
+      },
+      error = function(error) {
+        rlang::abort(
+          paste(
+            "Error message:", error$message, "\nProbable Reason:",
+            "Method may not be supported. Method must have 'x' and 'file' arguments.",
+            "Please create a wrapper function to use un-supported methods."
+          )
+        )
+      })
     }
   ),
   private = list(
@@ -142,7 +152,10 @@ get_results <- function(report, unnest = FALSE) {
 #'
 #' @param report Report object that stores validation results. See \link{get_results}.
 #' @param file_name Name of the resulting file (including extension).
-#' @param method Function that should be used to save results table (write.csv default).
+#' @param method Function that should be used to save results table (write.csv default)
+#' The function passed to \code{method} should have 'x' and 'file' arguments. Functions with
+#' different arguments can be passed by creating a wrapper function for it.
+#' See example save_results_methods.
 #' @param ... Remaining parameters passed to \code{method}.
 #' @export
 save_results <- function(report, file_name = "results.csv", method = utils::write.csv, ...) {

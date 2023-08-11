@@ -2,6 +2,7 @@
 
 - Swapping of `error` and `warning` arguments in `save_summary()` fixed
 - Fixed `validate()` function to correctly return `data-name` attribute when used in pipe chains with `%>%` or `|>` operator.
+- `save_results()` now uses function passed to `method` argument to write results
 
 # data.validator 0.2.0
 
