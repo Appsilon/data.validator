@@ -28,7 +28,7 @@ prepare_modal_content <- function(error) {
         htmltools::div(class = "ui header", "Violated data (sample)"),
         htmltools::HTML(
           knitr::kable(
-            utils::head(error$error_df[[1]][[.x]]),
+            error$error_df[[1]][[.x]],
             "html",
             align = NULL,
             table.attr = "class=\"ui cellable table\""
