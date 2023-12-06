@@ -4,6 +4,10 @@
 - Fixed `validate()` function to correctly return `data-name` attribute when used in pipe chains with `%>%` or `|>` operator.
 - `save_results()` now uses function passed to `method` argument to write results
 
+# data.validator 0.2.1
+
+- Bug fix for error table in modal that returned up to 6 rows. Now it returns full data frame.
+
 # data.validator 0.2.0
 
 - `validate_cols()` and `validate_rows()` will use all columns in dataframe if no column is passed
