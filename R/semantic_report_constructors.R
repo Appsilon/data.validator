@@ -334,7 +334,7 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 #' @param df_error_head_n Number of rows to display in error table.
 #' @return HTML validation report.
 #' @keywords internal
-get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_results, df_error_head_n = 6L) {
+get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_results, df_error_head_n) {
   summary_table <- make_summary_table(n_passes, n_fails, n_warns)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {

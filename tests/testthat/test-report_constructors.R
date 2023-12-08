@@ -81,7 +81,7 @@ test_that("make_accordion_container() generates ui with 'ui styled accordion' cl
 
 test_that("prepare_modal_content() includes results' error message", {
   results  <- results_test()
-  ui <- prepare_modal_content(results)
+  ui <- prepare_modal_content(results, df_error_head_n = 6L)
 
   tagq <- tagQuery(ui)
   tags <- tagq$find("td")$selectedTags()
@@ -93,7 +93,7 @@ test_that("make_table_row() creates a table row tag", {
   results_passed <- results_test() %>%
     dplyr::filter(.data$type == success_id)
 
-  ui <- make_table_row(results_passed, mark = mark_success, type = success_id)
+  ui <- make_table_row(results_passed, mark = mark_success, type = success_id, df_error_head_n = 6L)
   ui <- as.character(ui)
 
   expect_true(startsWith(ui, "<tr>"))
@@ -104,7 +104,7 @@ test_that("make_table_row() generates modal content for results with failed vali
   results_failed <- results_test() %>%
     dplyr::filter(.data$type == error_id)
 
-  ui <- make_table_row(results_failed, mark = mark_failed, type = error_id)
+  ui <- make_table_row(results_failed, mark = mark_failed, type = error_id, df_error_head_n = 6L)
 
   tagq <- tagQuery(ui)
   tags <- tagq$
@@ -119,7 +119,7 @@ test_that("make_table_row() generates modal content for results with failed vali
     gsub("\\s", "", .)
 
 
-  modal <- prepare_modal_content(results_failed) %>%
+  modal <- prepare_modal_content(results_failed, df_error_head_n = 6L) %>%
     as.character() %>%
     gsub("\\s", "", .)
 

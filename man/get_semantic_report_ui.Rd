@@ -9,7 +9,7 @@ get_semantic_report_ui(
   n_fails,
   n_warns,
   validation_results,
-  df_error_head_n = 6L
+  df_error_head_n
 )
 }
 \arguments{
