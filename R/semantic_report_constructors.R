@@ -187,7 +187,15 @@ make_accordion_container <- function(...) {
 #' @param df_error_head_n Number of rows to display in error table.
 #' @return Accordion.
 #' @keywords internal
-make_accordion_element <- function(results, color = "green", label, active = FALSE, type, mark, df_error_head_n) {
+make_accordion_element <- function(
+    results,
+    color = "green",
+    label,
+    active = FALSE,
+    type,
+    mark,
+    df_error_head_n
+  ) {
   state <- NULL
   if (active) {
     state <- "active"
@@ -204,7 +212,10 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
         label
       )
     ),
-    htmltools::div(class = paste("content", state), result_table(results, type, mark, df_error_head_n))
+    htmltools::div(
+      class = paste("content", state),
+      result_table(results, type, mark, df_error_head_n)
+    )
   )
 }
 
@@ -334,7 +345,13 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 #' @param df_error_head_n Number of rows to display in error table.
 #' @return HTML validation report.
 #' @keywords internal
-get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_results, df_error_head_n) {
+get_semantic_report_ui <- function(
+    n_passes,
+    n_fails,
+    n_warns,
+    validation_results,
+    df_error_head_n
+  ) {
   summary_table <- make_summary_table(n_passes, n_fails, n_warns)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {
@@ -366,7 +383,8 @@ post_render_js <- "
 #' @param success Should success results be presented?
 #' @param warning Should warning results be presented?
 #' @param error Should error results be presented?
-#' @param df_error_head_n Number of rows to display in error table. Works in the same way as \code{head} function.
+#' @param df_error_head_n Number of rows to display in error table.
+#' Works in the same way as \code{head} function.
 #' @export
 render_semantic_report_ui <- function(validation_results,
                                       success = TRUE,
