@@ -16,9 +16,10 @@ segment <- function(title, ...) {
 #' Prepare modal content.
 #' @description Prepare modal content.
 #' @param error Assertr error.
+#' @param df_error_head_n Number of rows to display in error table.
 #' @return Modal content.
 #' @keywords internal
-prepare_modal_content <- function(error) {
+prepare_modal_content <- function(error, df_error_head_n) {
   data_part <- NULL #nolint: object_usage_linter
   errors_number <- seq_along(error$error_df[[1]])
   purrr::map(errors_number, ~ {
@@ -28,7 +29,7 @@ prepare_modal_content <- function(error) {
         htmltools::div(class = "ui header", "Violated data (sample)"),
         htmltools::HTML(
           knitr::kable(
-            error$error_df[[1]][[.x]],
+            utils::head(error$error_df[[1]][[.x]], n = df_error_head_n),
             "html",
             align = NULL,
             table.attr = "class=\"ui cellable table\""
@@ -66,11 +67,12 @@ prepare_modal_content <- function(error) {
 #' @param results Results to display in a row.
 #' @param type Result type.
 #' @param mark Icon to display.
+#' @param df_error_head_n Number of rows to display in error table.
 #' @return Table row.
 #' @importFrom dplyr %>%
 #' @importFrom rlang .data
 #' @keywords internal
-make_table_row <- function(results, type, mark) {
+make_table_row <- function(results, type, mark, df_error_head_n) {
   description <- results %>% dplyr::pull(.data$description)
   id <- results %>% dplyr::pull(.data$assertion.id)
   data_name <- results %>% dplyr::pull(.data$table_name)
@@ -92,7 +94,7 @@ make_table_row <- function(results, type, mark) {
         htmltools::div(
           class = "description",
           htmltools::tagList(
-            prepare_modal_content(results)
+            prepare_modal_content(results, df_error_head_n)
           )
         )
       )
@@ -123,9 +125,10 @@ make_table_row <- function(results, type, mark) {
 #' @param results Result to display in table.
 #' @param type Result type.
 #' @param mark Icon to display.
+#' @param df_error_head_n Number of rows to display in error table.
 #' @return Table row.
 #' @keywords internal
-result_table <- function(results, type, mark) {
+result_table <- function(results, type, mark, df_error_head_n) {
   if (nrow(results) == 0) {
     "No cases to display."
   } else {
@@ -147,7 +150,15 @@ result_table <- function(results, type, mark) {
         )
       ),
       htmltools::tags$tbody(
-        purrr::map(1:nrow(results), ~ make_table_row(results[.x, ], type, mark)) #nolint: seq_linter
+        purrr::map(
+          seq_len(nrow(results)),
+          ~ make_table_row(
+              results[.x, ],
+              type,
+              mark,
+              df_error_head_n = df_error_head_n
+            )
+          )
       )
     )
   }
@@ -173,9 +184,10 @@ make_accordion_container <- function(...) {
 #' @param color Color of the label icon.
 #' @param type Result type.
 #' @param active Is active?
+#' @param df_error_head_n Number of rows to display in error table.
 #' @return Accordion.
 #' @keywords internal
-make_accordion_element <- function(results, color = "green", label, active = FALSE, type, mark) {
+make_accordion_element <- function(results, color = "green", label, active = FALSE, type, mark, df_error_head_n) {
   state <- NULL
   if (active) {
     state <- "active"
@@ -192,7 +204,7 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
         label
       )
     ),
-    htmltools::div(class = paste("content", state), result_table(results, type, mark))
+    htmltools::div(class = paste("content", state), result_table(results, type, mark, df_error_head_n))
   )
 }
 
@@ -202,9 +214,10 @@ make_accordion_element <- function(results, color = "green", label, active = FAL
 #' @param n_passes Number of successful assertions.
 #' @param n_fails Number of warning assertions.
 #' @param n_warns Number of violation assertions.
+#' @param df_error_head_n Number of rows to display in error table.
 #' @return Validation report.
 #' @keywords internal
-display_results <- function(data, n_passes, n_fails, n_warns) {
+display_results <- function(data, n_passes, n_fails, n_warns, df_error_head_n) {
   data_name <- data$table_name[1]
   results_failed <- data %>%
     dplyr::filter(.data$type == error_id)
@@ -235,7 +248,8 @@ display_results <- function(data, n_passes, n_fails, n_warns) {
           label = "Failed",
           mark = "red big remove",
           type = error_id,
-          active = is_negative_active
+          active = is_negative_active,
+          df_error_head_n = df_error_head_n
         ),
       if (!is.null(n_warns))
         make_accordion_element(
@@ -317,15 +331,16 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 #' @param n_fails Number of failed validations.
 #' @param n_warns Number of warnings.
 #' @param validation_results Data frame with validation results.
+#' @param df_error_head_n Number of rows to display in error table.
 #' @return HTML validation report.
 #' @keywords internal
-get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_results) {
+get_semantic_report_ui <- function(n_passes, n_fails, n_warns, validation_results, df_error_head_n = 6L) {
   summary_table <- make_summary_table(n_passes, n_fails, n_warns)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {
     validation_results %>%
       dplyr::filter(.data$table_name == .x) %>%
-      display_results(n_passes, n_fails, n_warns)
+      display_results(n_passes, n_fails, n_warns, df_error_head_n)
   }) %>%
     htmltools::div()
 
@@ -351,11 +366,13 @@ post_render_js <- "
 #' @param success Should success results be presented?
 #' @param warning Should warning results be presented?
 #' @param error Should error results be presented?
+#' @param df_error_head_n Number of rows to display in error table. Works in the same way as \code{head} function.
 #' @export
 render_semantic_report_ui <- function(validation_results,
                                       success = TRUE,
                                       warning = TRUE,
-                                      error = TRUE) {
+                                      error = TRUE,
+                                      df_error_head_n = 6L) {
   n_passes <- NULL
   n_fails <- NULL
   n_warns <- NULL
@@ -372,7 +389,8 @@ render_semantic_report_ui <- function(validation_results,
     n_passes,
     n_fails,
     n_warns,
-    validation_results
+    validation_results,
+    df_error_head_n
   ) %>%
     shiny.semantic::uirender(width = "100%", height = "100%") %>%
     htmlwidgets::onRender(post_render_js)

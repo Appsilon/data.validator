@@ -4,7 +4,13 @@
 \alias{get_semantic_report_ui}
 \title{Generate HTML report.}
 \usage{
-get_semantic_report_ui(n_passes, n_fails, n_warns, validation_results)
+get_semantic_report_ui(
+  n_passes,
+  n_fails,
+  n_warns,
+  validation_results,
+  df_error_head_n = 6L
+)
 }
 \arguments{
 \item{n_passes}{Number of passed validations}
@@ -14,6 +20,8 @@ get_semantic_report_ui(n_passes, n_fails, n_warns, validation_results)
 \item{n_warns}{Number of warnings.}
 
 \item{validation_results}{Data frame with validation results.}
+
+\item{df_error_head_n}{Number of rows to display in error table.}
 }
 \value{
 HTML validation report.

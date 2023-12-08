@@ -3,10 +3,7 @@
 - Swapping of `error` and `warning` arguments in `save_summary()` fixed
 - Fixed `validate()` function to correctly return `data-name` attribute when used in pipe chains with `%>%` or `|>` operator.
 - `save_results()` now uses function passed to `method` argument to write results
-
-# data.validator 0.2.1
-
-- Bug fix for error table in modal that returned up to 6 rows. Now it returns full data frame.
+- Bug fix for error table in modal that always returns up to 6 rows. Now it may return full data frame.
 
 # data.validator 0.2.0
 

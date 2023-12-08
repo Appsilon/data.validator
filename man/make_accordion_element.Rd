@@ -10,7 +10,8 @@ make_accordion_element(
   label,
   active = FALSE,
   type,
-  mark
+  mark,
+  df_error_head_n
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ make_accordion_element(
 \item{type}{Result type.}
 
 \item{mark}{Icon to display.}
+
+\item{df_error_head_n}{Number of rows to display in error table.}
 }
 \value{
 Accordion.
