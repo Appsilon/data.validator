@@ -21,7 +21,8 @@ render_semantic_report_ui(
 
 \item{error}{Should error results be presented?}
 
-\item{df_error_head_n}{Number of rows to display in error table. Works in the same way as \code{head} function.}
+\item{df_error_head_n}{Number of rows to display in error table.
+Works in the same way as \code{head} function.}
 }
 \description{
 Renders content of semantic report version.

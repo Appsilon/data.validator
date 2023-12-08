@@ -153,12 +153,12 @@ result_table <- function(results, type, mark, df_error_head_n) {
         purrr::map(
           seq_len(nrow(results)),
           ~ make_table_row(
-              results[.x, ],
-              type,
-              mark,
-              df_error_head_n = df_error_head_n
-            )
+            results[.x, ],
+            type,
+            mark,
+            df_error_head_n = df_error_head_n
           )
+        )
       )
     )
   }
@@ -188,14 +188,14 @@ make_accordion_container <- function(...) {
 #' @return Accordion.
 #' @keywords internal
 make_accordion_element <- function(
-    results,
-    color = "green",
-    label,
-    active = FALSE,
-    type,
-    mark,
-    df_error_head_n
-  ) {
+  results,
+  color = "green",
+  label,
+  active = FALSE,
+  type,
+  mark,
+  df_error_head_n
+) {
   state <- NULL
   if (active) {
     state <- "active"
@@ -346,12 +346,12 @@ make_summary_table <- function(n_passes, n_fails, n_warns) {
 #' @return HTML validation report.
 #' @keywords internal
 get_semantic_report_ui <- function(
-    n_passes,
-    n_fails,
-    n_warns,
-    validation_results,
-    df_error_head_n
-  ) {
+  n_passes,
+  n_fails,
+  n_warns,
+  validation_results,
+  df_error_head_n
+) {
   summary_table <- make_summary_table(n_passes, n_fails, n_warns)
   unique_objects <- validation_results %>% dplyr::pull(.data$table_name) %>% unique()
   html_report <- unique_objects %>% purrr::map(~ {
