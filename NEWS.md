@@ -1,4 +1,4 @@
-# data.validator (development version)
+# data.validator 0.2.1
 
 - Swapping of `error` and `warning` arguments in `save_summary()` fixed
 - Fixed `validate()` function to correctly return `data-name` attribute when used in pipe chains with `%>%` or `|>` operator.
