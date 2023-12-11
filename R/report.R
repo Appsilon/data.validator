@@ -174,6 +174,7 @@ save_results <- function(report, file_name = "results.csv", method = utils::writ
 #'   \code{data.validator} rmarkdown template to see basic construction - the one is used as a
 #'   default template.
 #' @param ... Additional parameters passed to \code{ui_constructor}.
+#' For example: \code{df_error_head_n}
 #' @export
 save_report <- function(report,
                         output_file = "validation_report.html",

@@ -29,7 +29,8 @@ generates HTML code or HTML widget that should be used to generate report conten
 \code{data.validator} rmarkdown template to see basic construction - the one is used as a
 default template.}
 
-\item{...}{Additional parameters passed to \code{ui_constructor}.}
+\item{...}{Additional parameters passed to \code{ui_constructor}.
+For example: \code{df_error_head_n}}
 }
 \description{
 Saving results as a HTML report

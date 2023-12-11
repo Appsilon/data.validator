@@ -8,7 +8,8 @@ render_semantic_report_ui(
   validation_results,
   success = TRUE,
   warning = TRUE,
-  error = TRUE
+  error = TRUE,
+  df_error_head_n = 6L
 )
 }
 \arguments{
@@ -19,6 +20,9 @@ render_semantic_report_ui(
 \item{warning}{Should warning results be presented?}
 
 \item{error}{Should error results be presented?}
+
+\item{df_error_head_n}{Number of rows to display in error table.
+Works in the same way as \code{head} function.}
 }
 \description{
 Renders content of semantic report version.

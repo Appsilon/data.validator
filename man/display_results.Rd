@@ -4,7 +4,7 @@
 \alias{display_results}
 \title{Displays results of validations.}
 \usage{
-display_results(data, n_passes, n_fails, n_warns)
+display_results(data, n_passes, n_fails, n_warns, df_error_head_n)
 }
 \arguments{
 \item{data}{Report data.}
@@ -14,6 +14,8 @@ display_results(data, n_passes, n_fails, n_warns)
 \item{n_fails}{Number of warning assertions.}
 
 \item{n_warns}{Number of violation assertions.}
+
+\item{df_error_head_n}{Number of rows to display in error table.}
 }
 \value{
 Validation report.

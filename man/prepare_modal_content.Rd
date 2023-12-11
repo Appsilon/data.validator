@@ -4,10 +4,12 @@
 \alias{prepare_modal_content}
 \title{Prepare modal content.}
 \usage{
-prepare_modal_content(error)
+prepare_modal_content(error, df_error_head_n)
 }
 \arguments{
 \item{error}{Assertr error.}
+
+\item{df_error_head_n}{Number of rows to display in error table.}
 }
 \value{
 Modal content.

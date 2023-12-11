@@ -4,7 +4,7 @@
 \alias{result_table}
 \title{Create table with results.}
 \usage{
-result_table(results, type, mark)
+result_table(results, type, mark, df_error_head_n)
 }
 \arguments{
 \item{results}{Result to display in table.}
@@ -12,6 +12,8 @@ result_table(results, type, mark)
 \item{type}{Result type.}
 
 \item{mark}{Icon to display.}
+
+\item{df_error_head_n}{Number of rows to display in error table.}
 }
 \value{
 Table row.
